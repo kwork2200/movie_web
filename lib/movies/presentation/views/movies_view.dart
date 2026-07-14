@@ -1,0 +1,234 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+
+import '../../../core/domain/entities/media.dart';
+import '../../../core/presentation/components/custom_slider.dart';
+import '../../../core/presentation/components/error_screen.dart';
+import '../../../core/presentation/components/loading_indicator.dart';
+import '../../../core/presentation/components/section_header.dart';
+import '../../../core/presentation/components/section_listview.dart';
+import '../../../core/presentation/components/section_listview_card.dart';
+import '../../../core/presentation/components/slider_card.dart';
+import '../../../core/resources/app_routes.dart';
+import '../../../core/resources/app_strings.dart';
+import '../../../core/resources/app_values.dart';
+import '../../../core/resources/app_colors.dart';
+import '../../../core/utils/enums.dart';
+import '../controllers/movies_bloc/movies_bloc.dart';
+import '../controllers/movies_bloc/movies_event.dart';
+import '../controllers/movies_bloc/movies_state.dart';
+import '../../../core/presentation/components/ads/ad_enabled_screen.dart';
+import '../../../core/presentation/components/ads/hybrid_native_ad_widget.dart';
+import '../../../core/presentation/components/app_drawer.dart';
+
+class MoviesView extends StatefulWidget {
+  const MoviesView({super.key});
+
+  @override
+  State<MoviesView> createState() => _MoviesViewState();
+}
+
+class _MoviesViewState extends State<MoviesView> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
+      extendBodyBehindAppBar: true,
+      backgroundColor: const Color(0xFF0A0E1A),
+      drawer: const AppDrawer(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.only(
+            top: AppPadding.p12,
+            left: AppPadding.p16,
+          ),
+          child: InkWell(
+            onTap: () {
+              _scaffoldKey.currentState?.openDrawer();
+            },
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              padding: const EdgeInsets.all(AppPadding.p10),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.1),
+                  width: 1,
+                ),
+              ),
+              child: const Icon(
+                Icons.menu_rounded,
+                color: Colors.white,
+                size: AppSize.s20,
+              ),
+            ),
+          ),
+        ),
+      ),
+      body: AdEnabledScreen(
+        child: BlocBuilder<MoviesBloc, MoviesState>(
+          builder: (context, state) {
+            switch (state.status) {
+              case RequestStatus.loading:
+                return const LoadingIndicator();
+              case RequestStatus.loaded:
+                return MoviesWidget(
+                  nowPlayingMovies: state.movies[0],
+                  popularMovies: state.movies[1],
+                  topRatedMovies: state.movies[2],
+                );
+              case RequestStatus.error:
+                return ErrorScreen(
+                  onTryAgainPressed: () {
+                    context.read<MoviesBloc>().add(GetMoviesEvent());
+                  },
+                );
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class MoviesWidget extends StatelessWidget {
+  final List<Media> nowPlayingMovies;
+  final List<Media> popularMovies;
+  final List<Media> topRatedMovies;
+
+  const MoviesWidget({
+    super.key,
+    required this.nowPlayingMovies,
+    required this.popularMovies,
+    required this.topRatedMovies,
+  });
+
+  List<Media> get trendingMovies => popularMovies;
+  List<Media> get upcomingMovies => nowPlayingMovies;
+  List<Media> get actionMovies => topRatedMovies;
+
+  @override
+  Widget build(BuildContext context) {
+    if (nowPlayingMovies.isEmpty && popularMovies.isEmpty && topRatedMovies.isEmpty) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(AppPadding.p16),
+          child: Text(
+            'No movies available at the moment',
+            style: TextStyle(
+              fontSize: 16,
+              color: AppColors.secondaryText,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
+
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomSlider(
+            items: nowPlayingMovies,
+            itemBuilder: (context, itemIndex, _) {
+              return SliderCard(
+                media: nowPlayingMovies[itemIndex],
+                itemIndex: itemIndex,
+              );
+            },
+          ),
+          HybridNativeAdWidget(height: AppSize.s175, adKey: 'movies_home_1'),
+          SectionHeader(
+            title: AppStrings.popularMovies,
+            onSeeAllTap: () {
+              context.goNamed(AppRoutes.popularMoviesRoute);
+            },
+          ),
+          SectionListView(
+            height: AppSize.s240,
+            itemCount: popularMovies.length,
+            itemBuilder: (context, index) {
+              return SectionListViewCard(media: popularMovies[index]);
+            },
+          ),
+          SectionHeader(
+            title: AppStrings.topRatedMovies,
+            onSeeAllTap: () {
+              context.goNamed(AppRoutes.topRatedMoviesRoute);
+            },
+          ),
+          SectionListView(
+            height: AppSize.s240,
+            itemCount: upcomingMovies.length,
+            itemBuilder: (context, index) {
+              return SectionListViewCard(media: upcomingMovies[index]);
+            },
+          ),
+          HybridNativeAdWidget(height: AppSize.s175, adKey: 'movies_home_1'),
+          // Trending Section
+          SectionHeader(
+            title: 'Trending Now',
+            onSeeAllTap: () {
+              context.goNamed(AppRoutes.popularMoviesRoute);
+            },
+          ),
+          SectionListView(
+            height: AppSize.s240,
+            itemCount: trendingMovies.length,
+            itemBuilder: (context, index) {
+              return SectionListViewCard(media: trendingMovies[index]);
+            },
+          ),
+          SectionHeader(
+            title: 'Upcoming Shows',
+            onSeeAllTap: () {
+              context.goNamed(AppRoutes.popularMoviesRoute);
+            },
+          ),
+          SectionListView(
+            height: AppSize.s240,
+            itemCount: upcomingMovies.length,
+            itemBuilder: (context, index) {
+              return SectionListViewCard(media: upcomingMovies[index]);
+            },
+          ),
+          HybridNativeAdWidget(height: AppSize.s175, adKey: 'movies_home_1'),
+          // Action Section
+          SectionHeader(
+            title: 'Action & Adventure',
+            onSeeAllTap: () {
+              context.goNamed(AppRoutes.topRatedMoviesRoute);
+            },
+          ),
+          SectionListView(
+            height: AppSize.s240,
+            itemCount: actionMovies.length,
+            itemBuilder: (context, index) {
+              return SectionListViewCard(media: actionMovies[index]);
+            },
+          ),
+          const SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
+}
