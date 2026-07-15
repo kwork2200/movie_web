@@ -174,7 +174,7 @@ class ServiceLocator {
     sl.registerFactory(() => TVShowDetailsBloc(sl(), sl()));
     sl.registerFactory(() => PopularTVShowsBloc(sl()));
     sl.registerFactory(() => TopRatedTVShowsBloc(sl()));
-    sl.registerFactory(() => SearchBloc(sl()));
+    sl.registerFactory(() => SearchBloc(sl(), sl(), sl()));
     sl.registerFactory(() => WatchlistBloc(sl(), sl(), sl(), sl()));
   }
 }

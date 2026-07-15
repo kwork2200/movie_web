@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/resources/app_colors.dart';
+import '../../../core/resources/app_routes.dart';
 import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/app_values.dart';
 import '../controllers/search_bloc/search_bloc.dart';
@@ -56,6 +58,7 @@ class _SearchFieldState extends State<SearchField> {
             onTap: () {
               _textController.text = '';
               context.read<SearchBloc>().add(const GetSearchResultsEvent(''));
+              context.goNamed(AppRoutes.moviesRoute);
             },
             child: const Icon(
               Icons.clear_rounded,

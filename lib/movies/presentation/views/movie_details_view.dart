@@ -75,6 +75,9 @@ class _WebMovieDetailsContent extends StatefulWidget {
 }
 
 class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
+
+  final Map<String, ScrollController> _scrollControllers = {};
+
   @override
   void initState() {
     super.initState();
@@ -86,6 +89,24 @@ class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
           .read<WatchlistBloc>()
           .add(CheckBookmarkEvent(tmdbId: widget.movieDetails.tmdbID));
     });
+  }
+
+  ScrollController _controllerFor(String key) {
+    return _scrollControllers.putIfAbsent(key, () => ScrollController());
+  }
+
+  void _scrollRow(String key, {required bool forward}) {
+    final controller = _scrollControllers[key];
+    if (controller == null || !controller.hasClients) return;
+    final double delta = 600; // kitna scroll karna hai per click
+    final double target = forward
+        ? (controller.offset + delta).clamp(0.0, controller.position.maxScrollExtent)
+        : (controller.offset - delta).clamp(0.0, controller.position.maxScrollExtent);
+    controller.animateTo(
+      target,
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.easeOut,
+    );
   }
 
   @override
@@ -132,11 +153,11 @@ class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
           ),
         ),
         const Positioned(top: 0, left: 0, right: 0, child: WebNavbar()),
-        Positioned(
+        /*Positioned(
           top: 88,
           left: hPad,
           child: _buildBackButton(context),
-        ),
+        ),*/
       ],
     );
   }
@@ -372,7 +393,9 @@ class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
         }
       },
       builder: (context, state) {
-        final bool isBookmarked = movieDetails.isBookmarked;
+        final isBookmarked = state.actionStatus == BookmarkStatus.added ||
+                            state.actionStatus == BookmarkStatus.exists ||
+                            movieDetails.isBookmarked;
         return MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
@@ -514,6 +537,7 @@ class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
         required double hPad,
       }) {
     if (movies.isEmpty) return const SizedBox.shrink();
+    final controller = _controllerFor(title);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 32),
@@ -524,15 +548,63 @@ class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
           const SizedBox(height: 16),
           SizedBox(
             height: 280,
-            child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: hPad),
-              scrollDirection: Axis.horizontal,
-              itemCount: movies.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 16),
-              itemBuilder: (context, index) => _buildPosterCard(context, movies[index]),
+            child: Stack(
+              children: [
+                ListView.separated(
+                  controller: controller,
+                  padding: EdgeInsets.symmetric(horizontal: hPad),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: movies.length,
+                  separatorBuilder: (_, __) => const SizedBox(width: 16),
+                  itemBuilder: (context, index) => _buildPosterCard(context, movies[index]),
+                ),
+                // Left arrow
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  child: _buildScrollArrow(
+                    icon: Icons.chevron_left,
+                    onTap: () => _scrollRow(title, forward: false),
+                  ),
+                ),
+                // Right arrow
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  child: _buildScrollArrow(
+                    icon: Icons.chevron_right,
+                    onTap: () => _scrollRow(title, forward: true),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildScrollArrow({required IconData icon, required VoidCallback onTap}) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 44,
+          color: Colors.transparent, // hover area
+          alignment: Alignment.center,
+          child: Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.6),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: Colors.white, size: 22),
+          ),
+        ),
       ),
     );
   }

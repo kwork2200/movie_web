@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/media.dart';
-import '../../resources/app_colors.dart';
 import '../../resources/app_values.dart';
 import '../../utils/functions.dart';
 import 'image_with_shimmer.dart';
@@ -18,82 +17,112 @@ class VerticalListViewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
-      onTap: () {
-        navigateToDetailsView(context, media);
-      },
+      onTap: () => navigateToDetailsView(context, media),
       child: Container(
-        height: AppSize.s175,
+        width: 220,
+        height: 320,
         decoration: BoxDecoration(
-          color: AppColors.secondaryBackground,
           borderRadius: BorderRadius.circular(AppSize.s8),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(AppPadding.p8),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(AppSize.s8),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(AppSize.s8),
+          child: Stack(
+            children: [
+              Positioned.fill(
                 child: ImageWithShimmer(
                   imageUrl: media.posterUrl,
-                  width: AppSize.s110,
+                  width: double.infinity,
                   height: double.infinity,
                 ),
               ),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: AppPadding.p6),
-                    child: Text(
-                      media.title,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: textTheme.titleSmall,
+
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        Color(0x55000000),
+                        Color(0xCC0A0E1A),
+                        Color(0xFF0A0E1A),
+                      ],
                     ),
                   ),
-                  Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      if (media.releaseDate.isNotEmpty) ...[
-                        Padding(
-                          padding: const EdgeInsets.only(right: AppPadding.p12),
-                          child: Text(
-                            // Extract year from TVmaze date format (YYYY-MM-DD)
-                            media.releaseDate.split('-').isNotEmpty 
-                                ? media.releaseDate.split('-')[0] 
-                                : media.releaseDate,
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyLarge,
-                          ),
-                        ),
-                      ],
-                      const Icon(
-                        Icons.star_rate_rounded,
-                        color: AppColors.ratingIconColor,
-                        size: AppSize.s18,
-                      ),
                       Text(
-                        media.voteAverage.toString(),
-                        style: textTheme.bodyLarge,
+                        media.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: textTheme.titleMedium?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                      const SizedBox(height: 6),
+
+                      Row(
+                        children: [
+                          if (media.releaseDate.isNotEmpty)
+                            Expanded(
+                              child: Text(
+                                media.releaseDate.split('-')[0],
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+
+                          const SizedBox(width: 6),
+
+                          const Icon(
+                            Icons.star_rate_rounded,
+                            color: Colors.amber,
+                            size: 14,
+                          ),
+
+                          const SizedBox(width: 2),
+
+                          Text(
+                            media.voteAverage.toStringAsFixed(1),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+
+
+                      const SizedBox(height: 8),
+
+                      Text(
+                        media.overview,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 12,
+                        ),
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: AppPadding.p14),
-                    child: Text(
-                      media.overview,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: textTheme.bodyLarge,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

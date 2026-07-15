@@ -26,7 +26,7 @@ class _AdEnabledScreenState extends State<AdEnabledScreen> {
 
     if (widget.showInterstitialOnEnter) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        showManagedInterstitialAd(context, alwaysShow: false);
+        // showManagedInterstitialAd(context, alwaysShow: false);
       });
     }
   }

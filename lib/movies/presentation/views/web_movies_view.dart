@@ -103,6 +103,25 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
   int _currentHeroIndex = 0;
   Timer? _heroAutoSlideTimer;
   final PageController _heroPageController = PageController();
+  final Map<String, ScrollController> _rowControllers = {};
+  ScrollController _controllerFor(String key) {
+    return _rowControllers.putIfAbsent(key, () => ScrollController());
+  }
+
+  void _scrollRow(String key, {required bool forward}) {
+    final controller = _rowControllers[key];
+    if (controller == null || !controller.hasClients) return;
+    const double delta = 600;
+    final target = forward
+        ? (controller.offset + delta).clamp(0.0, controller.position.maxScrollExtent)
+        : (controller.offset - delta).clamp(0.0, controller.position.maxScrollExtent);
+    controller.animateTo(
+      target,
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.easeOut,
+    );
+  }
+
 
   @override
   void initState() {
@@ -142,6 +161,9 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
   void dispose() {
     _heroAutoSlideTimer?.cancel();
     _heroPageController.dispose();
+    for (final c in _rowControllers.values) {
+      c.dispose();
+    }
     super.dispose();
   }
 
@@ -473,6 +495,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
 
   Widget _buildMovieRow(String title, List<Media> movies, BuildContext context) {
     if (movies.isEmpty) return const SizedBox.shrink();
+    final controller = _controllerFor(title);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -491,17 +514,69 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
         const SizedBox(height: 16),
         SizedBox(
           height: 280,
-          child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 48),
-            scrollDirection: Axis.horizontal,
-            itemCount: movies.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 16),
-            itemBuilder: (context, index) {
-              return _buildWebMovieCard(movies[index]);
-            },
+          child: Stack(
+            children: [
+              ListView.separated(
+                controller: controller,
+                padding: const EdgeInsets.symmetric(horizontal: 48),
+                scrollDirection: Axis.horizontal,
+                itemCount: movies.length,
+                separatorBuilder: (_, __) => const SizedBox(width: 16),
+                itemBuilder: (context, index) {
+                  return _buildWebMovieCard(movies[index]);
+                },
+              ),
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                child: _buildScrollArrow(
+                  icon: Icons.chevron_left,
+                  onTap: () => _scrollRow(title, forward: false),
+                ),
+              ),
+              Positioned(
+                right: 0,
+                top: 0,
+                bottom: 0,
+                child: _buildScrollArrow(
+                  icon: Icons.chevron_right,
+                  onTap: () => _scrollRow(title, forward: true),
+                ),
+              ),
+            ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildScrollArrow({required IconData icon, required VoidCallback onTap}) {
+    final bool isLeft = icon == Icons.chevron_left;
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 64,
+          decoration: BoxDecoration(
+          ),
+          alignment: isLeft ? Alignment.centerLeft : Alignment.centerRight,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.6),
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.white.withOpacity(0.15)),
+              ),
+              child: Icon(icon, color: Colors.white, size: 22),
+            ),
+          ),
+        ),
+      ),
     );
   }
 

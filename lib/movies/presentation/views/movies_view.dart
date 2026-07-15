@@ -82,27 +82,25 @@ class _MoviesViewState extends State<MoviesView> {
           ),
         ),
       ),
-      body: AdEnabledScreen(
-        child: BlocBuilder<MoviesBloc, MoviesState>(
-          builder: (context, state) {
-            switch (state.status) {
-              case RequestStatus.loading:
-                return const LoadingIndicator();
-              case RequestStatus.loaded:
-                return MoviesWidget(
-                  nowPlayingMovies: state.movies[0],
-                  popularMovies: state.movies[1],
-                  topRatedMovies: state.movies[2],
-                );
-              case RequestStatus.error:
-                return ErrorScreen(
-                  onTryAgainPressed: () {
-                    context.read<MoviesBloc>().add(GetMoviesEvent());
-                  },
-                );
-            }
-          },
-        ),
+      body: BlocBuilder<MoviesBloc, MoviesState>(
+        builder: (context, state) {
+          switch (state.status) {
+            case RequestStatus.loading:
+              return const LoadingIndicator();
+            case RequestStatus.loaded:
+              return MoviesWidget(
+                nowPlayingMovies: state.movies[0],
+                popularMovies: state.movies[1],
+                topRatedMovies: state.movies[2],
+              );
+            case RequestStatus.error:
+              return ErrorScreen(
+                onTryAgainPressed: () {
+                  context.read<MoviesBloc>().add(GetMoviesEvent());
+                },
+              );
+          }
+        },
       ),
     );
   }
@@ -156,7 +154,7 @@ class MoviesWidget extends StatelessWidget {
               );
             },
           ),
-          HybridNativeAdWidget(height: AppSize.s175, adKey: 'movies_home_1'),
+          // //HybridNativeAdWidget(height: AppSize.s175, adKey: 'movies_home_1'),
           SectionHeader(
             title: AppStrings.popularMovies,
             onSeeAllTap: () {
@@ -183,7 +181,7 @@ class MoviesWidget extends StatelessWidget {
               return SectionListViewCard(media: upcomingMovies[index]);
             },
           ),
-          HybridNativeAdWidget(height: AppSize.s175, adKey: 'movies_home_1'),
+          //HybridNativeAdWidget(height: AppSize.s175, adKey: 'movies_home_1'),
           // Trending Section
           SectionHeader(
             title: 'Trending Now',
@@ -211,7 +209,7 @@ class MoviesWidget extends StatelessWidget {
               return SectionListViewCard(media: upcomingMovies[index]);
             },
           ),
-          HybridNativeAdWidget(height: AppSize.s175, adKey: 'movies_home_1'),
+          //HybridNativeAdWidget(height: AppSize.s175, adKey: 'movies_home_1'),
           // Action Section
           SectionHeader(
             title: 'Action & Adventure',

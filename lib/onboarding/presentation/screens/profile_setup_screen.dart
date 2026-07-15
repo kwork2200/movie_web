@@ -243,119 +243,117 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
       body: LayoutBuilder(
         builder: (context, constraints) {
           final screenUtils = ScreenUtils.of(context);
-          return AdEnabledScreen(
-            child: Stack(
-              children: [
-                // Subtle glow top right
-                Positioned(
-                  top: -60,
-                  right: -60,
-                  child: Container(
-                    width: 250,
-                    height: 250,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: RadialGradient(
-                        colors: [
-                          _purple.withOpacity(0.1),
-                          Colors.transparent,
-                        ],
-                      ),
+          return Stack(
+            children: [
+              // Subtle glow top right
+              Positioned(
+                top: -60,
+                right: -60,
+                child: Container(
+                  width: 250,
+                  height: 250,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: RadialGradient(
+                      colors: [
+                        _purple.withOpacity(0.1),
+                        Colors.transparent,
+                      ],
                     ),
                   ),
                 ),
+              ),
 
-                SafeArea(
-                  child: Column(
-                    children: [
-                      // Step indicator + header
-                      _buildHeader(),
+              SafeArea(
+                child: Column(
+                  children: [
+                    // Step indicator + header
+                    _buildHeader(),
 
-                      // Scrollable content
-                      Expanded(
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
-                          child: Form(
-                            key: _formKey,
-                            child: Column(
-                              children: [
-                                const SizedBox(height: 8),
-                                // Avatar picker
-                                _buildAvatarPicker(),
-                                const SizedBox(height: 10),
-                                Text(
-                                  'Tap to add profile photo',
+                    // Scrollable content
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 8),
+                              // Avatar picker
+                              _buildAvatarPicker(),
+                              const SizedBox(height: 10),
+                              Text(
+                                'Tap to add profile photo',
+                                style: GoogleFonts.dmSans(
+                                  color: _muted,
+                                  fontSize: 13,
+                                ),
+                              ),
+                              const SizedBox(height: 36),
+
+                              // // Native Ad
+                              // const Padding(
+                              //   padding: EdgeInsets.only(bottom: 24),
+                              //   child: HybridNativeAdWidget(adKey: 'profile_setup'),
+                              // ),
+
+                              // Name field
+                              _fieldLabel('Full Name'),
+                              _buildTextField(
+                                controller: _nameController,
+                                hint: 'Enter your full name',
+                                icon: Icons.person_outline_rounded,
+                                validator: (v) {
+                                  if (v == null || v.isEmpty) return 'Please enter your name';
+                                  if (v.length < 2) return 'At least 2 characters';
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 16),
+
+                              // Nickname field
+                              _fieldLabel('Nickname'),
+                              _buildTextField(
+                                controller: _nicknameController,
+                                hint: 'Your cool nickname',
+                                icon: Icons.badge_outlined,
+                                validator: (v) {
+                                  if (v == null || v.isEmpty) return 'Please enter a nickname';
+                                  if (v.length < 2) return 'At least 2 characters';
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 36),
+
+                              // Continue button
+                              _buildGoldButton(
+                                label: 'Continue',
+                                onTap: _isLoading ? null : _handleContinue,
+                                isLoading: _isLoading,
+                              ),
+                              const SizedBox(height: 14),
+
+                              // Skip
+                              GestureDetector(
+                                onTap: () => context.go('/language-selection'),
+                                child: Text(
+                                  'Skip for now',
                                   style: GoogleFonts.dmSans(
                                     color: _muted,
-                                    fontSize: 13,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                const SizedBox(height: 36),
-
-                                // Native Ad
-                                const Padding(
-                                  padding: EdgeInsets.only(bottom: 24),
-                                  child: HybridNativeAdWidget(adKey: 'profile_setup'),
-                                ),
-
-                                // Name field
-                                _fieldLabel('Full Name'),
-                                _buildTextField(
-                                  controller: _nameController,
-                                  hint: 'Enter your full name',
-                                  icon: Icons.person_outline_rounded,
-                                  validator: (v) {
-                                    if (v == null || v.isEmpty) return 'Please enter your name';
-                                    if (v.length < 2) return 'At least 2 characters';
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(height: 16),
-
-                                // Nickname field
-                                _fieldLabel('Nickname'),
-                                _buildTextField(
-                                  controller: _nicknameController,
-                                  hint: 'Your cool nickname',
-                                  icon: Icons.badge_outlined,
-                                  validator: (v) {
-                                    if (v == null || v.isEmpty) return 'Please enter a nickname';
-                                    if (v.length < 2) return 'At least 2 characters';
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(height: 36),
-
-                                // Continue button
-                                _buildGoldButton(
-                                  label: 'Continue',
-                                  onTap: _isLoading ? null : _handleContinue,
-                                  isLoading: _isLoading,
-                                ),
-                                const SizedBox(height: 14),
-
-                                // Skip
-                                GestureDetector(
-                                  onTap: () => context.go('/language-selection'),
-                                  child: Text(
-                                    'Skip for now',
-                                    style: GoogleFonts.dmSans(
-                                      color: _muted,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         },
       ),

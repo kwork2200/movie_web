@@ -143,49 +143,47 @@ class _LoginSignupScreenState extends State<LoginSignupScreen>
       body: LayoutBuilder(
         builder: (context, constraints) {
           final screenUtils = ScreenUtils.of(context);
-          return AdEnabledScreen(
-            child: Stack(
-              children: [
-                // Background radial glows
-                Positioned(
-                  top: -60,
-                  right: -60,
-                  child: _glowCircle(_secondary, 250, 0.1),
-                ),
-                Positioned(
-                  bottom: 120,
-                  left: -80,
-                  child: _glowCircle(_primary, 280, 0.08),
-                ),
+          return Stack(
+            children: [
+              // Background radial glows
+              Positioned(
+                top: -60,
+                right: -60,
+                child: _glowCircle(_secondary, 250, 0.1),
+              ),
+              Positioned(
+                bottom: 120,
+                left: -80,
+                child: _glowCircle(_primary, 280, 0.08),
+              ),
 
-                SafeArea(
-                  child: Column(
-                    children: [
-                      // Hero section
-                      _buildHero(),
+              SafeArea(
+                child: Column(
+                  children: [
+                    // Hero section
+                    _buildHero(),
 
-                      // Tab bar
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: _buildTabBar(),
+                    // Tab bar
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: _buildTabBar(),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Tab content
+                    Expanded(
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          _buildLoginForm(),
+                          _buildSignupForm(),
+                        ],
                       ),
-                      const SizedBox(height: 24),
-
-                      // Tab content
-                      Expanded(
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: [
-                            _buildLoginForm(),
-                            _buildSignupForm(),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         },
       ),
@@ -302,7 +300,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Native Ad
-            const HybridNativeAdWidget(adKey: 'login_signup'),
+            // const HybridNativeAdWidget(adKey: 'login_signup'),
             _fieldLabel('Phone Number'),
             _buildPhoneField(_loginPhoneController),
             const SizedBox(height: 16),

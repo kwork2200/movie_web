@@ -26,27 +26,25 @@ class TopRatedMoviesView extends StatelessWidget {
         appBar: const CustomAppBar(
           title: AppStrings.topRatedMovies,
         ),
-        body: AdEnabledScreen(
-          child: BlocBuilder<TopRatedMoviesBloc, TopRatedMoviesState>(
-            builder: (context, state) {
-              switch (state.status) {
-                case GetAllRequestStatus.loading:
-                  return const LoadingIndicator();
-                case GetAllRequestStatus.loaded:
-                  return TopRatedMoviesWidget(movies: state.movies);
-                case GetAllRequestStatus.error:
-                  return ErrorScreen(
-                    onTryAgainPressed: () {
-                      context
-                          .read<TopRatedMoviesBloc>()
-                          .add(GetTopRatedMoviesEvent());
-                    },
-                  );
-                case GetAllRequestStatus.fetchMoreError:
-                  return TopRatedMoviesWidget(movies: state.movies);
-              }
-            },
-          ),
+        body: BlocBuilder<TopRatedMoviesBloc, TopRatedMoviesState>(
+          builder: (context, state) {
+            switch (state.status) {
+              case GetAllRequestStatus.loading:
+                return const LoadingIndicator();
+              case GetAllRequestStatus.loaded:
+                return TopRatedMoviesWidget(movies: state.movies);
+              case GetAllRequestStatus.error:
+                return ErrorScreen(
+                  onTryAgainPressed: () {
+                    context
+                        .read<TopRatedMoviesBloc>()
+                        .add(GetTopRatedMoviesEvent());
+                  },
+                );
+              case GetAllRequestStatus.fetchMoreError:
+                return TopRatedMoviesWidget(movies: state.movies);
+            }
+          },
         ),
       ),
     );
@@ -68,7 +66,7 @@ class TopRatedMoviesWidget extends StatelessWidget {
         return Column(
           children: [
             // Native Ad at top
-            const HybridNativeAdWidget(adKey: 'top_rated_movies'),
+            // const HybridNativeAdWidget(adKey: 'top_rated_movies'),
             Expanded(
               child: VerticalListView(
                 itemCount: movies.length + 1,

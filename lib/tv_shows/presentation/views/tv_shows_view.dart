@@ -26,27 +26,25 @@ class TVShowsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AdEnabledScreen(
-        child: BlocBuilder<TVShowsBloc, TVShowsState>(
-          builder: (context, state) {
-            switch (state.status) {
-              case RequestStatus.loading:
-                return const LoadingIndicator();
-              case RequestStatus.loaded:
-                return TVShowsWidget(
-                  onAirTvShows: state.tvShows[0],
-                  popularTvShows: state.tvShows[1],
-                  topRatedTvShows: state.tvShows[2],
-                );
-              case RequestStatus.error:
-                return ErrorScreen(
-                  onTryAgainPressed: () {
-                    context.read<TVShowsBloc>().add(GetTVShowsEvent());
-                  },
-                );
-            }
-          },
-        ),
+      body: BlocBuilder<TVShowsBloc, TVShowsState>(
+        builder: (context, state) {
+          switch (state.status) {
+            case RequestStatus.loading:
+              return const LoadingIndicator();
+            case RequestStatus.loaded:
+              return TVShowsWidget(
+                onAirTvShows: state.tvShows[0],
+                popularTvShows: state.tvShows[1],
+                topRatedTvShows: state.tvShows[2],
+              );
+            case RequestStatus.error:
+              return ErrorScreen(
+                onTryAgainPressed: () {
+                  context.read<TVShowsBloc>().add(GetTVShowsEvent());
+                },
+              );
+          }
+        },
       ),
     );
   }
@@ -97,7 +95,7 @@ class TVShowsWidget extends StatelessWidget {
             },
           ),
           // Native Ad after slider
-          HybridNativeAdWidget(adKey: 'tv_shows_home'),
+          // HybridNativeAdWidget(adKey: 'tv_shows_home'),
           SectionHeader(
             title: AppStrings.popularShows,
             onSeeAllTap: () {
@@ -124,7 +122,7 @@ class TVShowsWidget extends StatelessWidget {
               return SectionListViewCard(media: topRatedTvShows[index]);
             },
           ),
-          HybridNativeAdWidget(height: AppSize.s175, adKey: 'tv_shows_home'),
+          // HybridNativeAdWidget(height: AppSize.s175, adKey: 'tv_shows_home'),
           // Trending Section
           SectionHeader(
             title: 'Trending Now',
@@ -152,7 +150,7 @@ class TVShowsWidget extends StatelessWidget {
               return SectionListViewCard(media: topRatedTvShows[index]);
             },
           ),
-          HybridNativeAdWidget(height: AppSize.s175, adKey: 'tv_shows_home'),
+          // HybridNativeAdWidget(height: AppSize.s175, adKey: 'tv_shows_home'),
           // Action Section
           SectionHeader(
             title: 'Action & Adventure',

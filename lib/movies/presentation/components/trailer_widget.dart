@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -76,6 +77,11 @@ class _TrailerWidgetState extends State<TrailerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // YouTube player not supported on web
+    if (kIsWeb) {
+      return const SizedBox.shrink();
+    }
+
     if (_controller == null) {
       return const SizedBox.shrink();
     }

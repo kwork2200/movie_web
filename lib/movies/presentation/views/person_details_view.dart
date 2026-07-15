@@ -102,7 +102,7 @@ class _BackButtonState extends State<_BackButton> {
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hovering = true),
       onExit: (_) => setState(() => _hovering = false),
-      child: GestureDetector(
+     /* child: GestureDetector(
         onTap: widget.onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
@@ -127,7 +127,7 @@ class _BackButtonState extends State<_BackButton> {
             size: AppSize.s20,
           ),
         ),
-      ),
+      ),*/
     );
   }
 }

@@ -34,17 +34,16 @@ class _InfoScreenState extends State<InfoScreen> {
     try {
       print('🎬 InfoScreen: Phase 1 - App Open Ad');
       await Future.any([
-        _tryShowAppOpenAd(),
+        // _tryShowAppOpenAd(),
         Future.delayed(const Duration(seconds: 5)),
       ]);
       await Future.delayed(const Duration(milliseconds: 800));
       await Future.any([
-        _tryShowInterstitialAd(),
+        // _tryShowInterstitialAd(),
         Future.delayed(const Duration(seconds: 3)),
       ]);
 
       print('🎬 InfoScreen: All ads complete, displaying screen');
-
     } catch (e) {
       print('❌ InfoScreen: Critical error in ad sequence: $e');
     } finally {
@@ -87,7 +86,6 @@ class _InfoScreenState extends State<InfoScreen> {
       }
 
       print('⏭️ InfoScreen: App Open Ad not ready after 3s, proceeding to next ad');
-
     } catch (e) {
       print('❌ InfoScreen: Error in _tryShowAppOpenAd: $e');
     }
@@ -106,7 +104,7 @@ class _InfoScreenState extends State<InfoScreen> {
       if (!googleEnabled && !facebookEnabled && thirdPartyEnabled && mounted) {
         print('🎬 InfoScreen: Showing third-party interstitial ad (both Google & Facebook disabled)');
         try {
-          await showManagedInterstitialAd(context, alwaysShow: true);
+          // await showManagedInterstitialAd(context, alwaysShow: true);
           print('✅ InfoScreen: Third-party ad shown successfully');
           return;
         } catch (e) {
@@ -120,7 +118,7 @@ class _InfoScreenState extends State<InfoScreen> {
         if (manager.isAdReady) {
           print('🎬 InfoScreen: Interstitial Ad is ready! Showing now...');
           try {
-            await showManagedInterstitialAd(context, alwaysShow: true);
+            // await showManagedInterstitialAd(context, alwaysShow: true);
             print('✅ InfoScreen: Interstitial Ad shown successfully');
             return;
           } catch (e) {
@@ -130,7 +128,6 @@ class _InfoScreenState extends State<InfoScreen> {
         }
       }
       manager.loadAd();
-
     } catch (e) {
       print('❌ InfoScreen: Error in _tryShowInterstitialAd: $e');
     }
@@ -141,6 +138,15 @@ class _InfoScreenState extends State<InfoScreen> {
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
     }
+  }
+
+  // ---- Responsive helpers ----
+  bool _isWeb(double width) => width >= 900;
+
+  double _maxContentWidth(double width) {
+    if (width >= 1400) return 720;
+    if (width >= 900) return 640;
+    return width;
   }
 
   @override
@@ -172,144 +178,203 @@ class _InfoScreenState extends State<InfoScreen> {
     }
     return LayoutBuilder(
       builder: (context, constraints) {
-        final screenUtils = ScreenUtils.of(context);
-        return AdEnabledScreen(
-          child: Scaffold(
-            backgroundColor: const Color(0xFF0A0E1A),
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              title: Text(
-                'Welcome',
-                style: GoogleFonts.inter(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
+        final width = constraints.maxWidth;
+        final isWeb = _isWeb(width);
+
+        return Scaffold(
+          backgroundColor: const Color(0xFF0A0E1A),
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            title: Text(
+              'Welcome',
+              style: GoogleFonts.inter(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
               ),
             ),
-            body: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(32),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          const Color(0xFF6366F1).withOpacity(0.15),
-                          const Color(0xFF8B5CF6).withOpacity(0.15),
+          ),
+          body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: _maxContentWidth(width)),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(isWeb ? 32 : 24),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(isWeb ? 44 : 32),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              const Color(0xFF6366F1).withOpacity(0.15),
+                              const Color(0xFF8B5CF6).withOpacity(0.15),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(24),
+                          border: Border.all(
+                            color: const Color(0xFF6366F1).withOpacity(0.3),
+                            width: 1,
+                          ),
+                          boxShadow: isWeb
+                              ? [
+                            BoxShadow(
+                              color: const Color(0xFF6366F1)
+                                  .withOpacity(0.15),
+                              blurRadius: 40,
+                              offset: const Offset(0, 20),
+                            ),
+                          ]
+                              : null,
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(isWeb ? 24 : 20),
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Color(0xFF6366F1),
+                                    Color(0xFF8B5CF6),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0xFF6366F1)
+                                        .withOpacity(0.4),
+                                    blurRadius: 24,
+                                    offset: const Offset(0, 10),
+                                  ),
+                                ],
+                              ),
+                              child: Icon(
+                                Icons.play_circle_filled,
+                                size: isWeb ? 84 : 72,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                            Text(
+                              'CINEPLEX',
+                              style: GoogleFonts.inter(
+                                fontSize: isWeb ? 40 : 32,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white,
+                                letterSpacing: 2,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              'Stream unlimited movies & TV shows',
+                              style: GoogleFonts.inter(
+                                fontSize: isWeb ? 17 : 16,
+                                color: const Color(0xFF94A3B8),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 28),
+                            _HoverButton(
+                              onTap: () {
+                                context.go('/language-selection');
+                              },
+                              isWeb: isWeb,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      // Action tiles: stacked on mobile, side-by-side on web
+                      isWeb
+                          ? Row(
+                        children: [
+                          Expanded(
+                            child: _buildModernActionTile(
+                              icon: Icons.star_rate_rounded,
+                              title: 'Rate Us',
+                              subtitle: 'Help us improve with your feedback',
+                              gradient: const LinearGradient(
+                                colors: [
+                                  Color(0xFF8B5CF6),
+                                  Color(0xFFEC4899),
+                                ],
+                              ),
+                              onTap: () {
+                                _launchURL(
+                                    'https://play.google.com/store/apps');
+                              },
+                              isWeb: true,
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: _buildModernActionTile(
+                              icon: Icons.share_rounded,
+                              title: 'Share App',
+                              subtitle: 'Share with your friends',
+                              gradient: const LinearGradient(
+                                colors: [
+                                  Color(0xFF6366F1),
+                                  Color(0xFF8B5CF6),
+                                ],
+                              ),
+                              onTap: () {
+                                _launchURL(
+                                    'https://play.google.com/store/apps');
+                              },
+                              isWeb: true,
+                            ),
+                          ),
                         ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(24),
-                      border: Border.all(
-                        color: const Color(0xFF6366F1).withOpacity(0.3),
-                        width: 1,
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
+                      )
+                          : Column(
+                        children: [
+                          _buildModernActionTile(
+                            icon: Icons.star_rate_rounded,
+                            title: 'Rate Us',
+                            subtitle: 'Help us improve with your feedback',
+                            gradient: const LinearGradient(
                               colors: [
-                                const Color(0xFF6366F1),
-                                const Color(0xFF8B5CF6),
+                                Color(0xFF8B5CF6),
+                                Color(0xFFEC4899),
                               ],
                             ),
-                            borderRadius: BorderRadius.circular(20),
+                            onTap: () {
+                              _launchURL(
+                                  'https://play.google.com/store/apps');
+                            },
+                            isWeb: false,
                           ),
-                          child: const Icon(
-                            Icons.play_circle_filled,
-                            size: 72,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 24),
-                        Text(
-                          'CINEPLEX',
-                          style: GoogleFonts.inter(
-                            fontSize: 32,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white,
-                            letterSpacing: 2,
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          'Stream unlimited movies & TV shows',
-                          style: GoogleFonts.inter(
-                            fontSize: 16,
-                            color: const Color(0xFF94A3B8),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 28),
-                        ElevatedButton(
-                          onPressed: () {
-                            context.go('/language-selection');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF6366F1),
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 40,
-                              vertical: 16,
+                          const SizedBox(height: 16),
+                          _buildModernActionTile(
+                            icon: Icons.share_rounded,
+                            title: 'Share App',
+                            subtitle: 'Share with your friends',
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color(0xFF6366F1),
+                                Color(0xFF8B5CF6),
+                              ],
                             ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            elevation: 0,
+                            onTap: () {
+                              _launchURL(
+                                  'https://play.google.com/store/apps');
+                            },
+                            isWeb: false,
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                'Get Started',
-                                style: GoogleFonts.inter(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              const Icon(Icons.arrow_forward, size: 20),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                      SizedBox(height: isWeb ? 24 : 0),
+                    ],
                   ),
-                  const SizedBox(height: 24),
-                  _buildModernActionTile(
-                    icon: Icons.star_rate_rounded,
-                    title: 'Rate Us',
-                    subtitle: 'Help us improve with your feedback',
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF8B5CF6), Color(0xFFEC4899)],
-                    ),
-                    onTap: () {
-                      _launchURL('https://play.google.com/store/apps');
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  _buildModernActionTile(
-                    icon: Icons.share_rounded,
-                    title: 'Share App',
-                    subtitle: 'Share with your friends',
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
-                    ),
-                    onTap: () {
-                      _launchURL('https://play.google.com/store/apps');
-                    },
-                  ),
-                ],
+                ),
               ),
             ),
           ),
@@ -324,73 +389,226 @@ class _InfoScreenState extends State<InfoScreen> {
     required String subtitle,
     required Gradient gradient,
     required VoidCallback onTap,
+    required bool isWeb,
   }) {
-    return InkWell(
+    return _HoverTile(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: const Color(0xFF121826),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: gradient.colors.first.withOpacity(0.3),
-            width: 1,
+      isWeb: isWeb,
+      borderColor: gradient.colors.first,
+      child: isWeb
+          ? Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(
+              gradient: gradient,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Icon(icon, color: Colors.white, size: 28),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            title,
+            style: GoogleFonts.inter(
+              fontSize: 17,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            subtitle,
+            style: GoogleFonts.inter(
+              fontSize: 13,
+              color: const Color(0xFF94A3B8),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Icon(
+            Icons.arrow_forward_rounded,
+            color: gradient.colors.first,
+            size: 20,
+          ),
+        ],
+      )
+          : Row(
+        children: [
+          Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(
+              gradient: gradient,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Icon(icon, color: Colors.white, size: 28),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.inter(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    color: const Color(0xFF94A3B8),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: gradient.colors.first.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(
+              Icons.arrow_forward_rounded,
+              color: gradient.colors.first,
+              size: 20,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Hover-aware wrapper for action tiles (scale + shadow on web/desktop)
+class _HoverTile extends StatefulWidget {
+  const _HoverTile({
+    required this.child,
+    required this.onTap,
+    required this.isWeb,
+    required this.borderColor,
+  });
+
+  final Widget child;
+  final VoidCallback onTap;
+  final bool isWeb;
+  final Color borderColor;
+
+  @override
+  State<_HoverTile> createState() => _HoverTileState();
+}
+
+class _HoverTileState extends State<_HoverTile> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedScale(
+          scale: _hovered && widget.isWeb ? 1.02 : 1.0,
+          duration: const Duration(milliseconds: 150),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
+            width: double.infinity,
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: const Color(0xFF121826),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: _hovered
+                    ? widget.borderColor.withOpacity(0.7)
+                    : widget.borderColor.withOpacity(0.3),
+                width: 1,
+              ),
+              boxShadow: _hovered && widget.isWeb
+                  ? [
+                BoxShadow(
+                  color: widget.borderColor.withOpacity(0.25),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ]
+                  : null,
+            ),
+            child: widget.child,
           ),
         ),
-        child: Row(
-          children: [
-            Container(
-              width: 56,
-              height: 56,
-              decoration: BoxDecoration(
-                gradient: gradient,
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Icon(
-                icon,
-                color: Colors.white,
-                size: 28,
-              ),
+      ),
+    );
+  }
+}
+
+/// Hover-aware "Get Started" button
+class _HoverButton extends StatefulWidget {
+  const _HoverButton({required this.onTap, required this.isWeb});
+
+  final VoidCallback onTap;
+  final bool isWeb;
+
+  @override
+  State<_HoverButton> createState() => _HoverButtonState();
+}
+
+class _HoverButtonState extends State<_HoverButton> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedScale(
+          scale: _hovered && widget.isWeb ? 1.03 : 1.0,
+          duration: const Duration(milliseconds: 150),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
+            padding: EdgeInsets.symmetric(
+              horizontal: widget.isWeb ? 48 : 40,
+              vertical: 16,
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: GoogleFonts.inter(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
+            decoration: BoxDecoration(
+              color: const Color(0xFF6366F1),
+              borderRadius: BorderRadius.circular(14),
+              boxShadow: _hovered
+                  ? [
+                BoxShadow(
+                  color: const Color(0xFF6366F1).withOpacity(0.5),
+                  blurRadius: 24,
+                  offset: const Offset(0, 10),
+                ),
+              ]
+                  : [],
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Get Started',
+                  style: GoogleFonts.inter(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: GoogleFonts.inter(
-                      fontSize: 14,
-                      color: const Color(0xFF94A3B8),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(width: 8),
+                const Icon(Icons.arrow_forward, size: 20, color: Colors.white),
+              ],
             ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: gradient.colors.first.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(
-                Icons.arrow_forward_rounded,
-                color: gradient.colors.first,
-                size: 20,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

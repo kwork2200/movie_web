@@ -18,4 +18,6 @@ class AppColors {
   static const circleDotColor = Color(0x33ffffff);
   static const iconContainerColor = Color(0xB2272830);
   static const iconColor = Color(0xffa9aaac);
+  static const Color background = Color(0xFF0A0E1A);
+
 }

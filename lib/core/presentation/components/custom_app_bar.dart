@@ -17,8 +17,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       title: Text(title),
-      leading: context.canPop()
+     /* leading: !context.canPop()
           ? IconButton(
               onPressed: () {
                 context.pop();
@@ -28,7 +29,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 size: AppSize.s20,
               ),
             )
-          : null,
+          : null,*/
     );
   }
 }

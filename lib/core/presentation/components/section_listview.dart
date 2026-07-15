@@ -17,6 +17,7 @@ class SectionListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
+      width: double.infinity,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
         itemCount: itemCount,

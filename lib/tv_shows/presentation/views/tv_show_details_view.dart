@@ -50,7 +50,7 @@ class _TVShowDetailsViewState extends State<TVShowDetailsView> {
   }
 
   Future<void> _handleBack(BuildContext context) async {
-    await showManagedInterstitialAd(context, alwaysShow: true);
+    // await showManagedInterstitialAd(context, alwaysShow: true);
     if (context.mounted) Navigator.of(context).pop();
   }
 
@@ -68,9 +68,10 @@ class _TVShowDetailsViewState extends State<TVShowDetailsView> {
         child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: Padding(
+       /*   leading: Padding(
             padding: const EdgeInsets.only(
               top: AppPadding.p12,
               left: AppPadding.p16,
@@ -90,7 +91,7 @@ class _TVShowDetailsViewState extends State<TVShowDetailsView> {
                 ),
               ),
             ),
-          ),
+          ),*/
           actions: [
             BlocBuilder<TVShowDetailsBloc, TVShowDetailsState>(
               builder: (context, state) {
@@ -159,26 +160,23 @@ class _TVShowDetailsViewState extends State<TVShowDetailsView> {
             ),
           ],
         ),
-        body: AdEnabledScreen(
-          showInterstitialOnEnter: false,
-          child: BlocBuilder<TVShowDetailsBloc, TVShowDetailsState>(
-            builder: (context, state) {
-              switch (state.tvShowDetailsStatus) {
-                case RequestStatus.loading:
-                  return const LoadingIndicator();
-                case RequestStatus.loaded:
-                  return TVShowDetailsWidget(tvShowDetails: state.tvShowDetails!);
-                case RequestStatus.error:
-                  return ErrorScreen(
-                    onTryAgainPressed: () {
-                      context
-                          .read<TVShowDetailsBloc>()
-                          .add(GetTVShowDetailsEvent(widget.tvShowId));
-                    },
-                  );
-              }
-            },
-          ),
+        body: BlocBuilder<TVShowDetailsBloc, TVShowDetailsState>(
+          builder: (context, state) {
+            switch (state.tvShowDetailsStatus) {
+              case RequestStatus.loading:
+                return const LoadingIndicator();
+              case RequestStatus.loaded:
+                return TVShowDetailsWidget(tvShowDetails: state.tvShowDetails!);
+              case RequestStatus.error:
+                return ErrorScreen(
+                  onTryAgainPressed: () {
+                    context
+                        .read<TVShowDetailsBloc>()
+                        .add(GetTVShowDetailsEvent(widget.tvShowId));
+                  },
+                );
+            }
+          },
         ),
       ),  // PopScope
     ));
@@ -219,7 +217,7 @@ class TVShowDetailsWidget extends StatelessWidget {
           ),
           getOverviewSection(tvShowDetails.overview),
           TrailerWidget(trailerUrl: tvShowDetails.trailerUrl),
-          HybridNativeAdWidget(adKey: 'tv_show_details',height: AppSize.s175),
+          // HybridNativeAdWidget(adKey: 'tv_show_details',height: AppSize.s175),
           const SectionTitle(title: AppStrings.lastEpisodeOnAir),
           EpisodeCard(episode: tvShowDetails.lastEpisodeToAir!),
           const SectionTitle(title: AppStrings.seasons),

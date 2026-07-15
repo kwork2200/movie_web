@@ -17,11 +17,11 @@ part 'watchlist_state.dart';
 
 class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
   WatchlistBloc(
-    this._getWatchListItemsUseCase,
-    this._addWatchListItemUseCase,
-    this._removeWatchListItemUseCase,
-    this._isBookmarkedUseCase,
-  ) : super(const WatchlistState()) {
+      this._getWatchListItemsUseCase,
+      this._addWatchListItemUseCase,
+      this._removeWatchListItemUseCase,
+      this._isBookmarkedUseCase,
+      ) : super(const WatchlistState()) {
     on<GetWatchListItemsEvent>(_getWatchListItems);
     on<AddWatchListItemEvent>(_addWatchListItem);
     on<RemoveWatchListItemEvent>(_removeWatchListItem);
@@ -34,19 +34,19 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
   final IsBookmarkedUseCase _isBookmarkedUseCase;
 
   Future<void> _getWatchListItems(
-    WatchlistEvent event,
-    Emitter<WatchlistState> emit,
-  ) async {
+      WatchlistEvent event,
+      Emitter<WatchlistState> emit,
+      ) async {
     emit(const WatchlistState(status: WatchlistRequestStatus.loading));
     final result = await _getWatchListItemsUseCase.call(const NoParameters());
     result.fold(
-      (l) => emit(
+          (l) => emit(
         WatchlistState(
           status: WatchlistRequestStatus.error,
           message: l.message,
         ),
       ),
-      (r) {
+          (r) {
         if (r.isEmpty) {
           emit(const WatchlistState(status: WatchlistRequestStatus.empty));
         } else {
@@ -57,53 +57,48 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
   }
 
   Future<void> _addWatchListItem(
-    AddWatchListItemEvent event,
-    Emitter<WatchlistState> emit,
-  ) async {
-    emit(const WatchlistState(status: WatchlistRequestStatus.loading));
+      AddWatchListItemEvent event,
+      Emitter<WatchlistState> emit,
+      ) async {
     final result = await _addWatchListItemUseCase.call(event.media);
-    result.fold(
-      (l) => emit(
-        WatchlistState(
-          status: WatchlistRequestStatus.error,
-          message: l.message,
-        ),
-      ),
-      (r) => emit(WatchlistState(actionStatus: BookmarkStatus.added, id: r)),
+    await result.fold(
+          (l) async => emit(state.copyWith(
+        status: WatchlistRequestStatus.error,
+        message: l.message,
+      )),
+          (r) async {
+        emit(state.copyWith(actionStatus: BookmarkStatus.added, id: r));
+        // force refresh so `items` list is in sync
+        await _getWatchListItems(event, emit);
+      },
     );
   }
 
   Future<void> _removeWatchListItem(
-    RemoveWatchListItemEvent event,
-    Emitter<WatchlistState> emit,
-  ) async {
-    emit(const WatchlistState(status: WatchlistRequestStatus.loading));
+      RemoveWatchListItemEvent event,
+      Emitter<WatchlistState> emit,
+      ) async {
     final result = await _removeWatchListItemUseCase.call(event.index);
     result.fold(
-      (l) => emit(
-        WatchlistState(
-          status: WatchlistRequestStatus.error,
-          message: l.message,
-        ),
-      ),
-      (r) => emit(const WatchlistState(actionStatus: BookmarkStatus.removed)),
+          (l) => emit(state.copyWith(
+        status: WatchlistRequestStatus.error,
+        message: l.message,
+      )),
+          (r) => emit(state.copyWith(actionStatus: BookmarkStatus.removed)),
     );
   }
 
   FutureOr<void> _checkBookmark(
-    CheckBookmarkEvent event,
-    Emitter<WatchlistState> emit,
-  ) async {
-    emit(const WatchlistState(status: WatchlistRequestStatus.loading));
+      CheckBookmarkEvent event,
+      Emitter<WatchlistState> emit,
+      ) async {
     final result = await _isBookmarkedUseCase.call(event.tmdbId);
     result.fold(
-      (l) => emit(
-        WatchlistState(
-          status: WatchlistRequestStatus.error,
-          message: l.message,
-        ),
-      ),
-      (r) => emit(WatchlistState(actionStatus: BookmarkStatus.exists, id: r)),
+          (l) => emit(state.copyWith(
+        status: WatchlistRequestStatus.error,
+        message: l.message,
+      )),
+          (r) => emit(state.copyWith(actionStatus: BookmarkStatus.exists, id: r)),
     );
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:go_router/go_router.dart';
 
-import '../../movies/presentation/views/web_movie_details_view.dart' hide WebMovieDetailsView;
 import '../../movies/presentation/views/web_movies_view.dart';
 import '../../onboarding/presentation/screens/splash_screen.dart';
 import '../../onboarding/presentation/screens/language_selection_screen.dart';

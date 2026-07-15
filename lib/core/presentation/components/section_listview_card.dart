@@ -19,7 +19,7 @@ class SectionListViewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: AppSize.s130,
+      width: AppSize.s200,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

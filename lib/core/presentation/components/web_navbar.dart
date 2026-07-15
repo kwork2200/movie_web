@@ -33,8 +33,8 @@ class WebNavbar extends StatelessWidget {
           _buildLoginButton(context),
           const SizedBox(width: 16),
           _buildSearchIcon(context),
-          const SizedBox(width: 16),
-          _buildWatchlistIcon(context),
+          // const SizedBox(width: 16),
+          // _buildWatchlistIcon(context),
         ],
       ),
     );
@@ -71,9 +71,9 @@ class WebNavbar extends StatelessWidget {
       children: [
         _buildNavItem('TV Shows', '/tvShows', context),
         _buildNavItem('Movies', '/movies', context),
-        _buildNavItem('VDesi', '/movies', context),
+        /*_buildNavItem('VDesi', '/movies', context),
         _buildNavItem('New Now', '/movies', context),
-        _buildNavItem('Trailers', '/movies', context),
+        _buildNavItem('Trailers', '/movies', context),*/
       ],
     );
   }

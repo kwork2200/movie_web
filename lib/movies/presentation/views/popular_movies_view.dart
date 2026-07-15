@@ -27,27 +27,25 @@ class PopularMoviesView extends StatelessWidget {
         appBar: const CustomAppBar(
           title: AppStrings.popularMovies,
         ),
-        body: AdEnabledScreen(
-          child: BlocBuilder<PopularMoviesBloc, PopularMoviesState>(
-            builder: (context, state) {
-              switch (state.status) {
-                case GetAllRequestStatus.loading:
-                  return const LoadingIndicator();
-                case GetAllRequestStatus.loaded:
-                  return PopularMoviesWidget(movies: state.movies);
-                case GetAllRequestStatus.error:
-                  return ErrorScreen(
-                    onTryAgainPressed: () {
-                      context
-                          .read<PopularMoviesBloc>()
-                          .add(GetPopularMoviesEvent());
-                    },
-                  );
-                case GetAllRequestStatus.fetchMoreError:
-                  return PopularMoviesWidget(movies: state.movies);
-              }
-            },
-          ),
+        body: BlocBuilder<PopularMoviesBloc, PopularMoviesState>(
+          builder: (context, state) {
+            switch (state.status) {
+              case GetAllRequestStatus.loading:
+                return const LoadingIndicator();
+              case GetAllRequestStatus.loaded:
+                return PopularMoviesWidget(movies: state.movies);
+              case GetAllRequestStatus.error:
+                return ErrorScreen(
+                  onTryAgainPressed: () {
+                    context
+                        .read<PopularMoviesBloc>()
+                        .add(GetPopularMoviesEvent());
+                  },
+                );
+              case GetAllRequestStatus.fetchMoreError:
+                return PopularMoviesWidget(movies: state.movies);
+            }
+          },
         ),
       ),
     );
@@ -69,7 +67,7 @@ class PopularMoviesWidget extends StatelessWidget {
         return Column(
           children: [
             // Native Ad at top
-            HybridNativeAdWidget(adKey: 'popular_movies',height: 150,),
+            //HybridNativeAdWidget(adKey: 'popular_movies',height: 150,),
             Expanded(
               child: VerticalListView(
                 itemCount: movies.length + 1,
