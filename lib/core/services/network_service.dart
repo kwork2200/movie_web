@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class NetworkService {
   static final NetworkService _instance = NetworkService._internal();
@@ -15,6 +16,13 @@ class NetworkService {
   bool get isConnected => _isConnected;
 
   Future<void> initialize() async {
+    if (kIsWeb) {
+      print('ℹ️ Network service: Web platform detected, assuming connected');
+      _isConnected = true;
+      _connectionStatusController.add(true);
+      return;
+    }
+
     // Check initial connection
     await checkConnection();
 

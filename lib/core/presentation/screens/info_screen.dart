@@ -225,7 +225,7 @@ class _InfoScreenState extends State<InfoScreen> {
                               icon: Icons.star_rate_rounded,
                               title: 'Rate Us',
                               subtitle:
-                              'Help us improve with your feedback',
+                              'Help us improve with your feedback..',
                               gradient: const LinearGradient(
                                 colors: [
                                   Color(0xFF8B5CF6),
@@ -244,7 +244,7 @@ class _InfoScreenState extends State<InfoScreen> {
                             child: _buildModernActionTile(
                               icon: Icons.share_rounded,
                               title: 'Share App',
-                              subtitle: 'Share with your friends',
+                              subtitle: 'Share with your friends..',
                               gradient: const LinearGradient(
                                 colors: [
                                   Color(0xFF6366F1),

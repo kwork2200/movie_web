@@ -4,16 +4,17 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   // ── Color palette ──────────────────────────────────────────────
-  static const Color bg        = Color(0xFF090C14);
-  static const Color surface   = Color(0xFF0F1422);
-  static const Color card      = Color(0xFF151B2E);
-  static const Color border    = Color(0xFF1E2840);
-  static const Color gold      = Color(0xFFE8B84B);
-  static const Color goldDark  = Color(0xFFD4A032);
-  static const Color purple    = Color(0xFFC084FC);
-  static const Color muted     = Color(0xFF8892AA);
-  static const Color textPrimary   = Color(0xFFF1F5FF);
-  static const Color textSecondary = Color(0xFF8892AA);
+  static const Color bg        = Color(0xFF0A0505);
+  static const Color surface   = Color(0xFF120A0A);
+  static const Color card      = Color(0xFF1A0F0F);
+  static const Color border    = Color(0xFF2D1A1A);
+  static const Color orange    = Color(0xFFFF6B35);
+  static const Color orangeDark = Color(0xFFE85D2A);
+  static const Color red       = Color(0xFFDC2626);
+  static const Color redDark   = Color(0xFFB91C1C);
+  static const Color muted     = Color(0xFF9CA3AF);
+  static const Color textPrimary   = Color(0xFFFEE2E2);
+  static const Color textSecondary = Color(0xFF9CA3AF);
   static const Color error     = Color(0xFFEF4444);
   static const Color success   = Color(0xFF22C55E);
 
@@ -22,16 +23,16 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: bg,
-      primaryColor: gold,
+      primaryColor: orange,
 
       colorScheme: const ColorScheme.dark(
         background: bg,
         surface: surface,
-        primary: gold,
-        secondary: purple,
+        primary: orange,
+        secondary: red,
         error: error,
         onPrimary: Colors.black,
-        onSecondary: Colors.black,
+        onSecondary: Colors.white,
         onBackground: textPrimary,
         onSurface: textPrimary,
       ),
@@ -90,7 +91,7 @@ class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: gold, width: 1.5),
+          borderSide: const BorderSide(color: orange, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
@@ -106,7 +107,7 @@ class AppTheme {
       // Elevated buttons
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: gold,
+          backgroundColor: orange,
           foregroundColor: Colors.black,
           minimumSize: const Size(double.infinity, 54),
           shape: RoundedRectangleBorder(
@@ -148,7 +149,7 @@ class AppTheme {
 
       // Tab bar
       tabBarTheme: TabBarThemeData(
-        labelColor: Colors.black,
+        labelColor: orange,
         unselectedLabelColor: muted,
         labelStyle: GoogleFonts.dmSans(
           fontSize: 15,

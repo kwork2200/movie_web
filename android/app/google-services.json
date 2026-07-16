@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "775139980767",
+    "project_id": "movie-web-db3ce",
+    "storage_bucket": "movie-web-db3ce.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775139980767:android:e780f9835bad5ec4a3406a",
+        "android_client_info": {
+          "package_name": "com.example.movie_web"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7N4K2Zet9W4iSiHvM9nW2icc70Z8-bZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -58,8 +58,18 @@ class ServiceLocator {
   ServiceLocator._();
 
   static Future<void> init() async {
-    // Initialize Network Service first
-    await NetworkService().initialize();
+    // Initialize Network Service first (non-blocking on web)
+    if (kIsWeb) {
+      // On web, initialize network service without waiting
+      NetworkService().initialize().timeout(
+        const Duration(seconds: 2),
+        onTimeout: () {
+          print('⚠️ Network service initialization timed out on web');
+        },
+      );
+    } else {
+      await NetworkService().initialize();
+    }
 
     // Initialize Ad Services (only on non-web platforms)
     if (!kIsWeb) {

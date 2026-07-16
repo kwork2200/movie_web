@@ -19,6 +19,9 @@ class RemoteConfigService {
   Stream<void> get configUpdates => _configUpdateController.stream;
 
   static const Map<String, dynamic> _defaults = {
+    'api_key': '',
+    'api_base_url': '',
+
     'show_banner_ads': true,
     'show_native_ads': true,
 
@@ -688,9 +691,31 @@ class RemoteConfigService {
   }
 
 
+  /// Get API Key from Remote Config
+  String get apiKey {
+    try {
+      return _remoteConfig.getString('api_key');
+    } catch (e) {
+      print('⚠️ Error getting api_key: $e');
+      return _defaults['api_key'] as String;
+    }
+  }
+
+  /// Get API Base URL from Remote Config
+  String get apiBaseUrl {
+    try {
+      return _remoteConfig.getString('api_base_url');
+    } catch (e) {
+      print('⚠️ Error getting api_base_url: $e');
+      return _defaults['api_base_url'] as String;
+    }
+  }
+
   /// Get all config values (useful for debugging)
   Map<String, dynamic> getAllValues() {
     return {
+      'api_key': apiKey,
+      'api_base_url': apiBaseUrl,
       'show_banner_ads': showBannerAds,
       'show_native_ads': showNativeAds,
       'show_native_ad_language_selection': showNativeAdLanguageSelection,
