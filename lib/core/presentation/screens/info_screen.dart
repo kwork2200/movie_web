@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,12 +23,15 @@ class InfoScreen extends StatefulWidget {
 }
 
 class _InfoScreenState extends State<InfoScreen> {
-  bool _isAdProcessing = true;
+  bool _isAdProcessing = !kIsWeb;
 
   @override
   void initState() {
     super.initState();
-    _showAdsSequentially();
+    GoogleFonts.config.allowRuntimeFetching = false;
+    if (!kIsWeb) {
+      _showAdsSequentially();
+    }
   }
 
   Future<void> _showAdsSequentially() async {
@@ -35,11 +39,10 @@ class _InfoScreenState extends State<InfoScreen> {
       print('🎬 InfoScreen: Phase 1 - App Open Ad');
       await Future.any([
         // _tryShowAppOpenAd(),
-        Future.delayed(const Duration(seconds: 5)),
+        Future.delayed(const Duration(seconds: 1)),
       ]);
       await Future.delayed(const Duration(milliseconds: 800));
       await Future.any([
-        // _tryShowInterstitialAd(),
         Future.delayed(const Duration(seconds: 3)),
       ]);
 
@@ -52,84 +55,6 @@ class _InfoScreenState extends State<InfoScreen> {
           _isAdProcessing = false;
         });
       }
-    }
-  }
-
-  Future<void> _tryShowAppOpenAd() async {
-    try {
-      final appOpenManager = AppOpenAdManager.instance;
-
-      print('🎬 InfoScreen: Checking App Open Ad...');
-
-      for (int i = 0; i < 6; i++) {
-        if (appOpenManager.isAdAvailable) {
-          print('🎬 InfoScreen: App Open Ad is ready! Showing now...');
-          final completer = Completer<void>();
-
-          appOpenManager.showAdIfAvailable(
-            onAdDismissed: () {
-              print('✅ InfoScreen: App Open Ad dismissed - moving to next ad');
-              if (!completer.isCompleted) completer.complete();
-            },
-          );
-
-          await Future.any([
-            completer.future,
-            Future.delayed(const Duration(seconds: 15)),
-          ]);
-          await Future.delayed(const Duration(milliseconds: 500));
-          print('✅ InfoScreen: App Open Ad phase complete');
-          return;
-        }
-
-        await Future.delayed(const Duration(milliseconds: 500));
-      }
-
-      print('⏭️ InfoScreen: App Open Ad not ready after 3s, proceeding to next ad');
-    } catch (e) {
-      print('❌ InfoScreen: Error in _tryShowAppOpenAd: $e');
-    }
-  }
-
-  Future<void> _tryShowInterstitialAd() async {
-    try {
-      final manager = InterstitialAdManager.instance;
-
-      print('🎬 InfoScreen: Checking Interstitial Ad...');
-
-      final bool googleEnabled = AdService.instance.shouldShowInterstitialAds;
-      final bool facebookEnabled = FbAdService.instance.shouldShowInterstitialAds;
-      final bool thirdPartyEnabled = RemoteConfigService.instance.showThirdPartyInterstitialAds && ENABLE_THIRD_PARTY_ADS;
-
-      if (!googleEnabled && !facebookEnabled && thirdPartyEnabled && mounted) {
-        print('🎬 InfoScreen: Showing third-party interstitial ad (both Google & Facebook disabled)');
-        try {
-          // await showManagedInterstitialAd(context, alwaysShow: true);
-          print('✅ InfoScreen: Third-party ad shown successfully');
-          return;
-        } catch (e) {
-          print('❌ InfoScreen: Error showing third-party ad: $e');
-          return;
-        }
-      }
-      for (int i = 0; i < 4; i++) {
-        await Future.delayed(const Duration(milliseconds: 500));
-
-        if (manager.isAdReady) {
-          print('🎬 InfoScreen: Interstitial Ad is ready! Showing now...');
-          try {
-            // await showManagedInterstitialAd(context, alwaysShow: true);
-            print('✅ InfoScreen: Interstitial Ad shown successfully');
-            return;
-          } catch (e) {
-            print('❌ InfoScreen: Error showing interstitial ad: $e');
-            return;
-          }
-        }
-      }
-      manager.loadAd();
-    } catch (e) {
-      print('❌ InfoScreen: Error in _tryShowInterstitialAd: $e');
     }
   }
 
@@ -299,7 +224,8 @@ class _InfoScreenState extends State<InfoScreen> {
                             child: _buildModernActionTile(
                               icon: Icons.star_rate_rounded,
                               title: 'Rate Us',
-                              subtitle: 'Help us improve with your feedback',
+                              subtitle:
+                              'Help us improve with your feedback',
                               gradient: const LinearGradient(
                                 colors: [
                                   Color(0xFF8B5CF6),
@@ -339,7 +265,8 @@ class _InfoScreenState extends State<InfoScreen> {
                           _buildModernActionTile(
                             icon: Icons.star_rate_rounded,
                             title: 'Rate Us',
-                            subtitle: 'Help us improve with your feedback',
+                            subtitle:
+                            'Help us improve with your feedback',
                             gradient: const LinearGradient(
                               colors: [
                                 Color(0xFF8B5CF6),
