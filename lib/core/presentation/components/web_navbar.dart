@@ -30,8 +30,8 @@ class WebNavbar extends StatelessWidget {
           const SizedBox(width: 48),
           _buildNavItems(context),
           const Spacer(),
-          _buildLoginButton(context),
-          const SizedBox(width: 16),
+          /*_buildLoginButton(context),
+          const SizedBox(width: 16),*/
           _buildSearchIcon(context),
           // const SizedBox(width: 16),
           // _buildWatchlistIcon(context),

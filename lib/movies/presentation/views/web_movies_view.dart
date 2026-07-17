@@ -327,8 +327,8 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                     _buildPlayButton(),
                     const SizedBox(width: 12),
                     _buildMoreInfoButton(featuredMovie),
-                    const SizedBox(width: 12),
-                    _buildAddToListButton(),
+                    /*const SizedBox(width: 12),
+                    _buildAddToListButton(),*/
                   ],
                 ),
               ],

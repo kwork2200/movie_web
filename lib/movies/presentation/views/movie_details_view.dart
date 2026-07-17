@@ -267,7 +267,7 @@ class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
           runSpacing: 12,
           children: [
             _buildPlayButton(),
-            _buildWatchlistButton(context, movieDetails),
+            // _buildWatchlistButton(context, movieDetails),
           ],
         ),
       ],
