@@ -5,8 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:go_router/go_router.dart';
-import '../components/ads/html_ad_widget.dart';
-import '../../resources/app_constants.dart';
+import '../../../ads/app_open_ad_manager.dart';
+import '../components/ads/ad_enabled_screen.dart';
+import '../components/ads/interstitial_ad_manager.dart';
+import '../components/ads/qureka_interstitial.dart';
+import '../../services/ad_service.dart';
+import '../../services/fb_ad_service.dart';
+import '../../services/remote_config_service.dart';
+import '../../utils/functions.dart';
+import '../../utils/screen_utils.dart';
+import '../../resources/app_colors.dart';
 
 class InfoScreen extends StatefulWidget {
   const InfoScreen({super.key});
@@ -71,14 +79,14 @@ class _InfoScreenState extends State<InfoScreen> {
   Widget build(BuildContext context) {
     if (_isAdProcessing) {
       return Scaffold(
-        backgroundColor: const Color(0xFF0A0E1A),
+        backgroundColor: AppNetflixThemeColor.background,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  const Color(0xFF6366F1),
+                  AppNetflixThemeColor.primaryIndigo,
                 ),
               ),
               const SizedBox(height: 20),
@@ -86,7 +94,7 @@ class _InfoScreenState extends State<InfoScreen> {
                 'Loading...',
                 style: GoogleFonts.inter(
                   fontSize: 16,
-                  color: const Color(0xFF94A3B8),
+                  color: AppNetflixThemeColor.mutedText,
                 ),
               ),
             ],
@@ -100,16 +108,16 @@ class _InfoScreenState extends State<InfoScreen> {
         final isWeb = _isWeb(width);
 
         return Scaffold(
-          backgroundColor: const Color(0xFF0A0E1A),
+          backgroundColor: AppNetflixThemeColor.background,
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: AppNetflixThemeColor.transparent,
             elevation: 0,
             title: Text(
               'Welcome',
               style: GoogleFonts.inter(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
-                color: Colors.white,
+                color: AppNetflixThemeColor.white,
               ),
             ),
           ),
@@ -434,7 +442,7 @@ class _InfoScreenState extends State<InfoScreen> {
               gradient: gradient,
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(icon, color: Colors.white, size: 28),
+            child: Icon(icon, color: AppNetflixThemeColor.white, size: 28),
           ),
           const SizedBox(height: 16),
           Text(
@@ -442,7 +450,7 @@ class _InfoScreenState extends State<InfoScreen> {
             style: GoogleFonts.inter(
               fontSize: 17,
               fontWeight: FontWeight.w600,
-              color: Colors.white,
+              color: AppNetflixThemeColor.white,
             ),
           ),
           const SizedBox(height: 4),
@@ -450,7 +458,7 @@ class _InfoScreenState extends State<InfoScreen> {
             subtitle,
             style: GoogleFonts.inter(
               fontSize: 13,
-              color: const Color(0xFF94A3B8),
+              color: AppNetflixThemeColor.mutedText,
             ),
           ),
           const SizedBox(height: 12),
@@ -470,7 +478,7 @@ class _InfoScreenState extends State<InfoScreen> {
               gradient: gradient,
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(icon, color: Colors.white, size: 28),
+            child: Icon(icon, color: AppNetflixThemeColor.white, size: 28),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -482,7 +490,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   style: GoogleFonts.inter(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: AppNetflixThemeColor.white,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -490,7 +498,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   subtitle,
                   style: GoogleFonts.inter(
                     fontSize: 14,
-                    color: const Color(0xFF94A3B8),
+                    color: AppNetflixThemeColor.mutedText,
                   ),
                 ),
               ],
@@ -551,7 +559,7 @@ class _HoverTileState extends State<_HoverTile> {
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color(0xFF121826),
+              color: AppNetflixThemeColor.cardBackground,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
                 color: _hovered
@@ -609,12 +617,12 @@ class _HoverButtonState extends State<_HoverButton> {
               vertical: 16,
             ),
             decoration: BoxDecoration(
-              color: const Color(0xFF6366F1),
+              color: AppNetflixThemeColor.primaryIndigo,
               borderRadius: BorderRadius.circular(14),
               boxShadow: _hovered
                   ? [
                 BoxShadow(
-                  color: const Color(0xFF6366F1).withOpacity(0.5),
+                  color: AppNetflixThemeColor.primaryIndigo.withOpacity(0.5),
                   blurRadius: 24,
                   offset: const Offset(0, 10),
                 ),
@@ -629,11 +637,11 @@ class _HoverButtonState extends State<_HoverButton> {
                   style: GoogleFonts.inter(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: AppNetflixThemeColor.white,
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Icon(Icons.arrow_forward, size: 20, color: Colors.white),
+                const Icon(Icons.arrow_forward, size: 20, color: AppNetflixThemeColor.white),
               ],
             ),
           ),

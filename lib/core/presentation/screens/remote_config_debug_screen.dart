@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_web/core/resources/app_colors.dart';
 import 'dart:async';
 import '../../services/remote_config_service.dart';
 import '../../services/ad_service.dart';
@@ -95,7 +96,7 @@ class _RemoteConfigDebugScreenState extends State<RemoteConfigDebugScreen> {
         title: const Text('Remote Config Debug'),
         actions: [
           if (_isFetching)
-            const Center(
+             Center(
               child: Padding(
                 padding: EdgeInsets.all(16.0),
                 child: SizedBox(
@@ -103,7 +104,7 @@ class _RemoteConfigDebugScreenState extends State<RemoteConfigDebugScreen> {
                   height: 20,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    color: Colors.white,
+                    color: AppNetflixThemeColor.white,
                   ),
                 ),
               ),
@@ -338,7 +339,7 @@ class _RemoteConfigDebugScreenState extends State<RemoteConfigDebugScreen> {
           child: Text(
             value ? 'Enabled' : 'Disabled',
             style: const TextStyle(
-              color: Colors.white,
+              color: AppNetflixThemeColor.white,
               fontSize: 12,
               fontWeight: FontWeight.bold,
             ),

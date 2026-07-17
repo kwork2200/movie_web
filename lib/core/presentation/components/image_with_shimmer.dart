@@ -31,7 +31,7 @@ class ImageWithShimmer extends StatelessWidget {
           return Shimmer.fromColors(
             baseColor: Colors.grey[850]!,
             highlightColor: Colors.grey[800]!,
-            child: Container(height: height, color: AppColors.secondaryText),
+            child: Container(height: height, color: AppNetflixThemeColor.secondaryText),
           );
         },
         errorBuilder: (context, error, stackTrace) => 
@@ -47,9 +47,9 @@ class ImageWithShimmer extends StatelessWidget {
       placeholder: (_, _) => Shimmer.fromColors(
         baseColor: Colors.grey[850]!,
         highlightColor: Colors.grey[800]!,
-        child: Container(height: height, color: AppColors.secondaryText),
+        child: Container(height: height, color: AppNetflixThemeColor.secondaryText),
       ),
-      errorWidget: (_, _, _) => const Icon(Icons.error, color: AppColors.error),
+      errorWidget: (_, _, _) => const Icon(Icons.error, color: AppNetflixThemeColor.error),
     );
   }
 }

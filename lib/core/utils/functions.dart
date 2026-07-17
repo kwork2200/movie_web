@@ -349,7 +349,7 @@ void showCustomBottomSheet(BuildContext context, Widget child) {
   final size = MediaQuery.of(context).size.height;
   showModalBottomSheet(
     context: context,
-    backgroundColor: AppColors.secondaryBackground,
+    backgroundColor: AppNetflixThemeColor.secondaryBackground,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(AppSize.s20)),
     ),

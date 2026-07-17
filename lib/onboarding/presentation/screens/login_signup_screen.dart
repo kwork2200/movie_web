@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/presentation/components/ads/hybrid_native_ad_widget.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/screen_utils.dart';
+import '../../../core/resources/app_colors.dart';
 import '../../data/services/onboarding_storage_service.dart';
 import '../../../core/presentation/components/ads/ad_enabled_screen.dart';
 import '../../../core/presentation/components/ads/native_ad_widget.dart';
@@ -33,22 +34,22 @@ class _LoginSignupScreenState extends State<LoginSignupScreen>
   bool _signupConfirmObscure = true;
   bool _isLoading = false;
 
-  // Design constants
-  static const Color _bg = Color(0xFF0A0E1A);
-  static const Color _surface = Color(0xFF121826);
-  static const Color _card = Color(0xFF121826);
-  static const Color _border = Color(0xFF1E293B);
-  static const Color _primary = Color(0xFF6366F1);
-  static const Color _secondary = Color(0xFF8B5CF6);
-  static const Color _muted = Color(0xFF94A3B8);
-  static const Color _text = Color(0xFFFFFFFF);
+  // Design constants - using AppColors
+  static const Color _bg = AppNetflixThemeColor.background;
+  static const Color _surface = AppNetflixThemeColor.cardBackground;
+  static const Color _card = AppNetflixThemeColor.cardBackground;
+  static const Color _border = AppNetflixThemeColor.borderColorLight;
+  static const Color _primary = AppNetflixThemeColor.primaryIndigo;
+  static const Color _secondary = AppNetflixThemeColor.secondaryPurple;
+  static const Color _muted = AppNetflixThemeColor.mutedText;
+  static const Color _text = AppNetflixThemeColor.textPrimary;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
+      statusBarColor: AppNetflixThemeColor.transparent,
       statusBarIconBrightness: Brightness.light,
     ));
   }
@@ -120,14 +121,14 @@ class _LoginSignupScreenState extends State<LoginSignupScreen>
           children: [
             Icon(
               isError ? Icons.error_outline : Icons.check_circle_outline,
-              color: Colors.white,
+              color: AppNetflixThemeColor.white,
               size: 18,
             ),
             const SizedBox(width: 10),
-            Text(message, style: GoogleFonts.inter(color: Colors.white)),
+            Text(message, style: GoogleFonts.inter(color: AppNetflixThemeColor.white)),
           ],
         ),
-        backgroundColor: isError ? const Color(0xFF991B1B) : const Color(0xFF15803D),
+        backgroundColor: isError ?  AppNetflixThemeColor.errorDark :  AppNetflixThemeColor.successGreen,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         margin: const EdgeInsets.all(16),
@@ -197,7 +198,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen>
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: RadialGradient(
-          colors: [color.withOpacity(opacity), Colors.transparent],
+          colors: [color.withOpacity(opacity), AppNetflixThemeColor.transparent],
         ),
       ),
     );
@@ -227,7 +228,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen>
             ),
             child: const Icon(
               Icons.play_circle_filled,
-              color: Colors.white,
+              color: AppNetflixThemeColor.white,
               size: 36,
             ),
           ),
@@ -268,11 +269,11 @@ class _LoginSignupScreenState extends State<LoginSignupScreen>
         indicator: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           gradient: const LinearGradient(
-            colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+            colors: [AppNetflixThemeColor.primaryIndigo, AppNetflixThemeColor.secondaryPurple],
           ),
         ),
         indicatorSize: TabBarIndicatorSize.tab,
-        labelColor: Colors.black,
+        labelColor: AppNetflixThemeColor.black,
         unselectedLabelColor: _muted,
         labelStyle: GoogleFonts.inter(
           fontSize: 15,
@@ -282,7 +283,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen>
           fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
-        dividerColor: Colors.transparent,
+        dividerColor: AppNetflixThemeColor.transparent,
         tabs: const [
           Tab(text: 'Login'),
           Tab(text: 'Sign Up'),
@@ -450,13 +451,13 @@ class _LoginSignupScreenState extends State<LoginSignupScreen>
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: Color(0xFFEF4444)),
+          borderSide: const BorderSide(color: AppNetflixThemeColor.errorRed),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1.5),
+          borderSide: const BorderSide(color: AppNetflixThemeColor.errorRed, width: 1.5),
         ),
-        errorStyle: GoogleFonts.inter(color: const Color(0xFFEF4444), fontSize: 12),
+        errorStyle: GoogleFonts.inter(color: AppNetflixThemeColor.errorRed, fontSize: 12),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       ),
       validator: (value) {
@@ -508,13 +509,13 @@ class _LoginSignupScreenState extends State<LoginSignupScreen>
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: Color(0xFFEF4444)),
+          borderSide: const BorderSide(color: AppNetflixThemeColor.errorRed),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1.5),
+          borderSide: const BorderSide(color: AppNetflixThemeColor.errorRed, width: 1.5),
         ),
-        errorStyle: GoogleFonts.inter(color: const Color(0xFFEF4444), fontSize: 12),
+        errorStyle: GoogleFonts.inter(color: AppNetflixThemeColor.errorRed, fontSize: 12),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       ),
       validator: validator ??
@@ -540,14 +541,14 @@ class _LoginSignupScreenState extends State<LoginSignupScreen>
           borderRadius: BorderRadius.circular(14),
           gradient: onTap != null
               ? const LinearGradient(
-            colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+            colors: [AppNetflixThemeColor.primaryIndigo, AppNetflixThemeColor.secondaryPurple],
           )
               : null,
           color: onTap == null ? _border : null,
           boxShadow: onTap != null
               ? [
             BoxShadow(
-              color: const Color(0xFF6366F1).withOpacity(0.4),
+              color: AppNetflixThemeColor.primaryIndigo.withOpacity(0.4),
               blurRadius: 24,
               offset: const Offset(0, 8),
             ),
@@ -560,14 +561,14 @@ class _LoginSignupScreenState extends State<LoginSignupScreen>
             width: 22,
             height: 22,
             child: CircularProgressIndicator(
-              color: Colors.white,
+              color: AppNetflixThemeColor.white,
               strokeWidth: 2.5,
             ),
           )
               : Text(
             label,
             style: GoogleFonts.inter(
-              color: Colors.white,
+              color: AppNetflixThemeColor.white,
               fontSize: 16,
               fontWeight: FontWeight.w700,
               letterSpacing: 0.5,

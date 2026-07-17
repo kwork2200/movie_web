@@ -31,7 +31,7 @@ class SectionHeader extends StatelessWidget {
             style: GoogleFonts.inter(
               fontSize: 20,
               fontWeight: FontWeight.w700,
-              color: Colors.white,
+              color: AppNetflixThemeColor.white,
             ),
           ),
           InkWell(
@@ -43,10 +43,10 @@ class SectionHeader extends StatelessWidget {
                 vertical: 8,
               ),
               decoration: BoxDecoration(
-                color: const Color(0xFF6366F1).withOpacity(0.1),
+                color: AppNetflixThemeColor.primaryIndigo.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: const Color(0xFF6366F1).withOpacity(0.3),
+                  color: AppNetflixThemeColor.primaryIndigo.withOpacity(0.3),
                   width: 1,
                 ),
               ),
@@ -57,14 +57,14 @@ class SectionHeader extends StatelessWidget {
                     style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xFF6366F1),
+                      color: AppNetflixThemeColor.primaryIndigo,
                     ),
                   ),
                   const SizedBox(width: 4),
                   const Icon(
                     Icons.arrow_forward_rounded,
                     size: 16,
-                    color: Color(0xFF6366F1),
+                    color: AppNetflixThemeColor.primaryIndigo,
                   ),
                 ],
               ),

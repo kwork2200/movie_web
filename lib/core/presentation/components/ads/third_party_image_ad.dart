@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../services/remote_config_service.dart';
+import '../../../resources/app_colors.dart';
 
 /// Third-party image ad widget (fallback when Google/Facebook ads are disabled)
 /// Shows assets/images/third_image_ads.jpg and opens URL on tap
@@ -64,10 +65,10 @@ class ThirdPartyImageAd extends StatelessWidget {
             : EdgeInsets.zero),
         padding: padding,
         decoration: isNativeSize ? BoxDecoration(
-          color: Colors.black.withOpacity(0.3),
+          color: AppNetflixThemeColor.black.withOpacity(0.3),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: Colors.white.withOpacity(0.1),
+            color: AppNetflixThemeColor.white.withOpacity(0.1),
           ),
         ) : null,
         height: height,
@@ -85,7 +86,7 @@ class ThirdPartyImageAd extends StatelessWidget {
                 child: const Center(
                   child: Icon(
                     Icons.image_not_supported,
-                    color: Colors.white54,
+                    color: AppNetflixThemeColor.white54,
                     size: 48,
                   ),
                 ),

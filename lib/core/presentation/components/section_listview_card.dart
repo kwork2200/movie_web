@@ -49,14 +49,14 @@ class SectionListViewCard extends StatelessWidget {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.7),
+                      color: AppNetflixThemeColor.black.withOpacity(0.7),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
                       children: [
                         const Icon(
                           Icons.star_rate_rounded,
-                          color: Color(0xFFE8B84B),
+                          color: AppNetflixThemeColor.gold,
                           size: 14,
                         ),
                         const SizedBox(width: 4),
@@ -65,7 +65,7 @@ class SectionListViewCard extends StatelessWidget {
                           style: GoogleFonts.inter(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                            color: AppNetflixThemeColor.white,
                           ),
                         ),
                       ],
@@ -83,7 +83,7 @@ class SectionListViewCard extends StatelessWidget {
             style: GoogleFonts.inter(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: Colors.white,
+              color: AppNetflixThemeColor.white,
             ),
           ),
         ],

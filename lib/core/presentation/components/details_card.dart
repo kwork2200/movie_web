@@ -55,7 +55,7 @@ class DetailsCard extends StatelessWidget {
                           children: [
                             const Icon(
                               Icons.star_rate_rounded,
-                              color: AppColors.ratingIconColor,
+                              color: AppNetflixThemeColor.ratingIconColor,
                               size: AppSize.s18,
                             ),
                             Text(
@@ -85,12 +85,12 @@ class DetailsCard extends StatelessWidget {
                         height: AppSize.s40,
                         width: AppSize.s40,
                         decoration: const BoxDecoration(
-                          color: AppColors.primary,
+                          color: AppNetflixThemeColor.primary,
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
                           Icons.play_arrow_rounded,
-                          color: AppColors.secondaryText,
+                          color: AppNetflixThemeColor.secondaryText,
                         ),
                       ),
                     ),

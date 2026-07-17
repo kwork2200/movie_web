@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../resources/app_router.dart';
 import '../../resources/app_routes.dart';
+import '../../resources/app_colors.dart';
 import '../../resources/app_strings.dart';
 import '../../resources/app_values.dart';
 import '../components/ads/hybrid_native_ad_widget.dart';
@@ -29,14 +30,14 @@ class _MainPageState extends State<MainPage> {
       ),
      /* bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
-          canvasColor: Colors.black,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+          canvasColor: AppColors.black,
+          splashColor: AppColors.transparent,
+          highlightColor: AppColors.transparent,
         ),
         child: BottomNavigationBar(
-          backgroundColor: Colors.black,
-          selectedItemColor: const Color(0xFFE8B84B),
-          unselectedItemColor: const Color(0xFF8892AA),
+          backgroundColor: AppColors.black,
+          selectedItemColor: AppColors.gold,
+          unselectedItemColor: AppColors.mutedTextDark,
           selectedLabelStyle: const TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 11,

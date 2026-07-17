@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/screen_utils.dart';
+import '../../resources/app_colors.dart';
 
 class NoInternetScreen extends StatefulWidget {
   const NoInternetScreen({super.key});
@@ -72,7 +73,7 @@ class _NoInternetScreenState extends State<NoInternetScreen>
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: const Color(0xFFE8B84B).withOpacity(opacity),
+              color: AppNetflixThemeColor.gold.withOpacity(opacity),
               width: 1.5,
             ),
           ),
@@ -94,7 +95,7 @@ class _NoInternetScreenState extends State<NoInternetScreen>
         width: size,
         height: size,
         decoration: BoxDecoration(
-          color: const Color(0xFFE8B84B).withOpacity(0.07),
+          color: AppNetflixThemeColor.gold.withOpacity(0.07),
           shape: BoxShape.circle,
         ),
       ),
@@ -109,17 +110,17 @@ class _NoInternetScreenState extends State<NoInternetScreen>
           width: 30,
           height: 30,
           decoration: BoxDecoration(
-            color: const Color(0xFFE8B84B).withOpacity(0.10),
+            color: AppNetflixThemeColor.gold.withOpacity(0.10),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon, size: 16, color: const Color(0xFFE8B84B)),
+          child: Icon(icon, size: 16, color: AppNetflixThemeColor.gold),
         ),
         const SizedBox(width: 12),
         Text(
           label,
           style: GoogleFonts.dmSans(
             fontSize: 13,
-            color: const Color(0xFF9CA3AF),
+            color: AppNetflixThemeColor.mutedTextLight,
           ),
         ),
       ],
@@ -131,7 +132,7 @@ class _NoInternetScreenState extends State<NoInternetScreen>
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: const Color(0xFF090C14),
+        backgroundColor: AppNetflixThemeColor.darkBackground,
         body: LayoutBuilder(
           builder: (context, constraints) {
             final screenUtils = ScreenUtils.of(context);
@@ -154,8 +155,8 @@ class _NoInternetScreenState extends State<NoInternetScreen>
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          const Color(0xFFE8B84B).withOpacity(0.10),
-                          Colors.transparent,
+                          AppNetflixThemeColor.gold.withOpacity(0.10),
+                          AppNetflixThemeColor.transparent,
                         ],
                       ),
                     ),
@@ -173,8 +174,8 @@ class _NoInternetScreenState extends State<NoInternetScreen>
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          const Color(0xFFE8B84B).withOpacity(0.06),
-                          Colors.transparent,
+                          AppNetflixThemeColor.gold.withOpacity(0.06),
+                          AppNetflixThemeColor.transparent,
                         ],
                       ),
                     ),
@@ -205,7 +206,7 @@ class _NoInternetScreenState extends State<NoInternetScreen>
                                     height: 100,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: const Color(0xFFE8B84B)
+                                      color: AppNetflixThemeColor.gold
                                           .withOpacity(0.13),
                                     ),
                                   ),
@@ -222,7 +223,7 @@ class _NoInternetScreenState extends State<NoInternetScreen>
                                             const Icon(
                                               Icons.wifi_off_rounded,
                                               size: 52,
-                                              color: Color(0xFFE8B84B),
+                                              color: AppNetflixThemeColor.gold,
                                             ),
                                             // Lock badge
                                             Positioned(
@@ -232,13 +233,13 @@ class _NoInternetScreenState extends State<NoInternetScreen>
                                                 width: 22,
                                                 height: 22,
                                                 decoration: const BoxDecoration(
-                                                  color: Color(0xFFE8B84B),
+                                                  color: AppNetflixThemeColor.gold,
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: const Icon(
                                                   Icons.lock_rounded,
                                                   size: 13,
-                                                  color: Colors.black,
+                                                  color: AppNetflixThemeColor.black,
                                                 ),
                                               ),
                                             ),
@@ -257,10 +258,10 @@ class _NoInternetScreenState extends State<NoInternetScreen>
                             Container(
                               padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.04),
+                                color: AppNetflixThemeColor.white.withOpacity(0.04),
                                 borderRadius: BorderRadius.circular(28),
                                 border: Border.all(
-                                  color: Colors.white.withOpacity(0.09),
+                                  color: AppNetflixThemeColor.white.withOpacity(0.09),
                                   width: 0.5,
                                 ),
                               ),
@@ -273,7 +274,7 @@ class _NoInternetScreenState extends State<NoInternetScreen>
                                     style: GoogleFonts.dmSans(
                                       fontSize: 24,
                                       fontWeight: FontWeight.w700,
-                                      color: Colors.white,
+                                      color: AppNetflixThemeColor.white,
                                       letterSpacing: -0.3,
                                     ),
                                   ),
@@ -287,7 +288,7 @@ class _NoInternetScreenState extends State<NoInternetScreen>
                                     style: GoogleFonts.dmSans(
                                       fontSize: 14,
                                       height: 1.7,
-                                      color: const Color(0xFF9CA3AF),
+                                      color: AppNetflixThemeColor.mutedTextLight,
                                     ),
                                   ),
 
@@ -300,11 +301,11 @@ class _NoInternetScreenState extends State<NoInternetScreen>
                                       vertical: 8,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFFE8B84B)
+                                      color: AppNetflixThemeColor.gold
                                           .withOpacity(0.07),
                                       borderRadius: BorderRadius.circular(999),
                                       border: Border.all(
-                                        color: const Color(0xFFE8B84B)
+                                        color: AppNetflixThemeColor.gold
                                             .withOpacity(0.18),
                                         width: 0.5,
                                       ),
@@ -321,7 +322,7 @@ class _NoInternetScreenState extends State<NoInternetScreen>
                                                 width: 8,
                                                 height: 8,
                                                 decoration: const BoxDecoration(
-                                                  color: Color(0xFFE8B84B),
+                                                  color: AppNetflixThemeColor.gold,
                                                   shape: BoxShape.circle,
                                                 ),
                                               ),
@@ -333,7 +334,7 @@ class _NoInternetScreenState extends State<NoInternetScreen>
                                           'Waiting for connection...',
                                           style: GoogleFonts.dmSans(
                                             fontSize: 13,
-                                            color: const Color(0xFFB6BDC9),
+                                            color: AppNetflixThemeColor.mutedTextLighter,
                                           ),
                                         ),
                                       ],
@@ -344,7 +345,7 @@ class _NoInternetScreenState extends State<NoInternetScreen>
 
                                   // Divider
                                   const Divider(
-                                    color: Color(0x17FFFFFF),
+                                    color: AppNetflixThemeColor.dividerColor,
                                     height: 1,
                                   ),
 
@@ -393,7 +394,7 @@ class _NoInternetScreenState extends State<NoInternetScreen>
                                         height: 16,
                                         child: CircularProgressIndicator(
                                           strokeWidth: 2,
-                                          color: Colors.black,
+                                          color: AppNetflixThemeColor.black,
                                         ),
                                       )
                                           : const Icon(Icons.refresh_rounded),
@@ -405,13 +406,13 @@ class _NoInternetScreenState extends State<NoInternetScreen>
                                         ),
                                       ),
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color(0xFFE8B84B),
-                                        foregroundColor: Colors.black,
+                                        backgroundColor: AppNetflixThemeColor.gold,
+                                        foregroundColor: AppNetflixThemeColor.black,
                                         disabledBackgroundColor:
-                                        const Color(0xFFE8B84B)
+                                        AppNetflixThemeColor.gold
                                             .withOpacity(0.5),
                                         disabledForegroundColor:
-                                        Colors.black54,
+                                        AppNetflixThemeColor.black54,
                                         elevation: 0,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(16),
