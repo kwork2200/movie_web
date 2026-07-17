@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 
 import '../../../core/domain/entities/media.dart';
+import '../../../core/resources/app_colors.dart';
 import '../../../core/presentation/components/custom_slider.dart';
 import '../../../core/presentation/components/error_screen.dart';
 import '../../../core/presentation/components/loading_indicator.dart';
@@ -48,10 +49,10 @@ class _MoviesViewState extends State<MoviesView> {
     return Scaffold(
       key: _scaffoldKey,
       extendBodyBehindAppBar: true,
-      backgroundColor: const Color(0xFF0A0E1A),
+      backgroundColor: AppNetflixThemeColor.background,
       drawer: const AppDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppNetflixThemeColor.transparent,
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.only(
@@ -66,16 +67,16 @@ class _MoviesViewState extends State<MoviesView> {
             child: Container(
               padding: const EdgeInsets.all(AppPadding.p10),
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.3),
+                color: AppNetflixThemeColor.black.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Colors.white.withOpacity(0.1),
+                  color: AppNetflixThemeColor.white.withOpacity(0.1),
                   width: 1,
                 ),
               ),
               child: const Icon(
                 Icons.menu_rounded,
-                color: Colors.white,
+                color: AppNetflixThemeColor.white,
                 size: AppSize.s20,
               ),
             ),
@@ -132,7 +133,7 @@ class MoviesWidget extends StatelessWidget {
             'No movies available at the moment',
             style: TextStyle(
               fontSize: 16,
-              color: AppColors.secondaryText,
+              color: AppNetflixThemeColor.secondaryText,
             ),
             textAlign: TextAlign.center,
           ),

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/presentation/components/ads/hybrid_native_ad_widget.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/screen_utils.dart';
+import '../../../core/resources/app_colors.dart';
 import '../../data/services/onboarding_storage_service.dart';
 import '../../../core/presentation/components/ads/ad_enabled_screen.dart';
 import '../../../core/presentation/components/ads/native_ad_widget.dart';
@@ -25,14 +26,14 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
   late AnimationController _fadeController;
   late List<Animation<double>> _itemAnims;
 
-  // Design constants
-  static const Color _bg = Color(0xFF0A0E1A);
-  static const Color _card = Color(0xFF121826);
-  static const Color _border = Color(0xFF1E293B);
-  static const Color _primary = Color(0xFF6366F1);
-  static const Color _secondary = Color(0xFF8B5CF6);
-  static const Color _muted = Color(0xFF94A3B8);
-  static const Color _text = Color(0xFFFFFFFF);
+  // Design constants - using AppColors
+  static const Color _bg = AppNetflixThemeColor.background;
+  static const Color _card = AppNetflixThemeColor.cardBackground;
+  static const Color _border = AppNetflixThemeColor.borderColorLight;
+  static const Color _primary = AppNetflixThemeColor.primaryIndigo;
+  static const Color _secondary = AppNetflixThemeColor.secondaryPurple;
+  static const Color _muted = AppNetflixThemeColor.mutedText;
+  static const Color _text = AppNetflixThemeColor.textPrimary;
 
   final List<Map<String, String>> _languages = [
     {'code': 'en', 'name': 'English', 'flag': '🇬🇧', 'native': 'English'},
@@ -108,15 +109,15 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
           children: [
             Icon(
               isError ? Icons.error_outline : Icons.celebration_outlined,
-              color: Colors.white,
+              color: AppNetflixThemeColor.white,
               size: 18,
             ),
             const SizedBox(width: 10),
-            Text(message, style: GoogleFonts.dmSans(color: Colors.white)),
+            Text(message, style: GoogleFonts.dmSans(color: AppNetflixThemeColor.white)),
           ],
         ),
         backgroundColor:
-        isError ? const Color(0xFF991B1B) : const Color(0xFF15803D),
+        isError ?  AppNetflixThemeColor.errorDark :  AppNetflixThemeColor.successGreen,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         margin: const EdgeInsets.all(16),
@@ -163,7 +164,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                     gradient: RadialGradient(
                       colors: [
                         _secondary.withOpacity(0.12),
-                        Colors.transparent,
+                        AppNetflixThemeColor.transparent,
                       ],
                     ),
                   ),
@@ -180,7 +181,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                     gradient: RadialGradient(
                       colors: [
                         _primary.withOpacity(0.1),
-                        Colors.transparent,
+                        AppNetflixThemeColor.transparent,
                       ],
                     ),
                   ),
@@ -372,7 +373,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
             ),
             child: Icon(
               Icons.language_rounded,
-              color: Colors.white,
+              color: AppNetflixThemeColor.white,
               size: isWeb ? 32 : 28,
             ),
           ),
@@ -456,14 +457,14 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
             height: 24,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: isSelected ? _primary : Colors.transparent,
+              color: isSelected ? _primary : AppNetflixThemeColor.transparent,
               border: Border.all(
                 color: isSelected ? _primary : _border,
                 width: 2,
               ),
             ),
             child: isSelected
-                ? const Icon(Icons.check_rounded, color: Colors.white, size: 16)
+                ? const Icon(Icons.check_rounded, color: AppNetflixThemeColor.white, size: 16)
                 : null,
           ),
         ],
@@ -540,7 +541,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                       borderRadius: BorderRadius.circular(16),
                       gradient: _selectedLanguage != null
                           ? const LinearGradient(
-                        colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+                        colors: [AppNetflixThemeColor.primaryIndigo, AppNetflixThemeColor.secondaryPurple],
                       )
                           : null,
                       color: _selectedLanguage == null ? _border : null,
@@ -560,7 +561,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                         width: 22,
                         height: 22,
                         child: CircularProgressIndicator(
-                          color: Colors.black,
+                          color: AppNetflixThemeColor.black,
                           strokeWidth: 2.5,
                         ),
                       )
@@ -571,7 +572,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                             'Get Started',
                             style: GoogleFonts.inter(
                               color: _selectedLanguage != null
-                                  ? Colors.white
+                                  ? AppNetflixThemeColor.white
                                   : _muted,
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -581,7 +582,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                             const SizedBox(width: 8),
                             const Icon(
                               Icons.rocket_launch_rounded,
-                              color: Colors.white,
+                              color: AppNetflixThemeColor.white,
                               size: 18,
                             ),
                           ],

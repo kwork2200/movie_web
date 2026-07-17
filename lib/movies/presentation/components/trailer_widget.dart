@@ -98,7 +98,7 @@ class _TrailerWidgetState extends State<TrailerWidget> {
             'Trailer',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: AppColors.primaryText,
+                  color: AppNetflixThemeColor.primaryText,
                 ),
           ),
         ),
@@ -109,7 +109,7 @@ class _TrailerWidgetState extends State<TrailerWidget> {
             borderRadius: BorderRadius.circular(AppSize.s12),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.3),
+                color: AppNetflixThemeColor.black.withOpacity(0.3),
                 blurRadius: 8,
                 offset: const Offset(0, 4),
               ),
@@ -122,10 +122,10 @@ class _TrailerWidgetState extends State<TrailerWidget> {
               player: YoutubePlayer(
                 controller: _controller!,
                 showVideoProgressIndicator: true,
-                progressIndicatorColor: AppColors.primary,
+                progressIndicatorColor: AppNetflixThemeColor.primary,
                 progressColors: const ProgressBarColors(
-                  playedColor: AppColors.primary,
-                  handleColor: AppColors.primary,
+                  playedColor: AppNetflixThemeColor.primary,
+                  handleColor: AppNetflixThemeColor.primary,
                 ),
                 onReady: () {
                   _isPlayerReady = true;

@@ -55,19 +55,19 @@ class _AboutAppViewState extends State<AboutAppView> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      backgroundColor: AppColors.primaryBackground,
+      backgroundColor: AppNetflixThemeColor.primaryBackground,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppNetflixThemeColor.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(Icons.arrow_back, color: AppNetflixThemeColor.white),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           'About App',
           style: textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: AppNetflixThemeColor.white,
           ),
         ),
       ),
@@ -85,8 +85,8 @@ class _AboutAppViewState extends State<AboutAppView> {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      AppColors.primary.withOpacity(0.2),
-                      AppColors.primary.withOpacity(0.05),
+                      AppNetflixThemeColor.primary.withOpacity(0.2),
+                      AppNetflixThemeColor.primary.withOpacity(0.05),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(AppSize.s24),
@@ -94,7 +94,7 @@ class _AboutAppViewState extends State<AboutAppView> {
                 child: const Icon(
                   Icons.movie_creation_rounded,
                   size: 80,
-                  color: AppColors.primary,
+                  color: AppNetflixThemeColor.primary,
                 ),
               ),
             ),
@@ -106,7 +106,7 @@ class _AboutAppViewState extends State<AboutAppView> {
                 'OnStream',
                 style: textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: AppNetflixThemeColor.white,
                 ),
               ),
             ),
@@ -120,17 +120,17 @@ class _AboutAppViewState extends State<AboutAppView> {
                   vertical: AppPadding.p8,
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.15),
+                  color: AppNetflixThemeColor.primary.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(AppSize.s20),
                   border: Border.all(
-                    color: AppColors.primary.withOpacity(0.3),
+                    color: AppNetflixThemeColor.primary.withOpacity(0.3),
                     width: 1,
                   ),
                 ),
                 child: Text(
                   'Version 1.0.0',
                   style: textTheme.bodyMedium?.copyWith(
-                    color: AppColors.primary,
+                    color: AppNetflixThemeColor.primary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -139,7 +139,7 @@ class _AboutAppViewState extends State<AboutAppView> {
             const SizedBox(height: AppSize.s32),
 
             // Divider
-            const Divider(color: AppColors.secondaryText, height: 1),
+            const Divider(color: AppNetflixThemeColor.secondaryText, height: 1),
             const SizedBox(height: AppSize.s24),
 
             // Main Description
@@ -301,14 +301,14 @@ class _AboutAppViewState extends State<AboutAppView> {
                   Text(
                     '© 2024 OnStream',
                     style: textTheme.bodySmall?.copyWith(
-                      color: AppColors.secondaryText.withOpacity(0.8),
+                      color: AppNetflixThemeColor.secondaryText.withOpacity(0.8),
                     ),
                   ),
                   const SizedBox(height: AppSize.s8),
                   Text(
                     'All Rights Reserved',
                     style: textTheme.bodySmall?.copyWith(
-                      color: AppColors.secondaryText.withOpacity(0.6),
+                      color: AppNetflixThemeColor.secondaryText.withOpacity(0.6),
                       fontSize: 12,
                     ),
                   ),
@@ -338,7 +338,7 @@ class _SectionTitle extends StatelessWidget {
       title,
       style: textTheme.titleLarge?.copyWith(
         fontWeight: FontWeight.bold,
-        color: Colors.white,
+        color: AppNetflixThemeColor.white,
       ),
     );
   }
@@ -358,7 +358,7 @@ class _InfoText extends StatelessWidget {
     return Text(
       text,
       style: textTheme.bodyLarge?.copyWith(
-        color: Colors.white70,
+        color: AppNetflixThemeColor.white70,
         height: 1.6,
       ),
     );
@@ -379,7 +379,7 @@ class _FeatureTitle extends StatelessWidget {
     return Text(
       text,
       style: textTheme.bodyLarge?.copyWith(
-        color: Colors.white,
+        color: AppNetflixThemeColor.white,
         fontWeight: FontWeight.w600,
         height: 1.5,
       ),

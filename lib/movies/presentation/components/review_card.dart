@@ -24,7 +24,7 @@ class ReviewCard extends StatelessWidget {
         width: AppSize.s240,
         height: double.infinity,
         decoration: BoxDecoration(
-          color: AppColors.secondaryBackground,
+          color: AppNetflixThemeColor.secondaryBackground,
           borderRadius: BorderRadius.circular(AppSize.s12),
         ),
         child: Column(
@@ -82,11 +82,11 @@ Widget _getRatingBarIndicator(double rating) {
     return RatingBarIndicator(
       rating: rating,
       itemSize: AppSize.s16,
-      unratedColor: AppColors.primaryText,
+      unratedColor: AppNetflixThemeColor.primaryText,
       itemBuilder: (_, _) {
         return const Icon(
           Icons.star_rate_rounded,
-          color: AppColors.ratingIconColor,
+          color: AppNetflixThemeColor.ratingIconColor,
         );
       },
     );

@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'app_colors.dart';
 
 class AppTheme {
-  // ── Color palette ──────────────────────────────────────────────
-  static const Color bg        = Color(0xFF090C14);
-  static const Color surface   = Color(0xFF0F1422);
-  static const Color card      = Color(0xFF151B2E);
-  static const Color border    = Color(0xFF1E2840);
-  static const Color gold      = Color(0xFFE8B84B);
-  static const Color goldDark  = Color(0xFFD4A032);
-  static const Color purple    = Color(0xFFC084FC);
-  static const Color muted     = Color(0xFF8892AA);
-  static const Color textPrimary   = Color(0xFFF1F5FF);
-  static const Color textSecondary = Color(0xFF8892AA);
-  static const Color error     = Color(0xFFEF4444);
-  static const Color success   = Color(0xFF22C55E);
+  // ── Color palette using AppColors ─────────────────────────────────────
+  static const Color bg        = AppNetflixThemeColor.darkBackground;
+  static const Color surface   = AppNetflixThemeColor.sheetBackground;
+  static const Color card      = AppNetflixThemeColor.cardBackgroundDark;
+  static const Color border    = AppNetflixThemeColor.borderColor;
+  static const Color gold      = AppNetflixThemeColor.gold;
+  static const Color goldDark  = AppNetflixThemeColor.goldDark;
+  static const Color purple    = AppNetflixThemeColor.purpleAccent;
+  static const Color muted     = AppNetflixThemeColor.mutedTextDark;
+  static const Color textPrimary   = AppNetflixThemeColor.textSecondary;
+  static const Color textSecondary = AppNetflixThemeColor.mutedTextDark;
+  static const Color error     = AppNetflixThemeColor.errorRed;
+  static const Color success   = AppNetflixThemeColor.successGreen;
 
   static ThemeData get dark {
     return ThemeData(
@@ -30,8 +31,8 @@ class AppTheme {
         primary: gold,
         secondary: purple,
         error: error,
-        onPrimary: Colors.black,
-        onSecondary: Colors.black,
+        onPrimary: AppNetflixThemeColor.black,
+        onSecondary: AppNetflixThemeColor.black,
         onBackground: textPrimary,
         onSurface: textPrimary,
       ),
@@ -59,10 +60,10 @@ class AppTheme {
 
       // AppBar
       appBarTheme: AppBarTheme(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppNetflixThemeColor.transparent,
         elevation: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
+          statusBarColor: AppNetflixThemeColor.transparent,
           statusBarIconBrightness: Brightness.light,
         ),
         titleTextStyle: GoogleFonts.dmSans(
@@ -107,7 +108,7 @@ class AppTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: gold,
-          foregroundColor: Colors.black,
+          foregroundColor: AppNetflixThemeColor.black,
           minimumSize: const Size(double.infinity, 54),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
@@ -135,7 +136,7 @@ class AppTheme {
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        contentTextStyle: GoogleFonts.dmSans(color: Colors.white, fontSize: 14),
+        contentTextStyle: GoogleFonts.dmSans(color: AppNetflixThemeColor.white, fontSize: 14),
       ),
 
       // Bottom sheet
@@ -148,7 +149,7 @@ class AppTheme {
 
       // Tab bar
       tabBarTheme: TabBarThemeData(
-        labelColor: Colors.black,
+        labelColor: AppNetflixThemeColor.black,
         unselectedLabelColor: muted,
         labelStyle: GoogleFonts.dmSans(
           fontSize: 15,
@@ -158,7 +159,7 @@ class AppTheme {
           fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
-        dividerColor: Colors.transparent,
+        dividerColor: AppNetflixThemeColor.transparent,
       ),
 
       // Divider

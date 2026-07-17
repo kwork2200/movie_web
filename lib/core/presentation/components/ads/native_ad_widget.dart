@@ -3,6 +3,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'dart:async';
 import '../../../services/ad_service.dart';
 import '../../../services/remote_config_service.dart';
+import '../../../resources/app_colors.dart';
 
 enum NativeAdSize { small, large }
 
@@ -131,9 +132,9 @@ class _NativeAdWidgetState extends State<NativeAdWidget> {
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: _isSmall ? EdgeInsets.zero : const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
+        color: AppNetflixThemeColor.black.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withOpacity(0.1)),
+        border: Border.all(color: AppNetflixThemeColor.white.withOpacity(0.1)),
       ),
       height: _adHeight,
       child: AdWidget(ad: _nativeAd!),

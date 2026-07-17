@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:go_router/go_router.dart';
 import '../../../services/remote_config_service.dart';
+import '../../../resources/app_colors.dart';
 
 const bool ENABLE_THIRD_PARTY_ADS = true;
 
@@ -125,13 +126,13 @@ class _QurekaInterstitialState extends State<QurekaInterstitial> {
                         height: 30,
                         width: 30,
                         decoration: BoxDecoration(
-                          color: Colors.white60,
+                          color: AppNetflixThemeColor.white60,
                           borderRadius: BorderRadius.circular(100),
-                          border: Border.all(color: Colors.black, width: 1.5),
+                          border: Border.all(color: AppNetflixThemeColor.black, width: 1.5),
                         ),
                         child: const Icon(
                           Icons.close_sharp,
-                          color: Colors.black,
+                          color: AppNetflixThemeColor.black,
                         ),
                       ),
                     )

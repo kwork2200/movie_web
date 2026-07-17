@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/presentation/components/image_with_shimmer.dart';
 import '../../../core/resources/app_routes.dart';
 import '../../../core/resources/app_values.dart';
+import '../../../core/resources/app_colors.dart';
 import '../../domain/entities/search_result_item.dart';
 
 class GridViewCard extends StatefulWidget {
@@ -57,7 +58,7 @@ class _GridViewCardState extends State<GridViewCard> {
                     boxShadow: _isHovered
                         ? [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.35),
+                        color: AppNetflixThemeColor.black.withOpacity(0.35),
                         blurRadius: 12,
                         offset: const Offset(0, 6),
                       ),

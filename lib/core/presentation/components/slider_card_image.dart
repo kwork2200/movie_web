@@ -20,9 +20,9 @@ class SliderCardImage extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            AppColors.black,
-            AppColors.black,
-            AppColors.transparent,
+            AppNetflixThemeColor.black,
+            AppNetflixThemeColor.black,
+            AppNetflixThemeColor.transparent,
           ],
           stops: [0.3, 0.5, 1],
         ).createShader(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../resources/app_colors.dart';
 
 /// -----------------------------------------------------------------------
 /// Shared responsive breakpoints for web/tablet/mobile layouts.
@@ -111,7 +112,7 @@ class _HoverLiftState extends State<HoverLift> {
             boxShadow: _hovering
                 ? [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.35),
+                      color: AppNetflixThemeColor.black.withOpacity(0.35),
                       blurRadius: 18,
                       offset: const Offset(0, 10),
                     ),

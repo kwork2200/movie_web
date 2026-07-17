@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../../services/ad_service.dart';
+import '../../../resources/app_colors.dart';
 
 /// Customizable native ad widget with adjustable height and width
 /// Based on the listTile factory registered in MainActivity
@@ -82,7 +83,7 @@ class _ListTileNativeAdState extends State<ListTileNativeAd> {
           ? AdWidget(ad: _nativeAd!)
           : Center(
               child: CircularProgressIndicator(
-                color: Colors.white.withOpacity(0.5),
+                color: AppNetflixThemeColor.white.withOpacity(0.5),
               ),
             ),
     );
@@ -169,10 +170,10 @@ class _NativeAdContainerState extends State<NativeAdContainer> {
           Container(
             height: widget.height,
             width: widget.width ?? MediaQuery.of(context).size.width,
-            color: Colors.black12,
+            color: AppNetflixThemeColor.black12,
             child: Center(
               child: CircularProgressIndicator(
-                color: Colors.white.withOpacity(0.5),
+                color: AppNetflixThemeColor.white.withOpacity(0.5),
               ),
             ),
           );
