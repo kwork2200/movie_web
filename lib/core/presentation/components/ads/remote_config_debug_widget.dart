@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../services/remote_config_service.dart';
+import '../../../resources/app_colors.dart';
 
 /// Debug widget to display current Remote Config values
 /// Useful for testing and verifying Remote Config is working
@@ -26,9 +27,9 @@ class RemoteConfigDebugWidget extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.black87,
+        color: AppNetflixThemeColor.black87,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.yellow, width: 2),
+        border: Border.all(color: AppNetflixThemeColor.amber, width: 2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,19 +37,19 @@ class RemoteConfigDebugWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.bug_report, color: Colors.yellow, size: 16),
+              const Icon(Icons.bug_report, color: AppNetflixThemeColor.amber, size: 16),
               const SizedBox(width: 8),
               const Text(
                 'Remote Config Debug',
                 style: TextStyle(
-                  color: Colors.yellow,
+                  color: AppNetflixThemeColor.amber,
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                 ),
               ),
               const Spacer(),
               IconButton(
-                icon: const Icon(Icons.refresh, color: Colors.white, size: 16),
+                icon: const Icon(Icons.refresh, color: AppNetflixThemeColor.white, size: 16),
                 onPressed: () async {
                   await config.fetchAndActivate();
                   // Trigger rebuild
@@ -58,7 +59,7 @@ class RemoteConfigDebugWidget extends StatelessWidget {
               ),
             ],
           ),
-          const Divider(color: Colors.yellow),
+          const Divider(color: AppNetflixThemeColor.amber),
           _buildConfigRow('Banner Ads', config.showBannerAds),
           _buildConfigRow('Native Ads', config.showNativeAds),
           _buildConfigRow('Interstitial Ads', config.showInterstitialAds),
@@ -66,15 +67,15 @@ class RemoteConfigDebugWidget extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             'Banner ID: ${config.bannerAdUnitId.substring(0, 20)}...',
-            style: const TextStyle(color: Colors.white70, fontSize: 10),
+            style: const TextStyle(color: AppNetflixThemeColor.white70, fontSize: 10),
           ),
           Text(
             'Interstitial ID: ${config.interstitialAdUnitId.substring(0, 20)}...',
-            style: const TextStyle(color: Colors.white70, fontSize: 10),
+            style: const TextStyle(color: AppNetflixThemeColor.white70, fontSize: 10),
           ),
           Text(
             'Native ID: ${config.nativeAdUnitId.substring(0, 20)}...',
-            style: const TextStyle(color: Colors.white70, fontSize: 10),
+            style: const TextStyle(color: AppNetflixThemeColor.white70, fontSize: 10),
           ),
         ],
       ),
@@ -82,11 +83,11 @@ class RemoteConfigDebugWidget extends StatelessWidget {
   }
 
   Widget _buildConfigRow(String label, dynamic value) {
-    Color valueColor = Colors.white;
+    Color valueColor = AppNetflixThemeColor.white;
     String displayValue = value.toString();
     
     if (value is bool) {
-      valueColor = value ? Colors.green : Colors.red;
+      valueColor = value ? AppNetflixThemeColor.green : AppNetflixThemeColor.red;
       displayValue = value ? '✓ Enabled' : '✗ Disabled';
     } else if (value is int) {
       displayValue = 'Every $value screens';
@@ -99,7 +100,7 @@ class RemoteConfigDebugWidget extends StatelessWidget {
         children: [
           Text(
             label,
-            style: const TextStyle(color: Colors.white, fontSize: 12),
+            style: const TextStyle(color: AppNetflixThemeColor.white, fontSize: 12),
           ),
           Text(
             displayValue,

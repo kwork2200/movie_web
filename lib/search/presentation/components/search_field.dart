@@ -32,7 +32,7 @@ class _SearchFieldState extends State<SearchField> {
     return Form(
       child: TextFormField(
         controller: _textController,
-        cursorColor: AppColors.primaryText,
+        cursorColor: AppNetflixThemeColor.primaryText,
         cursorWidth: AppSize.s1,
         style: textTheme.bodyLarge,
         onChanged: (title) {
@@ -41,19 +41,19 @@ class _SearchFieldState extends State<SearchField> {
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderSide: const BorderSide(
-              color: AppColors.primaryText,
+              color: AppNetflixThemeColor.primaryText,
             ),
             borderRadius: BorderRadius.circular(AppSize.s8),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(
-              color: AppColors.primaryText,
+              color: AppNetflixThemeColor.primaryText,
             ),
             borderRadius: BorderRadius.circular(AppSize.s8),
           ),
           prefixIcon: const Icon(
             Icons.search_rounded,
-            color: AppColors.primaryText,
+            color: AppNetflixThemeColor.primaryText,
           ),
           suffixIcon: GestureDetector(
             onTap: ()async {
@@ -64,7 +64,7 @@ class _SearchFieldState extends State<SearchField> {
             },
             child: const Icon(
               Icons.clear_rounded,
-              color: AppColors.primaryText,
+              color: AppNetflixThemeColor.primaryText,
             ),
           ),
           hintText: AppStrings.searchHint,

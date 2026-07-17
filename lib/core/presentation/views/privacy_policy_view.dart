@@ -10,19 +10,19 @@ class PrivacyPolicyView extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      backgroundColor: AppColors.primaryBackground,
+      backgroundColor: AppNetflixThemeColor.primaryBackground,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppNetflixThemeColor.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: AppNetflixThemeColor.white),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           'Privacy Policy',
           style: textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: AppNetflixThemeColor.white,
           ),
         ),
       ),
@@ -40,8 +40,8 @@ class PrivacyPolicyView extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      AppColors.primary.withOpacity(0.2),
-                      AppColors.primary.withOpacity(0.05),
+                      AppNetflixThemeColor.primary.withOpacity(0.2),
+                      AppNetflixThemeColor.primary.withOpacity(0.05),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(AppSize.s20),
@@ -49,7 +49,7 @@ class PrivacyPolicyView extends StatelessWidget {
                 child: const Icon(
                   Icons.privacy_tip_rounded,
                   size: 60,
-                  color: AppColors.primary,
+                  color: AppNetflixThemeColor.primary,
                 ),
               ),
             ),
@@ -60,7 +60,7 @@ class PrivacyPolicyView extends StatelessWidget {
               child: Text(
                 'Last Updated: January 2024',
                 style: textTheme.bodyMedium?.copyWith(
-                  color: AppColors.secondaryText,
+                  color: AppNetflixThemeColor.secondaryText,
                   fontStyle: FontStyle.italic,
                 ),
               ),
@@ -205,16 +205,16 @@ class PrivacyPolicyView extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(AppPadding.p16),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: AppNetflixThemeColor.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(AppSize.s12),
                   border: Border.all(
-                    color: AppColors.primary.withOpacity(0.3),
+                    color: AppNetflixThemeColor.primary.withOpacity(0.3),
                   ),
                 ),
                 child: Text(
                   'support@movieapp.com',
                   style: textTheme.bodyLarge?.copyWith(
-                    color: AppColors.primary,
+                    color: AppNetflixThemeColor.primary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -227,7 +227,7 @@ class PrivacyPolicyView extends StatelessWidget {
               child: Text(
                 '© 2024 Movie App. All Rights Reserved.',
                 style: textTheme.bodySmall?.copyWith(
-                  color: AppColors.secondaryText.withOpacity(0.6),
+                  color: AppNetflixThemeColor.secondaryText.withOpacity(0.6),
                 ),
               ),
             ),
@@ -259,14 +259,14 @@ class _PolicySection extends StatelessWidget {
           title,
           style: textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: AppNetflixThemeColor.white,
           ),
         ),
         const SizedBox(height: AppSize.s12),
         Text(
           content,
           style: textTheme.bodyLarge?.copyWith(
-            color: Colors.white70,
+            color: AppNetflixThemeColor.white70,
             height: 1.6,
           ),
         ),
@@ -300,7 +300,7 @@ class _BulletPoint extends StatelessWidget {
             width: 6,
             height: 6,
             decoration: BoxDecoration(
-              color: AppColors.primary,
+              color: AppNetflixThemeColor.primary,
               shape: BoxShape.circle,
             ),
           ),
@@ -309,7 +309,7 @@ class _BulletPoint extends StatelessWidget {
             child: Text(
               text,
               style: textTheme.bodyMedium?.copyWith(
-                color: Colors.white70,
+                color: AppNetflixThemeColor.white70,
                 height: 1.5,
               ),
             ),

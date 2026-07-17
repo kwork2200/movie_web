@@ -33,7 +33,7 @@ class ErrorScreen extends StatelessWidget {
           ElevatedButton(
             onPressed: onTryAgainPressed,
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
+              backgroundColor: AppNetflixThemeColor.primary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSize.s30),
               ),

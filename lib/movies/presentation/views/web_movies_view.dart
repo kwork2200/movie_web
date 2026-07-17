@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/domain/entities/media.dart';
+import '../../../core/resources/app_colors.dart';
 import '../../../core/presentation/components/custom_slider.dart';
 import '../../../core/presentation/components/error_screen.dart';
 import '../../../core/presentation/components/loading_indicator.dart';
@@ -48,7 +49,7 @@ class _WebMoviesViewState extends State<WebMoviesView> {
     // visible at the bottom of the screenshot), remove the bottomNavigationBar
     // usage there too — it isn't part of this file.
     return Scaffold(
-      backgroundColor: const Color(0xFF141414),
+      backgroundColor: AppNetflixThemeColor.darkWebBackground,
       body: BlocBuilder<MoviesBloc, MoviesState>(
         builder: (context, state) {
           switch (state.status) {
@@ -179,7 +180,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
             'No movies available at the moment',
             style: GoogleFonts.inter(
               fontSize: 16,
-              color: const Color(0xFF94A3B8),
+              color: AppNetflixThemeColor.mutedText,
             ),
             textAlign: TextAlign.center,
           ),
@@ -257,10 +258,10 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.black.withOpacity(0.55),
-                  Colors.transparent,
-                  const Color(0xFF141414).withOpacity(0.7),
-                  const Color(0xFF141414),
+                  AppNetflixThemeColor.black.withOpacity(0.55),
+                  AppNetflixThemeColor.transparent,
+                  AppNetflixThemeColor.darkWebBackground.withOpacity(0.7),
+                  AppNetflixThemeColor.darkWebBackground,
                 ],
               ),
             ),
@@ -291,7 +292,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                   style: GoogleFonts.inter(
                     fontSize: 52,
                     fontWeight: FontWeight.w800,
-                    color: Colors.white,
+                    color: AppNetflixThemeColor.white,
                     height: 1.1,
                   ),
                   maxLines: 2,
@@ -305,7 +306,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                   style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: const Color(0xFFB3B3B3),
+                    color: AppNetflixThemeColor.mutedTextWeb,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -316,7 +317,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                     style: GoogleFonts.inter(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
-                      color: const Color(0xFFD1D5DB),
+                      color: AppNetflixThemeColor.lightTextWeb,
                       height: 1.5,
                     ),
                     maxLines: 3,
@@ -354,7 +355,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         decoration: BoxDecoration(
-          color: const Color(0xFFE50914),
+          color: AppNetflixThemeColor.netflixRed,
           borderRadius: BorderRadius.circular(4),
         ),
         child: Text(
@@ -362,7 +363,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
           style: GoogleFonts.inter(
             fontSize: 12,
             fontWeight: FontWeight.w700,
-            color: Colors.white,
+            color: AppNetflixThemeColor.white,
           ),
         ));
   }
@@ -388,8 +389,8 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
                 color: _currentHeroIndex == index
-                    ? Colors.white
-                    : Colors.white.withOpacity(0.4),
+                    ? AppNetflixThemeColor.white
+                    : AppNetflixThemeColor.white.withOpacity(0.4),
               ),
             ),
           );
@@ -409,20 +410,20 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-              colors: [Color(0xFFE50914), Color(0xFFB81D24)],
+              colors: [AppNetflixThemeColor.netflixRed, AppNetflixThemeColor.netflixRedDark],
             ),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             children: [
-              const Icon(Icons.play_arrow, color: Colors.white, size: 24),
+              const Icon(Icons.play_arrow, color: AppNetflixThemeColor.white, size: 24),
               const SizedBox(width: 8),
               Text(
                 'Play',
                 style: GoogleFonts.inter(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                  color: AppNetflixThemeColor.white,
                 ),
               ),
             ],
@@ -440,20 +441,20 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.2),
+            color: AppNetflixThemeColor.white.withOpacity(0.2),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.white.withOpacity(0.3)),
+            border: Border.all(color: AppNetflixThemeColor.white.withOpacity(0.3)),
           ),
           child: Row(
             children: [
-              const Icon(Icons.info_outline, color: Colors.white, size: 20),
+              const Icon(Icons.info_outline, color: AppNetflixThemeColor.white, size: 20),
               const SizedBox(width: 6),
               Text(
                 'More Info',
                 style: GoogleFonts.inter(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color: AppNetflixThemeColor.white,
                 ),
               ),
             ],
@@ -473,20 +474,20 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.2),
+            color: AppNetflixThemeColor.white.withOpacity(0.2),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.white.withOpacity(0.3)),
+            border: Border.all(color: AppNetflixThemeColor.white.withOpacity(0.3)),
           ),
           child: Row(
             children: [
-              const Icon(Icons.add, color: Colors.white, size: 20),
+              const Icon(Icons.add, color: AppNetflixThemeColor.white, size: 20),
               const SizedBox(width: 6),
               Text(
                 'My List',
                 style: GoogleFonts.inter(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color: AppNetflixThemeColor.white,
                 ),
               ),
             ],
@@ -514,7 +515,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
             style: GoogleFonts.inter(
               fontSize: 24,
               fontWeight: FontWeight.w700,
-              color: Colors.white,
+              color: AppNetflixThemeColor.white,
             ),
           ),
         ),
@@ -599,11 +600,11 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
               width: 36,
               height: 36,
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.6),
+                color: AppNetflixThemeColor.black.withOpacity(0.6),
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white.withOpacity(0.15)),
+                border: Border.all(color: AppNetflixThemeColor.white.withOpacity(0.15)),
               ),
-              child: Icon(icon, color: Colors.white, size: 22),
+              child: Icon(icon, color: AppNetflixThemeColor.white, size: 22),
             ),
           ),
         ),
@@ -637,11 +638,11 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
-                          color: const Color(0xFF1F1F1F),
+                          color: AppNetflixThemeColor.errorBackground,
                           child: const Center(
                             child: Icon(
                               Icons.movie,
-                              color: Color(0xFF404040),
+                              color: AppNetflixThemeColor.errorIcon,
                               size: 48,
                             ),
                           ),
@@ -662,10 +663,9 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            Colors.transparent,
-                            Color(0x66000F3D),
-                            Color(0xCC001B5E),
-                            // Color(0xFF002B80),
+                            AppNetflixThemeColor.transparent,
+                            AppNetflixThemeColor.gradientStart,
+                            AppNetflixThemeColor.gradientEnd,
                           ],
                         ),
                       ),
@@ -678,7 +678,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.inter(
-                              color: Colors.white,
+                              color: AppNetflixThemeColor.white,
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
                             ),
@@ -689,7 +689,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.inter(
-                              color: Colors.white70,
+                              color: AppNetflixThemeColor.white70,
                               fontSize: 11,
                             ),
                           ),
@@ -698,14 +698,14 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                             children: [
                               const Icon(
                                 Icons.star_rate_rounded,
-                                color: Colors.amber,
+                                color: AppNetflixThemeColor.amber,
                                 size: 14,
                               ),
                               const SizedBox(width: 4),
                               Text(
                                 media.voteAverage.toStringAsFixed(1),
                                 style: GoogleFonts.inter(
-                                  color: Colors.white,
+                                  color: AppNetflixThemeColor.white,
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
                                 ),

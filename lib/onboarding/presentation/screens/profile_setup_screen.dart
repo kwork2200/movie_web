@@ -9,6 +9,7 @@ import '../../../core/presentation/components/ads/hybrid_native_ad_widget.dart';
 import '../../../core/resources/app_constants.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/screen_utils.dart';
+import '../../../core/resources/app_colors.dart';
 import '../../data/services/onboarding_storage_service.dart';
 import '../../../core/presentation/components/ads/ad_enabled_screen.dart';
 import '../../../core/presentation/components/ads/native_ad_widget.dart';
@@ -31,14 +32,14 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
 
   late AnimationController _orbController;
 
-  // Design constants
-  static const Color _bg = Color(0xFF090C14);
-  static const Color _card = Color(0xFF151B2E);
-  static const Color _border = Color(0xFF1E2840);
-  static const Color _gold = Color(0xFFE8B84B);
-  static const Color _purple = Color(0xFFC084FC);
-  static const Color _muted = Color(0xFF8892AA);
-  static const Color _text = Color(0xFFF1F5FF);
+  // Design constants - using AppColors
+  static const Color _bg = AppNetflixThemeColor.darkBackground;
+  static const Color _card = AppNetflixThemeColor.cardBackgroundDark;
+  static const Color _border = AppNetflixThemeColor.borderColor;
+  static const Color _gold = AppNetflixThemeColor.gold;
+  static const Color _purple = AppNetflixThemeColor.purpleAccent;
+  static const Color _muted = AppNetflixThemeColor.mutedTextDark;
+  static const Color _text = AppNetflixThemeColor.textSecondary;
 
   @override
   void initState() {
@@ -83,7 +84,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
     await AppConstants.openSmartLink();
     showModalBottomSheet(
       context: context,
-      backgroundColor: const Color(0xFF0F1422),
+      backgroundColor: AppNetflixThemeColor.sheetBackground,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -225,16 +226,14 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
           children: [
             Icon(
               isError ? Icons.error_outline : Icons.check_circle_outline,
-              color: Colors.white,
+              color: AppNetflixThemeColor.white,
               size: 18,
             ),
             const SizedBox(width: 10),
-            Text(message, style: GoogleFonts.dmSans(color: Colors.white)),
+            Text(message, style: GoogleFonts.dmSans(color: AppNetflixThemeColor.white)),
           ],
         ),
-        backgroundColor: isError
-            ? const Color(0xFF991B1B)
-            : const Color(0xFF15803D),
+        backgroundColor: isError ?  AppNetflixThemeColor.errorDark :  AppNetflixThemeColor.successGreen,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         margin: const EdgeInsets.all(16),
@@ -261,7 +260,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: RadialGradient(
-                      colors: [_purple.withOpacity(0.1), Colors.transparent],
+                      colors: [
+                        _purple.withOpacity(0.1),
+                        AppNetflixThemeColor.transparent,
+                      ],
                     ),
                   ),
                 ),
@@ -460,10 +462,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
                       shape: BoxShape.circle,
                       gradient: SweepGradient(
                         colors: [
-                          Color(0xFFE8B84B),
-                          Color(0xFFC084FC),
-                          Color(0xFF6366F1),
-                          Color(0xFFE8B84B),
+                          AppNetflixThemeColor.gold,
+                          AppNetflixThemeColor.purpleAccent,
+                          AppNetflixThemeColor.primaryIndigo,
+                          AppNetflixThemeColor.gold,
                         ],
                       ),
                     ),
@@ -478,16 +480,16 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
               height: 118,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: Color(0xFF151B2E),
+                color: AppNetflixThemeColor.cardBackgroundDark,
               ),
               child: ClipOval(
                 child: _profileImage != null
                     ? Image.file(_profileImage!, fit: BoxFit.cover)
                     : const Icon(
-                        Icons.person_rounded,
-                        size: 52,
-                        color: Color(0xFF8892AA),
-                      ),
+                  Icons.person_rounded,
+                  size: 52,
+                  color: AppNetflixThemeColor.mutedTextDark,
+                ),
               ),
             ),
 
@@ -501,13 +503,13 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: const LinearGradient(
-                    colors: [Color(0xFFE8B84B), Color(0xFFD4A032)],
+                    colors: [AppNetflixThemeColor.gold, AppNetflixThemeColor.goldDark],
                   ),
                   border: Border.all(color: _bg, width: 2.5),
                 ),
                 child: const Icon(
                   Icons.camera_alt_rounded,
-                  color: Colors.black,
+                  color: AppNetflixThemeColor.black,
                   size: 16,
                 ),
               ),
@@ -565,20 +567,14 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: Color(0xFFEF4444)),
+          borderSide: const BorderSide(color: AppNetflixThemeColor.errorRed),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1.5),
+          borderSide: const BorderSide(color: AppNetflixThemeColor.errorRed, width: 1.5),
         ),
-        errorStyle: GoogleFonts.dmSans(
-          color: const Color(0xFFEF4444),
-          fontSize: 12,
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
-        ),
+        errorStyle: GoogleFonts.dmSans(color: AppNetflixThemeColor.errorRed, fontSize: 12),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       ),
       validator: validator,
     );
@@ -598,8 +594,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
           borderRadius: BorderRadius.circular(14),
           gradient: onTap != null
               ? const LinearGradient(
-                  colors: [Color(0xFFE8B84B), Color(0xFFD4A032)],
-                )
+            colors: [AppNetflixThemeColor.gold, AppNetflixThemeColor.goldDark],
+          )
               : null,
           color: onTap == null ? _border : null,
           boxShadow: onTap != null
@@ -615,32 +611,32 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
         child: Center(
           child: isLoading
               ? const SizedBox(
-                  width: 22,
-                  height: 22,
-                  child: CircularProgressIndicator(
-                    color: Colors.black,
-                    strokeWidth: 2.5,
-                  ),
-                )
+            width: 22,
+            height: 22,
+            child: CircularProgressIndicator(
+              color: AppNetflixThemeColor.black,
+              strokeWidth: 2.5,
+            ),
+          )
               : Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      label,
-                      style: GoogleFonts.dmSans(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    const Icon(
-                      Icons.arrow_forward_rounded,
-                      color: Colors.black,
-                      size: 18,
-                    ),
-                  ],
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                label,
+                style: GoogleFonts.dmSans(
+                  color: AppNetflixThemeColor.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
                 ),
+              ),
+              const SizedBox(width: 8),
+              const Icon(
+                Icons.arrow_forward_rounded,
+                color: AppNetflixThemeColor.black,
+                size: 18,
+              ),
+            ],
+          ),
         ),
       ),
     );

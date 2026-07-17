@@ -82,9 +82,9 @@ class _StaticSliderCard extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                AppColors.black,
-                AppColors.black,
-                AppColors.transparent,
+                AppNetflixThemeColor.black,
+                AppNetflixThemeColor.black,
+                AppNetflixThemeColor.transparent,
               ],
               stops: [0.3, 0.5, 1],
             ).createShader(
@@ -100,12 +100,12 @@ class _StaticSliderCard extends StatelessWidget {
               return Container(
                 height: size.height * 0.6,
                 width: double.infinity,
-                color: AppColors.secondaryBackground,
+                color: AppNetflixThemeColor.secondaryBackground,
                 child:  Center(
                   child: Icon(
                     Icons.movie,
                     size: 100,
-                    color: AppColors.iconColor,
+                    color: AppNetflixThemeColor.iconColor,
                   ),
                 ),
               );
@@ -145,8 +145,8 @@ class _StaticSliderCard extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(AppSize.s6),
                             color: indexDot == itemIndex
-                                ? AppColors.primary
-                                : AppColors.inactiveColor,
+                                ? AppNetflixThemeColor.primary
+                                : AppNetflixThemeColor.inactiveColor,
                           ),
                         );
                       },

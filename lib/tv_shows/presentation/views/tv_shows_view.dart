@@ -74,7 +74,7 @@ class TVShowsWidget extends StatelessWidget {
             'No TV shows available at the moment',
             style: TextStyle(
               fontSize: 16,
-              color: AppColors.secondaryText,
+              color: AppNetflixThemeColor.secondaryText,
             ),
             textAlign: TextAlign.center,
           ),

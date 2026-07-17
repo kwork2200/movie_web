@@ -91,8 +91,8 @@ class _SliderCardState extends State<SliderCard> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s6),
                               color: indexDot == widget.itemIndex
-                                  ? AppColors.primary
-                                  : AppColors.inactiveColor,
+                                  ? AppNetflixThemeColor.primary
+                                  : AppNetflixThemeColor.inactiveColor,
                             ),
                           );
                         },
