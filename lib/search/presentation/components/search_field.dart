@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/resources/app_colors.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/resources/app_routes.dart';
 import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/app_values.dart';
@@ -55,7 +56,8 @@ class _SearchFieldState extends State<SearchField> {
             color: AppColors.primaryText,
           ),
           suffixIcon: GestureDetector(
-            onTap: () {
+            onTap: ()async {
+              await AppConstants.openSmartLink();
               _textController.text = '';
               context.read<SearchBloc>().add(const GetSearchResultsEvent(''));
               context.goNamed(AppRoutes.moviesRoute);

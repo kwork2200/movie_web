@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/presentation/components/image_with_shimmer.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/resources/app_routes.dart';
 import '../../../core/resources/app_values.dart';
 import '../../domain/entities/cast.dart';
@@ -18,7 +19,8 @@ class CastCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return GestureDetector(
-      onTap: () {
+      onTap: () async{
+        await AppConstants.openSmartLink();
         context.goNamed(
           AppRoutes.personDetailsRoute,
           pathParameters: {'personId': cast.id.toString()},

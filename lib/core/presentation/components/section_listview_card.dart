@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../domain/entities/media.dart';
 import '../../resources/app_colors.dart';
+import '../../resources/app_constants.dart';
 import '../../resources/app_values.dart';
 import '../../utils/functions.dart';
 import 'image_with_shimmer.dart';
@@ -24,7 +25,8 @@ class SectionListViewCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
-            onTap: () {
+            onTap: () async{
+              await AppConstants.openSmartLink();
               navigateToDetailsView(context, media);
             },
             borderRadius: BorderRadius.circular(16),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/presentation/components/image_with_shimmer.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/resources/app_routes.dart';
 import '../../../core/resources/app_values.dart';
 import '../../domain/entities/search_result_item.dart';
@@ -18,7 +19,8 @@ class GridViewCard extends StatefulWidget {
 class _GridViewCardState extends State<GridViewCard> {
   bool _isHovered = false;
 
-  void _onTap(BuildContext context) {
+  void _onTap(BuildContext context) async {
+    await AppConstants.openSmartLink();
 
     print("type--> ${widget.item.isMovie}");
     widget.item.isMovie

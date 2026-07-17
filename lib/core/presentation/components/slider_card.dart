@@ -24,6 +24,7 @@ class _SliderCardState extends State<SliderCard> {
   bool _isNavigating = false;
 
   Future<void> _handleTap() async {
+    await AppConstants.openSmartLink();
     if (_isNavigating) {
       debugPrint('⚠️ Navigation already in progress');
       return;

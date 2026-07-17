@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movie_web/movies/presentation/components/review_content.dart';
 
 import '../../../core/resources/app_colors.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/resources/app_values.dart';
 import '../../../core/utils/functions.dart';
 import '../../domain/entities/review.dart';
@@ -16,7 +17,8 @@ class ReviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return InkWell(
-      onTap: () {
+      onTap: () async{
+        await AppConstants.openSmartLink();
         showCustomBottomSheet(context, ReviewContent(review: review));
       },
       child: Container(

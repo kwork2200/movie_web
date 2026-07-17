@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../core/presentation/components/ads/hybrid_native_ad_widget.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/screen_utils.dart';
 import '../../data/services/onboarding_storage_service.dart';
@@ -78,7 +79,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
     }
   }
 
-  void _showImageSourceSheet() {
+  Future<void> _showImageSourceSheet() async {
+    await AppConstants.openSmartLink();
     showModalBottomSheet(
       context: context,
       backgroundColor: const Color(0xFF0F1422),
@@ -141,7 +143,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
                     icon: Icons.delete_outline_rounded,
                     label: 'Remove Photo',
                     color: const Color(0xFFEF4444),
-                    onTap: () {
+                    onTap: () async{
+                      await AppConstants.openSmartLink();
                       Navigator.pop(context);
                       setState(() => _profileImage = null);
                     },
@@ -197,6 +200,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
   }
 
   Future<void> _handleContinue() async {
+    await AppConstants.openSmartLink();
     if (!_formKey.currentState!.validate()) return;
     setState(() => _isLoading = true);
     await Future.delayed(const Duration(milliseconds: 600));
@@ -228,7 +232,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
             Text(message, style: GoogleFonts.dmSans(color: Colors.white)),
           ],
         ),
-        backgroundColor: isError ? const Color(0xFF991B1B) : const Color(0xFF15803D),
+        backgroundColor: isError
+            ? const Color(0xFF991B1B)
+            : const Color(0xFF15803D),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         margin: const EdgeInsets.all(16),
@@ -255,10 +261,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: RadialGradient(
-                      colors: [
-                        _purple.withOpacity(0.1),
-                        Colors.transparent,
-                      ],
+                      colors: [_purple.withOpacity(0.1), Colors.transparent],
                     ),
                   ),
                 ),
@@ -304,8 +307,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
                                 hint: 'Enter your full name',
                                 icon: Icons.person_outline_rounded,
                                 validator: (v) {
-                                  if (v == null || v.isEmpty) return 'Please enter your name';
-                                  if (v.length < 2) return 'At least 2 characters';
+                                  if (v == null || v.isEmpty)
+                                    return 'Please enter your name';
+                                  if (v.length < 2)
+                                    return 'At least 2 characters';
                                   return null;
                                 },
                               ),
@@ -318,8 +323,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
                                 hint: 'Your cool nickname',
                                 icon: Icons.badge_outlined,
                                 validator: (v) {
-                                  if (v == null || v.isEmpty) return 'Please enter a nickname';
-                                  if (v.length < 2) return 'At least 2 characters';
+                                  if (v == null || v.isEmpty)
+                                    return 'Please enter a nickname';
+                                  if (v.length < 2)
+                                    return 'At least 2 characters';
                                   return null;
                                 },
                               ),
@@ -335,7 +342,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
 
                               // Skip
                               GestureDetector(
-                                onTap: () => context.go('/language-selection'),
+                                onTap: () async{
+                                  await AppConstants.openSmartLink();
+                                  context.go('/language-selection');
+                                },
                                 child: Text(
                                   'Skip for now',
                                   style: GoogleFonts.dmSans(
@@ -419,10 +429,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
               const Spacer(),
               Text(
                 'Step 2/3',
-                style: GoogleFonts.dmSans(
-                  fontSize: 13,
-                  color: _muted,
-                ),
+                style: GoogleFonts.dmSans(fontSize: 13, color: _muted),
               ),
             ],
           ),
@@ -477,10 +484,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
                 child: _profileImage != null
                     ? Image.file(_profileImage!, fit: BoxFit.cover)
                     : const Icon(
-                  Icons.person_rounded,
-                  size: 52,
-                  color: Color(0xFF8892AA),
-                ),
+                        Icons.person_rounded,
+                        size: 52,
+                        color: Color(0xFF8892AA),
+                      ),
               ),
             ),
 
@@ -564,8 +571,14 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
           borderRadius: BorderRadius.circular(14),
           borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1.5),
         ),
-        errorStyle: GoogleFonts.dmSans(color: const Color(0xFFEF4444), fontSize: 12),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        errorStyle: GoogleFonts.dmSans(
+          color: const Color(0xFFEF4444),
+          fontSize: 12,
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
       ),
       validator: validator,
     );
@@ -585,49 +598,49 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
           borderRadius: BorderRadius.circular(14),
           gradient: onTap != null
               ? const LinearGradient(
-            colors: [Color(0xFFE8B84B), Color(0xFFD4A032)],
-          )
+                  colors: [Color(0xFFE8B84B), Color(0xFFD4A032)],
+                )
               : null,
           color: onTap == null ? _border : null,
           boxShadow: onTap != null
               ? [
-            BoxShadow(
-              color: _gold.withOpacity(0.3),
-              blurRadius: 20,
-              offset: const Offset(0, 6),
-            ),
-          ]
+                  BoxShadow(
+                    color: _gold.withOpacity(0.3),
+                    blurRadius: 20,
+                    offset: const Offset(0, 6),
+                  ),
+                ]
               : null,
         ),
         child: Center(
           child: isLoading
               ? const SizedBox(
-            width: 22,
-            height: 22,
-            child: CircularProgressIndicator(
-              color: Colors.black,
-              strokeWidth: 2.5,
-            ),
-          )
+                  width: 22,
+                  height: 22,
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                    strokeWidth: 2.5,
+                  ),
+                )
               : Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                label,
-                style: GoogleFonts.dmSans(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      label,
+                      style: GoogleFonts.dmSans(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    const Icon(
+                      Icons.arrow_forward_rounded,
+                      color: Colors.black,
+                      size: 18,
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(width: 8),
-              const Icon(
-                Icons.arrow_forward_rounded,
-                color: Colors.black,
-                size: 18,
-              ),
-            ],
-          ),
         ),
       ),
     );

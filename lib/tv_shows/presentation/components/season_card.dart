@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/presentation/components/image_with_shimmer.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/resources/app_values.dart';
 import '../../domain/entities/season.dart';
 import '../views/season_details_view.dart';
@@ -15,7 +16,8 @@ class SeasonCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return InkWell(
-      onTap: () {
+      onTap: () async{
+        await AppConstants.openSmartLink();
         Navigator.push(
           context,
           MaterialPageRoute(

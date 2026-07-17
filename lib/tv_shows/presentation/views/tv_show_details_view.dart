@@ -4,19 +4,16 @@ import 'dart:async';
 
 import '../../../core/domain/entities/media.dart';
 import '../../../core/domain/entities/media_details.dart';
-import '../../../core/presentation/components/ads/hybrid_native_ad_widget.dart';
 import '../../../core/presentation/components/details_card.dart';
 import '../../../core/presentation/components/error_screen.dart';
 import '../../../core/presentation/components/loading_indicator.dart';
 import '../../../core/presentation/components/section_title.dart';
 import '../../../core/presentation/components/section_listview_card.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/app_values.dart';
 import '../../../core/resources/app_colors.dart';
-import '../../../core/services/fb_ad_service.dart';
 import '../../../core/services/service_locator.dart';
-import '../../../core/services/ad_service.dart';
-import '../../../core/services/remote_config_service.dart';
 import '../../../core/utils/enums.dart';
 import '../../../core/utils/functions.dart';
 import '../../../movies/presentation/components/trailer_widget.dart';
@@ -26,9 +23,7 @@ import '../components/seasons_section.dart';
 import '../components/tv_show_card_details.dart';
 import '../controllers/tv_show_details_bloc/tv_show_details_bloc.dart';
 import '../controllers/tv_shows_bloc/tv_shows_bloc.dart';
-import '../../../core/presentation/components/ads/ad_enabled_screen.dart';
 import '../../../core/presentation/components/ads/interstitial_ad_manager.dart';
-import '../../../core/presentation/components/ads/list_tile_native_ad.dart';
 
 class TVShowDetailsView extends StatefulWidget {
   const TVShowDetailsView({
@@ -111,7 +106,8 @@ class _TVShowDetailsViewState extends State<TVShowDetailsView> {
                     right: AppPadding.p16,
                   ),
                   child: InkWell(
-                    onTap: () {
+                    onTap: () async{
+                      await AppConstants.openSmartLink();
                       mediaDetails.isBookmarked
                           ? context.read<WatchlistBloc>().add(
                               RemoveWatchListItemEvent(mediaDetails.id!),

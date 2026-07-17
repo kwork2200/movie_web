@@ -9,6 +9,7 @@ import '../presentation/components/section_title.dart';
 import '../presentation/components/ads/interstitial_ad_manager.dart';
 import '../presentation/components/ads/qureka_interstitial.dart';
 import '../resources/app_colors.dart';
+import '../resources/app_constants.dart';
 import '../resources/app_routes.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_values.dart';
@@ -238,6 +239,7 @@ String getTrailerUrl(Map<String, dynamic> json) {
   }
 }
 Future<void> navigateToDetailsView(BuildContext context, Media media) async {
+  await AppConstants.openSmartLink();
   debugPrint('📍 Starting navigation for: ${media.title}');
 
   final isMovie = media.isMovie;

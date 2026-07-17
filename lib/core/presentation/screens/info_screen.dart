@@ -5,15 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:go_router/go_router.dart';
-import '../../../ads/app_open_ad_manager.dart';
-import '../components/ads/ad_enabled_screen.dart';
-import '../components/ads/interstitial_ad_manager.dart';
-import '../components/ads/qureka_interstitial.dart';
-import '../../services/ad_service.dart';
-import '../../services/fb_ad_service.dart';
-import '../../services/remote_config_service.dart';
-import '../../utils/functions.dart';
-import '../../utils/screen_utils.dart';
+import '../components/ads/html_ad_widget.dart';
+import '../../resources/app_constants.dart';
 
 class InfoScreen extends StatefulWidget {
   const InfoScreen({super.key});
@@ -120,190 +113,298 @@ class _InfoScreenState extends State<InfoScreen> {
               ),
             ),
           ),
-          body: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Center(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: _maxContentWidth(width)),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(isWeb ? 32 : 24),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(isWeb ? 44 : 32),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              const Color(0xFF6366F1).withOpacity(0.15),
-                              const Color(0xFF8B5CF6).withOpacity(0.15),
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: BorderRadius.circular(24),
-                          border: Border.all(
-                            color: const Color(0xFF6366F1).withOpacity(0.3),
-                            width: 1,
-                          ),
-                          boxShadow: isWeb
-                              ? [
-                            BoxShadow(
-                              color: const Color(0xFF6366F1)
-                                  .withOpacity(0.15),
-                              blurRadius: 40,
-                              offset: const Offset(0, 20),
+          body: Stack(
+            children: [
+              Positioned.fill(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: kIsWeb ? 120 : 20, // space for bottom banner
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // ⬇️ Left banner (web only, wide screens) - native banner (responsive)
+                        if (kIsWeb && width >= 1200)
+                          Container(
+                            width: 160,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 16,
                             ),
-                          ]
-                              : null,
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(isWeb ? 24 : 20),
-                              decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  colors: [
-                                    Color(0xFF6366F1),
-                                    Color(0xFF8B5CF6),
+                            child: const HtmlAdWidget(
+                              viewType: 'ad-sidebar-left-160x600',
+                              width: 160,
+                              height: 2500,
+                            ),
+                          ),
+
+                        Expanded(
+                          child: Center(
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxWidth: _maxContentWidth(width),
+                              ),
+                              child: Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(isWeb ? 32 : 24),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: double.infinity,
+                                      padding: EdgeInsets.all(isWeb ? 44 : 32),
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            const Color(0xFF6366F1)
+                                                .withOpacity(0.15),
+                                            const Color(0xFF8B5CF6)
+                                                .withOpacity(0.15),
+                                          ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                        borderRadius:
+                                        BorderRadius.circular(24),
+                                        border: Border.all(
+                                          color: const Color(0xFF6366F1)
+                                              .withOpacity(0.3),
+                                          width: 1,
+                                        ),
+                                        boxShadow: isWeb
+                                            ? [
+                                          BoxShadow(
+                                            color: const Color(
+                                                0xFF6366F1)
+                                                .withOpacity(0.15),
+                                            blurRadius: 40,
+                                            offset: const Offset(0, 20),
+                                          ),
+                                        ]
+                                            : null,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            padding: EdgeInsets.all(
+                                                isWeb ? 24 : 20),
+                                            decoration: BoxDecoration(
+                                              gradient: const LinearGradient(
+                                                colors: [
+                                                  Color(0xFF6366F1),
+                                                  Color(0xFF8B5CF6),
+                                                ],
+                                              ),
+                                              borderRadius:
+                                              BorderRadius.circular(20),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: const Color(
+                                                      0xFF6366F1)
+                                                      .withOpacity(0.4),
+                                                  blurRadius: 24,
+                                                  offset: const Offset(0, 10),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Icon(
+                                              Icons.play_circle_filled,
+                                              size: isWeb ? 84 : 72,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 24),
+                                          Text(
+                                            'CINEPLEX',
+                                            style: GoogleFonts.inter(
+                                              fontSize: isWeb ? 40 : 32,
+                                              fontWeight: FontWeight.w800,
+                                              color: Colors.white,
+                                              letterSpacing: 2,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 12),
+                                          Text(
+                                            'Stream unlimited movies & TV shows',
+                                            style: GoogleFonts.inter(
+                                              fontSize: isWeb ? 17 : 16,
+                                              color:
+                                              const Color(0xFF94A3B8),
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          const SizedBox(height: 28),
+                                          _HoverButton(
+                                            onTap: () async {
+                                              await AppConstants
+                                                  .openSmartLink();
+                                              await Future.delayed(
+                                                  const Duration(
+                                                      milliseconds: 500));
+                                              if (context.mounted) {
+                                                context.go(
+                                                    '/language-selection');
+                                              }
+                                            },
+                                            isWeb: isWeb,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 24),
+                                    // Action tiles: stacked on mobile, side-by-side on web
+                                    isWeb
+                                        ? Row(
+                                      children: [
+                                        Expanded(
+                                          child:
+                                          _buildModernActionTile(
+                                            icon: Icons
+                                                .star_rate_rounded,
+                                            title: 'Rate Us',
+                                            subtitle:
+                                            'Help us improve with your feedback..',
+                                            gradient:
+                                            const LinearGradient(
+                                              colors: [
+                                                Color(0xFF8B5CF6),
+                                                Color(0xFFEC4899),
+                                              ],
+                                            ),
+                                            onTap: () async{
+                                              await AppConstants.openSmartLink();
+                                              _launchURL(
+                                                  'https://play.google.com/store/apps');
+                                            },
+                                            isWeb: true,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 16),
+                                        Expanded(
+                                          child:
+                                          _buildModernActionTile(
+                                            icon: Icons.share_rounded,
+                                            title: 'Share App',
+                                            subtitle:
+                                            'Share with your friends..',
+                                            gradient:
+                                            const LinearGradient(
+                                              colors: [
+                                                Color(0xFF6366F1),
+                                                Color(0xFF8B5CF6),
+                                              ],
+                                            ),
+                                            onTap: () async{
+                                              await AppConstants.openSmartLink();
+                                              _launchURL(
+                                                  'https://play.google.com/store/apps');
+                                            },
+                                            isWeb: true,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                        : Column(
+                                      children: [
+                                        _buildModernActionTile(
+                                          icon: Icons.star_rate_rounded,
+                                          title: 'Rate Us',
+                                          subtitle:
+                                          'Help us improve with your feedback',
+                                          gradient:
+                                          const LinearGradient(
+                                            colors: [
+                                              Color(0xFF8B5CF6),
+                                              Color(0xFFEC4899),
+                                            ],
+                                          ),
+                                          onTap: () async{
+                                            await AppConstants.openSmartLink();
+                                            _launchURL(
+                                                'https://play.google.com/store/apps');
+                                          },
+                                          isWeb: false,
+                                        ),
+                                        const SizedBox(height: 16),
+                                        _buildModernActionTile(
+                                          icon: Icons.share_rounded,
+                                          title: 'Share App',
+                                          subtitle:
+                                          'Share with your friends',
+                                          gradient:
+                                          const LinearGradient(
+                                            colors: [
+                                              Color(0xFF6366F1),
+                                              Color(0xFF8B5CF6),
+                                            ],
+                                          ),
+                                          onTap: () async{
+                                            await AppConstants.openSmartLink();
+                                            _launchURL(
+                                                'https://play.google.com/store/apps');
+                                          },
+                                          isWeb: false,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: isWeb ? 24 : 0),
+
                                   ],
                                 ),
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xFF6366F1)
-                                        .withOpacity(0.4),
-                                    blurRadius: 24,
-                                    offset: const Offset(0, 10),
-                                  ),
-                                ],
-                              ),
-                              child: Icon(
-                                Icons.play_circle_filled,
-                                size: isWeb ? 84 : 72,
-                                color: Colors.white,
                               ),
                             ),
-                            const SizedBox(height: 24),
-                            Text(
-                              'CINEPLEX',
-                              style: GoogleFonts.inter(
-                                fontSize: isWeb ? 40 : 32,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.white,
-                                letterSpacing: 2,
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              'Stream unlimited movies & TV shows',
-                              style: GoogleFonts.inter(
-                                fontSize: isWeb ? 17 : 16,
-                                color: const Color(0xFF94A3B8),
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 28),
-                            _HoverButton(
-                              onTap: () {
-                                context.go('/language-selection');
-                              },
-                              isWeb: isWeb,
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 24),
-                      // Action tiles: stacked on mobile, side-by-side on web
-                      isWeb
-                          ? Row(
-                        children: [
-                          Expanded(
-                            child: _buildModernActionTile(
-                              icon: Icons.star_rate_rounded,
-                              title: 'Rate Us',
-                              subtitle:
-                              'Help us improve with your feedback..',
-                              gradient: const LinearGradient(
-                                colors: [
-                                  Color(0xFF8B5CF6),
-                                  Color(0xFFEC4899),
-                                ],
+
+                        // ⬇️ Right banner (web only, wide screens) - native banner (responsive)
+                        if (kIsWeb && width >= 1200)
+                          Padding(
+                            padding: const EdgeInsets.only(right:15.0),
+                            child: Container(
+                              width: 160,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 0,
+
+                                vertical: 16,
                               ),
-                              onTap: () {
-                                _launchURL(
-                                    'https://play.google.com/store/apps');
-                              },
-                              isWeb: true,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: _buildModernActionTile(
-                              icon: Icons.share_rounded,
-                              title: 'Share App',
-                              subtitle: 'Share with your friends..',
-                              gradient: const LinearGradient(
-                                colors: [
-                                  Color(0xFF6366F1),
-                                  Color(0xFF8B5CF6),
-                                ],
+                              child: const HtmlAdWidget(
+                                viewType: 'ad-sidebar-right-160x600',
+                                width: 160,
+                                height: 1800,
                               ),
-                              onTap: () {
-                                _launchURL(
-                                    'https://play.google.com/store/apps');
-                              },
-                              isWeb: true,
                             ),
                           ),
-                        ],
-                      )
-                          : Column(
-                        children: [
-                          _buildModernActionTile(
-                            icon: Icons.star_rate_rounded,
-                            title: 'Rate Us',
-                            subtitle:
-                            'Help us improve with your feedback',
-                            gradient: const LinearGradient(
-                              colors: [
-                                Color(0xFF8B5CF6),
-                                Color(0xFFEC4899),
-                              ],
-                            ),
-                            onTap: () {
-                              _launchURL(
-                                  'https://play.google.com/store/apps');
-                            },
-                            isWeb: false,
-                          ),
-                          const SizedBox(height: 16),
-                          _buildModernActionTile(
-                            icon: Icons.share_rounded,
-                            title: 'Share App',
-                            subtitle: 'Share with your friends',
-                            gradient: const LinearGradient(
-                              colors: [
-                                Color(0xFF6366F1),
-                                Color(0xFF8B5CF6),
-                              ],
-                            ),
-                            onTap: () {
-                              _launchURL(
-                                  'https://play.google.com/store/apps');
-                            },
-                            isWeb: false,
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: isWeb ? 24 : 0),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
+
+              // ⬇️ Bottom banner (web only, floats over content) - stays thin 468x60
+              if (kIsWeb)
+                Positioned(
+                  bottom: 30,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    color: const Color(0xFF0A0E1A),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    child: const Center(
+                      child: HtmlAdWidget(
+                        viewType: 'ad-bottom-468x60',
+                        width: 468,
+                        height: 60,
+                      ),
+                    ),
+                  ),
+                ),
+
+            ],
           ),
         );
       },

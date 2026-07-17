@@ -14,6 +14,7 @@ import '../../../core/presentation/components/section_header.dart';
 import '../../../core/presentation/components/section_listview.dart';
 import '../../../core/presentation/components/section_listview_card.dart';
 import '../../../core/presentation/components/slider_card.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/resources/app_routes.dart';
 import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/app_values.dart';
@@ -22,8 +23,6 @@ import '../../../core/utils/enums.dart';
 import '../controllers/movies_bloc/movies_bloc.dart';
 import '../controllers/movies_bloc/movies_event.dart';
 import '../controllers/movies_bloc/movies_state.dart';
-import '../../../core/presentation/components/ads/ad_enabled_screen.dart';
-import '../../../core/presentation/components/ads/hybrid_native_ad_widget.dart';
 import '../../../core/presentation/components/app_drawer.dart';
 
 class MoviesView extends StatefulWidget {
@@ -59,7 +58,8 @@ class _MoviesViewState extends State<MoviesView> {
             left: AppPadding.p16,
           ),
           child: InkWell(
-            onTap: () {
+            onTap: () async{
+              await AppConstants.openSmartLink();
               _scaffoldKey.currentState?.openDrawer();
             },
             borderRadius: BorderRadius.circular(12),
@@ -157,7 +157,8 @@ class MoviesWidget extends StatelessWidget {
           // //HybridNativeAdWidget(height: AppSize.s175, adKey: 'movies_home_1'),
           SectionHeader(
             title: AppStrings.popularMovies,
-            onSeeAllTap: () {
+            onSeeAllTap: () async {
+              await AppConstants.openSmartLink();
               context.goNamed(AppRoutes.popularMoviesRoute);
             },
           ),
@@ -170,7 +171,8 @@ class MoviesWidget extends StatelessWidget {
           ),
           SectionHeader(
             title: AppStrings.topRatedMovies,
-            onSeeAllTap: () {
+            onSeeAllTap: () async{
+              await AppConstants.openSmartLink();
               context.goNamed(AppRoutes.topRatedMoviesRoute);
             },
           ),
@@ -185,7 +187,8 @@ class MoviesWidget extends StatelessWidget {
           // Trending Section
           SectionHeader(
             title: 'Trending Now',
-            onSeeAllTap: () {
+            onSeeAllTap: ()  async {
+              await AppConstants.openSmartLink();
               context.goNamed(AppRoutes.popularMoviesRoute);
             },
           ),
@@ -198,7 +201,8 @@ class MoviesWidget extends StatelessWidget {
           ),
           SectionHeader(
             title: 'Upcoming Shows',
-            onSeeAllTap: () {
+            onSeeAllTap: () async{
+              await AppConstants.openSmartLink();
               context.goNamed(AppRoutes.popularMoviesRoute);
             },
           ),
@@ -213,7 +217,8 @@ class MoviesWidget extends StatelessWidget {
           // Action Section
           SectionHeader(
             title: 'Action & Adventure',
-            onSeeAllTap: () {
+            onSeeAllTap: () async{
+              await AppConstants.openSmartLink();
               context.goNamed(AppRoutes.topRatedMoviesRoute);
             },
           ),

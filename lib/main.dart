@@ -8,6 +8,7 @@ import 'package:movie_web/tv_shows/presentation/controllers/tv_shows_bloc/tv_sho
 import 'package:movie_web/watchlist/data/models/watchlist_item_model.dart';
 import 'package:movie_web/watchlist/presentation/controllers/watchlist_bloc/watchlist_bloc.dart';
 
+import 'core/presentation/components/ads/html_ad_widget.dart';
 import 'core/resources/app_router.dart';
 import 'core/resources/app_strings.dart';
 import 'core/services/service_locator.dart';
@@ -24,6 +25,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 // Conditionally import Firebase only on non-web platforms
 import 'package:firebase_core/firebase_core.dart' if (dart.library.html) 'firebase_stub.dart';
+bool _adsRegistered = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,7 +77,10 @@ void main() async {
   }
 
   await ServiceLocator.init();
-
+  if (kIsWeb && !_adsRegistered) {
+    registerAllAdViews();
+    _adsRegistered = true;
+  }
   runApp(
     MultiBlocProvider(
       providers: [

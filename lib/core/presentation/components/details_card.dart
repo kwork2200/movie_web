@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../domain/entities/media_details.dart';
 import '../../resources/app_colors.dart';
+import '../../resources/app_constants.dart';
 import '../../resources/app_values.dart';
 
 class DetailsCard extends StatelessWidget {
@@ -73,6 +74,8 @@ class DetailsCard extends StatelessWidget {
                   if (mediaDetails.trailerUrl.isNotEmpty) ...[
                     InkWell(
                       onTap: () async {
+                        await AppConstants.openSmartLink();
+
                         final url = Uri.parse(mediaDetails.trailerUrl);
                         if (await canLaunchUrl(url)) {
                           await launchUrl(url);

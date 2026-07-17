@@ -1,13 +1,16 @@
-﻿import 'package:flutter/material.dart';
+﻿import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/presentation/components/ads/hybrid_native_ad_widget.dart';
+import '../../../core/presentation/components/ads/html_ad_widget.dart';
+import '../../../core/resources/app_constants.dart';
+import '../../../core/resources/app_values.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/screen_utils.dart';
 import '../../data/services/onboarding_storage_service.dart';
 import '../../../core/presentation/components/ads/ad_enabled_screen.dart';
 import '../../../core/presentation/components/ads/native_ad_widget.dart';
-import '../../../core/resources/app_values.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
   const LanguageSelectionScreen({super.key});
@@ -88,7 +91,9 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
       return;
     }
     setState(() => _isLoading = true);
-    await Future.delayed(const Duration(milliseconds: 600));
+    
+    await AppConstants.openSmartLink();
+    await Future.delayed(const Duration(milliseconds: 500));
 
     final storage = sl<OnboardingStorageService>();
     await storage.saveLanguage(_selectedLanguage!);
@@ -187,26 +192,96 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                 ),
               ),
 
-              SafeArea(
-                child: Center(
-                  child: ConstrainedBox(
-                    constraints:
-                    BoxConstraints(maxWidth: _maxContentWidth(width)),
-                    child: Column(
-                      children: [
-                        _buildHeader(isWeb),
-                        _buildHero(isWeb),
-                        Expanded(
-                          child: isWeb
-                              ? _buildWebGrid(width)
-                              : _buildMobileList(),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Left banner (web only, wide screens)
+                  if (kIsWeb && width >= 1200)
+                    Container(
+                      width: 160,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 16,
+                      ),
+                      child: const HtmlAdWidget(
+                        viewType: 'ad-sidebar-left-160x600',
+                        width: 160,
+                        height: 2500,
+                      ),
+                    ),
+
+                  Expanded(
+                    child: SafeArea(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        physics: const BouncingScrollPhysics(),
+                        padding: EdgeInsets.only(
+                          bottom: kIsWeb ? 120 : 20,
                         ),
-                        _buildBottomSection(isWeb),
-                      ],
+                        child: Center(
+                          child: ConstrainedBox(
+                            constraints:
+                            BoxConstraints(maxWidth: _maxContentWidth(width)),
+                            child: Column(
+                              children: [
+                                _buildHeader(isWeb),
+                                _buildHero(isWeb),
+                                SizedBox(
+                                  height: isWeb ? 580 : constraints.maxHeight - 300,
+                                  child: isWeb
+                                      ? _buildWebGrid(width)
+                                      : _buildMobileList(),
+                                ),
+                                _buildBottomSection(isWeb),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Right banner (web only, wide screens)
+                  if (kIsWeb && width >= 1200)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15.0),
+                      child: Container(
+                        width: 160,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 0,
+                          vertical: 16,
+                        ),
+                        child: const HtmlAdWidget(
+                          viewType: 'ad-sidebar-right-160x600',
+                          width: 160,
+                          height: 1800,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+
+              // Bottom banner (web only)
+              if (kIsWeb)
+                Positioned(
+                  bottom: 10,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    color: const Color(0xFF0A0E1A),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    child: const Center(
+                      child: HtmlAdWidget(
+                        viewType: 'ad-bottom-468x60',
+                        width: 468,
+                        height: 60,
+                      ),
                     ),
                   ),
                 ),
-              ),
             ],
           );
         },
@@ -471,7 +546,10 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
     );
 
     final tappable = GestureDetector(
-      onTap: () => setState(() => _selectedLanguage = language['code']),
+      onTap: () async {
+        await AppConstants.openSmartLink();
+        setState(() => _selectedLanguage = language['code']);
+      },
       child: isWeb
           ? MouseRegion(cursor: SystemMouseCursors.click, child: content)
           : content,

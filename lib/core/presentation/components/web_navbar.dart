@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
+import '../../resources/app_constants.dart';
+
 class WebNavbar extends StatelessWidget {
   const WebNavbar({super.key});
 
@@ -44,7 +46,8 @@ class WebNavbar extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () {
+        onTap: () async{
+          await AppConstants.openSmartLink();
           context.go('/movies');
         },
         child:  ShaderMask(
@@ -122,7 +125,8 @@ class WebNavbar extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () {
+        onTap: () async{
+          await AppConstants.openSmartLink();
           context.go('/search');
         },
         child: const Icon(Icons.search, color: Colors.white, size: 24),
@@ -135,7 +139,8 @@ class WebNavbar extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () {
+        onTap: () async{
+          await AppConstants.openSmartLink();
           context.go('/watchlist');
         },
         child: const Icon(Icons.bookmark_border, color: Colors.white, size: 24),

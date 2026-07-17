@@ -14,6 +14,7 @@ import '../../../core/presentation/components/section_listview.dart';
 import '../../../core/presentation/components/section_listview_card.dart';
 import '../../../core/presentation/components/slider_card.dart';
 import '../../../core/presentation/components/web_navbar.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/resources/app_routes.dart';
 import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/app_values.dart';
@@ -340,7 +341,8 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
   }
 
   // Shared navigation used by both the poster tap and the More Info button.
-  void _openMovieDetails(Media media) {
+  void _openMovieDetails(Media media) async{
+    await AppConstants.openSmartLink();
     context.goNamed(
       AppRoutes.movieDetailsRoute,
       pathParameters: {'movieId': media.tmdbID.toString()},
@@ -399,8 +401,8 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () {
-          // Handle play
+        onTap: () async{
+          await AppConstants.openSmartLink();
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),

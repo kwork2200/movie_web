@@ -9,6 +9,7 @@ import '../../../core/domain/entities/media_details.dart';
 import '../../../core/presentation/components/error_screen.dart';
 import '../../../core/presentation/components/loading_indicator.dart';
 import '../../../core/presentation/components/web_navbar.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/resources/app_routes.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/enums.dart';
@@ -95,7 +96,8 @@ class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
     return _scrollControllers.putIfAbsent(key, () => ScrollController());
   }
 
-  void _scrollRow(String key, {required bool forward}) {
+  void _scrollRow(String key, {required bool forward}) async{
+    await AppConstants.openSmartLink();
     final controller = _scrollControllers[key];
     if (controller == null || !controller.hasClients) return;
     final double delta = 600; // kitna scroll karna hai per click
@@ -166,7 +168,8 @@ class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () {
+        onTap: () async{
+          await AppConstants.openSmartLink();
           if (context.canPop()) {
             context.pop();
           } else {
@@ -346,9 +349,8 @@ class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () {
-          // Handle play
-        },
+        onTap: () async{
+          await AppConstants.openSmartLink();        },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
           decoration: BoxDecoration(
@@ -399,7 +401,8 @@ class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
         return MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
-            onTap: () {
+            onTap: () async{
+              await AppConstants.openSmartLink();
               isBookmarked
                   ? context
                   .read<WatchlistBloc>()
@@ -613,7 +616,8 @@ class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () {
+        onTap: () async{
+          await AppConstants.openSmartLink();
           // Push so the browser/back button returns to this details page.
           context.pushNamed(
             AppRoutes.movieDetailsRoute,
