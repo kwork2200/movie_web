@@ -37,6 +37,16 @@ class WebMoviesView extends StatefulWidget {
 class _WebMoviesViewState extends State<WebMoviesView> {
 
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (!kIsWeb) {
       // Fallback to mobile view if not on web

@@ -42,6 +42,11 @@ class _TVShowDetailsViewState extends State<TVShowDetailsView> {
   void initState() {
     super.initState();
     InterstitialAdManager.instance.loadAd();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
   }
 
   Future<void> _handleBack(BuildContext context) async {

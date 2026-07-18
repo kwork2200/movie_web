@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_web/core/presentation/components/ads/html_ad_widget.dart';
-import 'package:movie_web/core/presentation/widget/popup_ad_banner.dart';
 import 'package:movie_web/core/resources/app_constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:go_router/go_router.dart';
@@ -76,13 +75,7 @@ class _InfoScreenState extends State<InfoScreen> {
   }
 
   void _showPopupAdBanner() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      barrierColor: Colors.transparent,
-      // barrierColor: AppNetflixThemeColor.black.withOpacity(0.7),
-      builder: (context) => const PopupAdBanner(bannerWidth: 468, bannerHeight: 340),
-    );
+    AppConstants.showPopupAdBanner(context);
   }
 
   // ---- Responsive helpers ----

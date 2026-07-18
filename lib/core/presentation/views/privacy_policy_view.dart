@@ -1,9 +1,25 @@
 import 'package:flutter/material.dart';
 import '../../resources/app_colors.dart';
 import '../../resources/app_values.dart';
+import '../../resources/app_constants.dart';
 
-class PrivacyPolicyView extends StatelessWidget {
+class PrivacyPolicyView extends StatefulWidget {
   const PrivacyPolicyView({super.key});
+
+  @override
+  State<PrivacyPolicyView> createState() => _PrivacyPolicyViewState();
+}
+
+class _PrivacyPolicyViewState extends State<PrivacyPolicyView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -8,14 +8,30 @@ import '../../../core/presentation/components/loading_indicator.dart';
 import '../../../core/presentation/components/vertical_listview.dart';
 import '../../../core/presentation/components/vertical_listview_card.dart';
 import '../../../core/resources/app_strings.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/enums.dart';
 import '../controllers/top_rated_movies_bloc/top_rated_movies_bloc.dart';
 import '../../../core/presentation/components/ads/ad_enabled_screen.dart';
 import '../../../core/presentation/components/ads/native_ad_widget.dart';
 
-class TopRatedMoviesView extends StatelessWidget {
+class TopRatedMoviesView extends StatefulWidget {
   const TopRatedMoviesView({super.key});
+
+  @override
+  State<TopRatedMoviesView> createState() => _TopRatedMoviesViewState();
+}
+
+class _TopRatedMoviesViewState extends State<TopRatedMoviesView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

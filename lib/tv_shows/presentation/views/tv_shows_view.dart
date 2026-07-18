@@ -19,9 +19,25 @@ import '../../../core/resources/app_values.dart';
 import '../../../core/utils/enums.dart';
 import '../controllers/tv_shows_bloc/tv_shows_bloc.dart';
 import '../../../core/presentation/components/ads/ad_enabled_screen.dart';
+import '../../../core/resources/app_constants.dart';
 
-class TVShowsView extends StatelessWidget {
+class TVShowsView extends StatefulWidget {
   const TVShowsView({super.key});
+
+  @override
+  State<TVShowsView> createState() => _TVShowsViewState();
+}
+
+class _TVShowsViewState extends State<TVShowsView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

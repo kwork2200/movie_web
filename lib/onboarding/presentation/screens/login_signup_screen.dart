@@ -52,6 +52,11 @@ class _LoginSignupScreenState extends State<LoginSignupScreen>
       statusBarColor: AppNetflixThemeColor.transparent,
       statusBarIconBrightness: Brightness.light,
     ));
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
   }
 
   @override

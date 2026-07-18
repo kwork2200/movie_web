@@ -46,6 +46,11 @@ void registerAllAdViews() {
       'w': 468,
       'h': 60,
     },
+    'banner-728x90': {
+      'key': '14c1219b6c6a21061e2795fa9dcef8e5',
+      'w': 728,
+      'h': 90,
+    },
     'banner-2-300x250': {
       'key': '5cb6f6899f19690a46f7d9fb4692177a',
       'w': 300,

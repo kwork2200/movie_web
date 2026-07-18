@@ -36,6 +36,16 @@ class WebMovieDetailsView extends StatefulWidget {
 
 class _WebMovieDetailsViewState extends State<WebMovieDetailsView> {
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (!kIsWeb) return const SizedBox.shrink();
 
