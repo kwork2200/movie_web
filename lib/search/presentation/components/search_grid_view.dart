@@ -58,7 +58,8 @@ class SearchGridView extends StatelessWidget {
           }
         }
         return GridView.builder(
-          physics: const BouncingScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
           padding: const EdgeInsets.symmetric(vertical: 8),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: crossAxisCount,

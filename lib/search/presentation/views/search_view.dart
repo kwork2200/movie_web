@@ -71,12 +71,17 @@ class _SearchWidgetState extends State<SearchWidget> {
                       return const Expanded(child: LoadingIndicator());
                     case SearchRequestStatus.loaded:
                       return Expanded(
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: SearchGridView(results: state.searchResults),
-                            ),
-                          ],
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              SearchGridView(results: state.searchResults),
+                              Container(
+                                color: AppNetflixThemeColor.transparent,
+                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+                                child: const Center(child: HtmlAdWidget(viewType: 'banner-728x90', width:728, height: 90),),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     case SearchRequestStatus.error:
@@ -86,11 +91,11 @@ class _SearchWidgetState extends State<SearchWidget> {
                   }
                 },
               ),
-              Container(
-                color: AppNetflixThemeColor.transparent,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
-                child: const Center(child: HtmlAdWidget(viewType: 'banner-728x90', width:728, height: 90),),
-              ),
+              // Container(
+              //   color: AppNetflixThemeColor.transparent,
+              //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+              //   child: const Center(child: HtmlAdWidget(viewType: 'banner-728x90', width:728, height: 90),),
+              // ),
             ],
           ),
         ),

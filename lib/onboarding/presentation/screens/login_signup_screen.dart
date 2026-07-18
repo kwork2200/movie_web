@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_web/core/resources/app_constants.dart';
 import '../../../core/presentation/components/ads/hybrid_native_ad_widget.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/screen_utils.dart';
