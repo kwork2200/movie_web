@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/screen_utils.dart';
 import '../../resources/app_colors.dart';
+import '../../resources/app_constants.dart';
 
 class NoInternetScreen extends StatefulWidget {
   const NoInternetScreen({super.key});
@@ -47,6 +48,12 @@ class _NoInternetScreenState extends State<NoInternetScreen>
     _bounceAnim = Tween<double>(begin: 0.0, end: -6.0).animate(
       CurvedAnimation(parent: _bounceController, curve: Curves.easeInOut),
     );
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
   }
 
   @override

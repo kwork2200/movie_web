@@ -12,6 +12,7 @@ import '../../../core/presentation/components/vertical_listview.dart';
 import '../../../core/presentation/components/vertical_listview_card.dart';
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/app_strings.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/enums.dart';
 import '../controllers/top_rated_tv_shows_bloc/top_rated_tv_shows_bloc.dart';
@@ -47,8 +48,23 @@ class _Breakpoints {
   }
 }
 
-class TopRatedTVShowsView extends StatelessWidget {
+class TopRatedTVShowsView extends StatefulWidget {
   const TopRatedTVShowsView({super.key});
+
+  @override
+  State<TopRatedTVShowsView> createState() => _TopRatedTVShowsViewState();
+}
+
+class _TopRatedTVShowsViewState extends State<TopRatedTVShowsView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

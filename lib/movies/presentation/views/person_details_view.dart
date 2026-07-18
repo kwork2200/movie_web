@@ -8,6 +8,7 @@ import '../../../core/presentation/components/section_listview_card.dart';
 import '../../../core/presentation/components/section_title.dart';
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/app_values.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/enums.dart';
 import '../../../core/domain/entities/media.dart';
@@ -34,7 +35,7 @@ _ScreenType _screenTypeOf(double width) {
   return _ScreenType.wide;
 }
 
-class PersonDetailsView extends StatelessWidget {
+class PersonDetailsView extends StatefulWidget {
   final int personId;
 
   const PersonDetailsView({
@@ -43,10 +44,25 @@ class PersonDetailsView extends StatelessWidget {
   });
 
   @override
+  State<PersonDetailsView> createState() => _PersonDetailsViewState();
+}
+
+class _PersonDetailsViewState extends State<PersonDetailsView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-      sl<PersonDetailsBloc>()..add(GetPersonDetailsEvent(personId)),
+      sl<PersonDetailsBloc>()..add(GetPersonDetailsEvent(widget.personId)),
       child: Scaffold(
         backgroundColor: AppNetflixThemeColor.primaryBackground,
         extendBodyBehindAppBar: true,
@@ -73,7 +89,7 @@ class PersonDetailsView extends StatelessWidget {
                   onTryAgainPressed: () {
                     context
                         .read<PersonDetailsBloc>()
-                        .add(GetPersonDetailsEvent(personId));
+                        .add(GetPersonDetailsEvent(widget.personId));
                   },
                 );
             }

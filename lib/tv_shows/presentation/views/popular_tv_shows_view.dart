@@ -12,6 +12,7 @@ import '../../../core/presentation/components/vertical_listview.dart';
 import '../../../core/presentation/components/vertical_listview_card.dart';
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/app_strings.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/enums.dart';
 import '../controllers/popular_tv_shows_bloc/popular_tv_shows_bloc.dart';
@@ -47,8 +48,23 @@ class _Breakpoints {
   }
 }
 
-class PopularTVShowsView extends StatelessWidget {
+class PopularTVShowsView extends StatefulWidget {
   const PopularTVShowsView({super.key});
+
+  @override
+  State<PopularTVShowsView> createState() => _PopularTVShowsViewState();
+}
+
+class _PopularTVShowsViewState extends State<PopularTVShowsView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +72,7 @@ class PopularTVShowsView extends StatelessWidget {
       create: (context) => sl<PopularTVShowsBloc>()..add(GetPopularTVShowsEvent()),
       child: Scaffold(
         backgroundColor: AppNetflixThemeColor.background,
-        appBar:  CustomAppBar(
-
+        appBar: CustomAppBar(
           title: AppStrings.popularShows,
         ),
         body: BlocBuilder<PopularTVShowsBloc, PopularTVShowsState>(

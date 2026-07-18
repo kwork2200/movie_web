@@ -9,14 +9,30 @@ import '../../../core/presentation/components/loading_indicator.dart';
 import '../../../core/presentation/components/vertical_listview.dart';
 import '../../../core/presentation/components/vertical_listview_card.dart';
 import '../../../core/resources/app_strings.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/enums.dart';
 import '../controllers/popular_movies_bloc/popular_movies_bloc.dart';
 import '../../../core/presentation/components/ads/ad_enabled_screen.dart';
 import '../../../core/presentation/components/ads/native_ad_widget.dart';
 
-class PopularMoviesView extends StatelessWidget {
+class PopularMoviesView extends StatefulWidget {
   const PopularMoviesView({super.key});
+
+  @override
+  State<PopularMoviesView> createState() => _PopularMoviesViewState();
+}
+
+class _PopularMoviesViewState extends State<PopularMoviesView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +40,9 @@ class PopularMoviesView extends StatelessWidget {
       create: (context) =>
           sl<PopularMoviesBloc>()..add(GetPopularMoviesEvent()),
       child: Scaffold(
-        appBar: const CustomAppBar(
-          title: AppStrings.popularMovies,
-        ),
+        // appBar: const CustomAppBar(
+        //   title: AppStrings.popularMovies,
+        // ),
         body: BlocBuilder<PopularMoviesBloc, PopularMoviesState>(
           builder: (context, state) {
             switch (state.status) {

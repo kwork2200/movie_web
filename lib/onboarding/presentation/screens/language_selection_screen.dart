@@ -78,6 +78,12 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
     Future.delayed(const Duration(milliseconds: 200), () {
       if (mounted) _fadeController.forward();
     });
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
   }
 
   @override

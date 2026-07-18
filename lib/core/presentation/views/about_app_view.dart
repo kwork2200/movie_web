@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import '../../resources/app_colors.dart';
 import '../../resources/app_values.dart';
+import '../../resources/app_constants.dart';
 import '../../../ads/interstitial_ad_manager.dart';
 
 class AboutAppView extends StatefulWidget {
@@ -20,6 +21,11 @@ class _AboutAppViewState extends State<AboutAppView> {
   void initState() {
     super.initState();
     _initializeInterstitialAd();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
   }
 
   void _initializeInterstitialAd() async {

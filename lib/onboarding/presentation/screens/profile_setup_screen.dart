@@ -48,6 +48,11 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen>
       vsync: this,
       duration: const Duration(seconds: 5),
     )..repeat();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
   }
 
   @override

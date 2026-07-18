@@ -7,13 +7,29 @@ import '../../../core/presentation/components/loading_indicator.dart';
 import '../../../core/presentation/components/vertical_listview_card.dart';
 import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/app_values.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/enums.dart';
 import '../components/empty_watchlist_text.dart';
 import '../controllers/watchlist_bloc/watchlist_bloc.dart';
 
-class WatchlistView extends StatelessWidget {
+class WatchlistView extends StatefulWidget {
   const WatchlistView({super.key});
+
+  @override
+  State<WatchlistView> createState() => _WatchlistViewState();
+}
+
+class _WatchlistViewState extends State<WatchlistView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

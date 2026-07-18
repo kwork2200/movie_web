@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_web/core/presentation/components/ads/html_ad_widget.dart';
+import 'package:movie_web/core/resources/app_colors.dart';
 
 import '../../../core/presentation/components/error_text.dart';
 import '../../../core/presentation/components/loading_indicator.dart';
 import '../../../core/resources/app_values.dart';
+import '../../../core/resources/app_constants.dart';
 import '../../../core/services/service_locator.dart';
 import '../components/no_results.dart';
 import '../components/search_field.dart';
@@ -38,6 +41,11 @@ class _SearchWidgetState extends State<SearchWidget> {
     super.initState();
     Future.microtask(() {
       context.read<SearchBloc>().add(const GetSearchResultsEvent(''));
+    });
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        AppConstants.showPopupAdBanner(context);
+      }
     });
   }
 
@@ -77,6 +85,11 @@ class _SearchWidgetState extends State<SearchWidget> {
                       return const NoResults();
                   }
                 },
+              ),
+              Container(
+                color: AppNetflixThemeColor.transparent,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+                child: const Center(child: HtmlAdWidget(viewType: 'banner-728x90', width:728, height: 90),),
               ),
             ],
           ),
