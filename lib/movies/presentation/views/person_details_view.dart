@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_web/core/presentation/components/ads/html_ad_widget.dart';
 
 import '../../../core/presentation/components/error_screen.dart';
 import '../../../core/presentation/components/image_with_shimmer.dart';
@@ -148,11 +150,65 @@ class _BackButtonState extends State<_BackButton> {
   }
 }
 
+// class PersonDetailsWidget extends StatelessWidget {
+//   const PersonDetailsWidget({
+//     required this.personDetails,
+//     super.key,
+//   });
+//
+//   final PersonDetails personDetails;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return LayoutBuilder(
+//       builder: (context, constraints) {
+//         final screenType = _screenTypeOf(constraints.maxWidth);
+//         final isWide = screenType == _ScreenType.desktop ||
+//             screenType == _ScreenType.wide;
+//
+//         // Cap content width on very large screens so text/cards
+//         // don't stretch edge-to-edge on desktop browsers.
+//         final maxContentWidth = switch (screenType) {
+//           _ScreenType.mobile => constraints.maxWidth,
+//           _ScreenType.tablet => constraints.maxWidth,
+//           _ScreenType.desktop => 960.0,
+//           _ScreenType.wide => 1200.0,
+//         };
+//
+//         return SingleChildScrollView(
+//           physics: const BouncingScrollPhysics(),
+//           child: Center(
+//             child: ConstrainedBox(
+//               constraints: BoxConstraints(maxWidth: maxContentWidth),
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   isWide
+//                       ? _DesktopHeader(personDetails: personDetails)
+//                       : _MobileHeader(
+//                     personDetails: personDetails,
+//                     screenType: screenType,
+//                   ),
+//                   if (isWide)
+//                     _DesktopBody(personDetails: personDetails)
+//                   else
+//                     _MobileBody(
+//                       personDetails: personDetails,
+//                       screenType: screenType,
+//                     ),
+//                   const SizedBox(height: AppSize.s24),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }
+
 class PersonDetailsWidget extends StatelessWidget {
-  const PersonDetailsWidget({
-    required this.personDetails,
-    super.key,
-  });
+  const PersonDetailsWidget({required this.personDetails, super.key});
 
   final PersonDetails personDetails;
 
@@ -160,51 +216,114 @@ class PersonDetailsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final screenType = _screenTypeOf(constraints.maxWidth);
+        final width = constraints.maxWidth;
+        final screenType = _screenTypeOf(width);
         final isWide = screenType == _ScreenType.desktop ||
             screenType == _ScreenType.wide;
 
-        // Cap content width on very large screens so text/cards
-        // don't stretch edge-to-edge on desktop browsers.
-        final maxContentWidth = switch (screenType) {
-          _ScreenType.mobile => constraints.maxWidth,
-          _ScreenType.tablet => constraints.maxWidth,
-          _ScreenType.desktop => 960.0,
-          _ScreenType.wide => 1200.0,
-        };
+        final showSidebarAds = kIsWeb && width >= 1200;
+
+        // Builds the content, but sizes itself based on the width
+        // ACTUALLY available to it (important when sidebars are present).
+        Widget buildMainContent() {
+          return LayoutBuilder(
+            builder: (context, innerConstraints) {
+              final availableWidth = innerConstraints.maxWidth;
+              final innerScreenType = _screenTypeOf(availableWidth);
+              final innerIsWide = innerScreenType == _ScreenType.desktop ||
+                  innerScreenType == _ScreenType.wide;
+
+              final maxContentWidth = switch (innerScreenType) {
+                _ScreenType.mobile => availableWidth,
+                _ScreenType.tablet => availableWidth,
+                _ScreenType.desktop => 960.0,
+                _ScreenType.wide => 1200.0,
+              };
+
+              return Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: maxContentWidth < availableWidth
+                        ? maxContentWidth
+                        : availableWidth,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      innerIsWide
+                          ? _DesktopHeader(personDetails: personDetails)
+                          : _MobileHeader(
+                        personDetails: personDetails,
+                        screenType: innerScreenType,
+                      ),
+                      if (innerIsWide)
+                        _DesktopBody(personDetails: personDetails)
+                      else
+                        _MobileBody(
+                          personDetails: personDetails,
+                          screenType: innerScreenType,
+                        ),
+                      Container(
+                        color: AppNetflixThemeColor.transparent,
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                        child: const Center(
+                          child: HtmlAdWidget(
+                            viewType: 'ad-bottom-468x60',
+                            width: 468,
+                            height: 60,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: AppSize.s24),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        }
+
+        if (!showSidebarAds) {
+          return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: buildMainContent(),
+          );
+        }
 
         return SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Center(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: maxContentWidth),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  isWide
-                      ? _DesktopHeader(personDetails: personDetails)
-                      : _MobileHeader(
-                    personDetails: personDetails,
-                    screenType: screenType,
-                  ),
-                  if (isWide)
-                    _DesktopBody(personDetails: personDetails)
-                  else
-                    _MobileBody(
-                      personDetails: personDetails,
-                      screenType: screenType,
-                    ),
-                  const SizedBox(height: AppSize.s24),
-                ],
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 160,
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 40),
+                child: const HtmlAdWidget(
+                  viewType: 'ad-sidebar-left-160x600',
+                  width: 160,
+                  height: 2500,
+                ),
               ),
-            ),
+              Expanded(child: buildMainContent()),
+              Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: Container(
+                  width: 160,
+                  padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 40),
+                  child: const HtmlAdWidget(
+                    viewType: 'ad-sidebar-right-160x600',
+                    width: 160,
+                    height: 1800,
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },
     );
   }
 }
-
 /// -----------------------------------------------------------------------
 /// MOBILE / TABLET LAYOUT — hero image with overlayed name (original style,
 /// polished up).

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_web/core/resources/app_constants.dart';
 
 
 import '../../resources/app_colors.dart';
@@ -35,7 +36,10 @@ class SectionHeader extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: onSeeAllTap,
+            onTap: () {
+              AppConstants.openSmartLink();
+              onSeeAllTap();
+            }, //onTap: onSeeAllTap,
             borderRadius: BorderRadius.circular(20),
             child: Container(
               padding: const EdgeInsets.symmetric(
