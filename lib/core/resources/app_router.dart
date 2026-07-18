@@ -16,6 +16,9 @@ import '../../tv_shows/presentation/views/popular_tv_shows_view.dart';
 import '../../tv_shows/presentation/views/top_rated_tv_shows_view.dart';
 import '../../tv_shows/presentation/views/tv_show_details_view.dart';
 import '../../tv_shows/presentation/views/tv_shows_view.dart';
+import '../../tv_shows/presentation/views/trending_tv_shows_view.dart';
+import '../../tv_shows/presentation/views/upcoming_tv_shows_view.dart';
+import '../../tv_shows/presentation/views/action_tv_shows_view.dart';
 import '../../watchlist/presentation/views/watchlist_view.dart';
 import '../presentation/pages/main_page.dart';
 import '../presentation/screens/remote_config_debug_screen.dart';
@@ -35,6 +38,9 @@ const String tvShowsPath = '/tvShows';
 const String tvShowDetailsPath = 'tvShowDetails/:tvShowId';
 const String popularTVShowsPath = 'popularTVShows';
 const String topRatedTVShowsPath = 'topRatedTVShows';
+const String trendingTVShowsPath = 'trendingTVShows';
+const String upcomingTVShowsPath = 'upcomingTVShows';
+const String actionTVShowsPath = 'actionTVShows';
 const String searchPath = '/search';
 const String watchlistPath = '/watchlist';
 const String remoteConfigDebugPath = '/remote-config-debug';
@@ -138,6 +144,24 @@ class AppRouter {
                 path: topRatedTVShowsPath,
                 pageBuilder: (context, state) =>
                 const CupertinoPage(child: TopRatedTVShowsView()),
+              ),
+              GoRoute(
+                name: AppRoutes.trendingTvShowsRoute,
+                path: trendingTVShowsPath,
+                pageBuilder: (context, state) =>
+                const CupertinoPage(child: TrendingTVShowsView()),
+              ),
+              GoRoute(
+                name: AppRoutes.upcomingTvShowsRoute,
+                path: upcomingTVShowsPath,
+                pageBuilder: (context, state) =>
+                const CupertinoPage(child: UpcomingTVShowsView()),
+              ),
+              GoRoute(
+                name: AppRoutes.actionTvShowsRoute,
+                path: actionTVShowsPath,
+                pageBuilder: (context, state) =>
+                const CupertinoPage(child: ActionTVShowsView()),
               ),
             ],
           ),
