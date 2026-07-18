@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/domain/entities/media.dart';
-import '../../../core/presentation/components/ads/hybrid_native_ad_widget.dart';
 import '../../../core/presentation/components/custom_app_bar.dart';
 import '../../../core/presentation/components/error_screen.dart';
 import '../../../core/presentation/components/loading_indicator.dart';
@@ -15,8 +14,7 @@ import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/app_constants.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/enums.dart';
-import '../controllers/popular_tv_shows_bloc/popular_tv_shows_bloc.dart';
-import '../../../core/presentation/components/ads/ad_enabled_screen.dart';
+import '../controllers/top_rated_tv_shows_bloc/top_rated_tv_shows_bloc.dart';
 
 /// ---------------------------------------------------------------------
 /// Responsive breakpoints for the grid.
@@ -48,14 +46,14 @@ class _Breakpoints {
   }
 }
 
-class PopularTVShowsView extends StatefulWidget {
-  const PopularTVShowsView({super.key});
+class UpcomingTVShowsView extends StatefulWidget {
+  const UpcomingTVShowsView({super.key});
 
   @override
-  State<PopularTVShowsView> createState() => _PopularTVShowsViewState();
+  State<UpcomingTVShowsView> createState() => _UpcomingTVShowsViewState();
 }
 
-class _PopularTVShowsViewState extends State<PopularTVShowsView> {
+class _UpcomingTVShowsViewState extends State<UpcomingTVShowsView> {
   @override
   void initState() {
     super.initState();
@@ -69,28 +67,27 @@ class _PopularTVShowsViewState extends State<PopularTVShowsView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<PopularTVShowsBloc>()..add(GetPopularTVShowsEvent()),
+      create: (context) => sl<TopRatedTVShowsBloc>()..add(GetTopRatedTVShowsEvent()),
       child: Scaffold(
         backgroundColor: AppColors.background,
-        appBar:  CustomAppBar(
-
-          title: AppStrings.popularShows,
-        ),
-        body: BlocBuilder<PopularTVShowsBloc, PopularTVShowsState>(
+        // appBar: const CustomAppBar(
+        //   title: 'Upcoming Shows',
+        // ),
+        body: BlocBuilder<TopRatedTVShowsBloc, TopRatedTVShowsState>(
           builder: (context, state) {
             switch (state.status) {
               case GetAllRequestStatus.loading:
                 return const LoadingIndicator();
               case GetAllRequestStatus.loaded:
-                return PopularTVShowsWidget(tvShows: state.tvShows);
+                return UpcomingTVShowsWidget(tvShows: state.tvShows);
               case GetAllRequestStatus.error:
                 return ErrorScreen(
                   onTryAgainPressed: () {
-                    context.read<PopularTVShowsBloc>().add(GetPopularTVShowsEvent());
+                    context.read<TopRatedTVShowsBloc>().add(GetTopRatedTVShowsEvent());
                   },
                 );
               case GetAllRequestStatus.fetchMoreError:
-                return PopularTVShowsWidget(tvShows: state.tvShows);
+                return UpcomingTVShowsWidget(tvShows: state.tvShows);
             }
           },
         ),
@@ -99,8 +96,8 @@ class _PopularTVShowsViewState extends State<PopularTVShowsView> {
   }
 }
 
-class PopularTVShowsWidget extends StatelessWidget {
-  const PopularTVShowsWidget({
+class UpcomingTVShowsWidget extends StatelessWidget {
+  const UpcomingTVShowsWidget({
     super.key,
     required this.tvShows,
   });
@@ -120,7 +117,7 @@ class PopularTVShowsWidget extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color.alphaBlend(Colors.deepOrange.withOpacity(0.06), AppColors.background),
+                Color.alphaBlend(AppColors.deepPurple.withOpacity(0.06), AppColors.background),
                 AppColors.background,
               ],
               stops: const [0.0, 0.35],
@@ -128,12 +125,11 @@ class PopularTVShowsWidget extends StatelessWidget {
           ),
           child: Column(
             children: [
-              // const HybridNativeAdWidget(adKey: 'popular_tv_shows'),
               _HeaderBanner(count: tvShows.length, width: width),
               Expanded(
                 child: wide
-                    ? _WidePopularGrid(tvShows: tvShows, width: width)
-                    : _MobilePopularList(tvShows: tvShows),
+                    ? _WideUpcomingGrid(tvShows: tvShows, width: width)
+                    : _MobileUpcomingList(tvShows: tvShows),
               ),
             ],
           ),
@@ -165,11 +161,11 @@ class _HeaderBanner extends StatelessWidget {
           gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFFFF7A45), Color(0xFFB4272B)],
+            colors: [AppColors.tvPurpleStart, AppColors.tvPurpleEnd],
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.deepOrange.withOpacity(0.35),
+              color: AppColors.deepPurple.withOpacity(0.35),
               blurRadius: 20,
               offset: const Offset(0, 10),
             ),
@@ -180,10 +176,10 @@ class _HeaderBanner extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.18),
+                color: AppColors.white.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: const Icon(Icons.local_fire_department_rounded, color: Colors.white, size: 26),
+              child: const Icon(Icons.upcoming_rounded, color: AppColors.white, size: 26),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -192,21 +188,21 @@ class _HeaderBanner extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text(
-                    'Popular Shows',
+                    'Upcoming Shows',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
-                      color: Colors.white,
+                      color: AppColors.white,
                       letterSpacing: 0.2,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '$count shows trending right now',
+                    '$count shows coming soon',
                     style: TextStyle(
                       fontSize: 12.5,
                       fontWeight: FontWeight.w500,
-                      color: Colors.white.withOpacity(0.85),
+                      color: AppColors.white.withOpacity(0.85),
                     ),
                   ),
                 ],
@@ -223,8 +219,8 @@ class _HeaderBanner extends StatelessWidget {
 /// Mobile list — same VerticalListView/pagination as before, just the
 /// cards fade+slide in for a bit of polish.
 /// ---------------------------------------------------------------------
-class _MobilePopularList extends StatelessWidget {
-  const _MobilePopularList({required this.tvShows});
+class _MobileUpcomingList extends StatelessWidget {
+  const _MobileUpcomingList({required this.tvShows});
 
   final List<Media> tvShows;
 
@@ -243,7 +239,7 @@ class _MobilePopularList extends StatelessWidget {
         }
       },
       addEvent: () {
-        context.read<PopularTVShowsBloc>().add(FetchMorePopularTVShowsEvent());
+        context.read<TopRatedTVShowsBloc>().add(FetchMoreTopRatedTVShowsEvent());
       },
     );
   }
@@ -254,17 +250,17 @@ class _MobilePopularList extends StatelessWidget {
 /// pagination listener, hover lift, staggered entrance, and a
 /// scroll-to-top button once the user scrolls down.
 /// ---------------------------------------------------------------------
-class _WidePopularGrid extends StatefulWidget {
-  const _WidePopularGrid({required this.tvShows, required this.width});
+class _WideUpcomingGrid extends StatefulWidget {
+  const _WideUpcomingGrid({required this.tvShows, required this.width});
 
   final List<Media> tvShows;
   final double width;
 
   @override
-  State<_WidePopularGrid> createState() => _WidePopularGridState();
+  State<_WideUpcomingGrid> createState() => _WideUpcomingGridState();
 }
 
-class _WidePopularGridState extends State<_WidePopularGrid> {
+class _WideUpcomingGridState extends State<_WideUpcomingGrid> {
   final ScrollController _controller = ScrollController();
   bool _requestedMore = false;
   bool _showScrollTop = false;
@@ -276,7 +272,7 @@ class _WidePopularGridState extends State<_WidePopularGrid> {
   }
 
   @override
-  void didUpdateWidget(covariant _WidePopularGrid oldWidget) {
+  void didUpdateWidget(covariant _WideUpcomingGrid oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.tvShows.length != widget.tvShows.length) {
       _requestedMore = false;
@@ -295,7 +291,7 @@ class _WidePopularGridState extends State<_WidePopularGrid> {
     final threshold = _controller.position.maxScrollExtent - 400;
     if (_controller.position.pixels >= threshold) {
       _requestedMore = true;
-      context.read<PopularTVShowsBloc>().add(FetchMorePopularTVShowsEvent());
+      context.read<TopRatedTVShowsBloc>().add(FetchMoreTopRatedTVShowsEvent());
     }
   }
 
@@ -373,10 +369,10 @@ class _WidePopularGridState extends State<_WidePopularGrid> {
               child: IgnorePointer(
                 ignoring: !_showScrollTop,
                 child: FloatingActionButton(
-                  heroTag: 'popular_scroll_top',
-                  backgroundColor: const Color(0xFFB4272B),
+                  heroTag: 'upcoming_scroll_top',
+                  backgroundColor: AppColors.tvPurpleEnd,
                   onPressed: _scrollToTop,
-                  child: const Icon(Icons.keyboard_arrow_up_rounded, color: Colors.white),
+                  child: const Icon(Icons.keyboard_arrow_up_rounded, color: AppColors.white),
                 ),
               ),
             ),
@@ -451,7 +447,7 @@ class _HoverCardState extends State<_HoverCard> {
             boxShadow: _hovering
                 ? [
               BoxShadow(
-                color: Colors.black.withOpacity(0.4),
+                color: AppColors.black.withOpacity(0.4),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),

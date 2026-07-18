@@ -70,7 +70,7 @@ class _TVShowDetailsViewState extends State<TVShowDetailsView> {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: AppNetflixThemeColor.transparent,
+          backgroundColor: Colors.transparent,
           elevation: 0,
        /*   leading: Padding(
             padding: const EdgeInsets.only(
@@ -128,7 +128,7 @@ class _TVShowDetailsViewState extends State<TVShowDetailsView> {
                       padding: const EdgeInsets.all(AppPadding.p8),
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: AppNetflixThemeColor.iconContainerColor,
+                        color: AppColors.iconContainerColor,
                       ),
                       child: BlocConsumer<WatchlistBloc, WatchlistState>(
                         listener: (context, state) {
@@ -149,8 +149,8 @@ class _TVShowDetailsViewState extends State<TVShowDetailsView> {
                           return Icon(
                             Icons.bookmark_rounded,
                             color: mediaDetails.isBookmarked
-                                ? AppNetflixThemeColor.primary
-                                : AppNetflixThemeColor.secondaryText,
+                                ? AppColors.primary
+                                : AppColors.secondaryText,
                             size: AppSize.s20,
                           );
                         },

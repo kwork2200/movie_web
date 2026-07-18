@@ -43,8 +43,8 @@ class CustomBannerCard extends StatelessWidget {
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
                 return Container(
-                  color: AppNetflixThemeColor.errorBackground,
-                  child:  Center(child: Icon(Icons.image_not_supported, color: AppNetflixThemeColor.errorIcon, size: 48)),
+                  color: AppColors.error,
+                  child:  Center(child: Icon(Icons.image_not_supported, color: AppColors.errorIcon, size: 48)),
                 );
               },
             ),

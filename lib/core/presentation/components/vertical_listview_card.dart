@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/media.dart';
-import '../../resources/app_colors.dart';
 import '../../resources/app_values.dart';
 import '../../utils/functions.dart';
 import 'image_with_shimmer.dart';
@@ -48,10 +47,10 @@ class VerticalListViewCard extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        AppNetflixThemeColor.transparent,
-                        AppNetflixThemeColor.cardGradientStart,
-                        AppNetflixThemeColor.cardGradientMid,
-                        AppNetflixThemeColor.cardGradientEnd,
+                        Colors.transparent,
+                        Color(0x55000000),
+                        Color(0xCC0A0E1A),
+                        Color(0xFF0A0E1A),
                       ],
                     ),
                   ),
@@ -64,7 +63,7 @@ class VerticalListViewCard extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: textTheme.titleMedium?.copyWith(
-                          color: AppNetflixThemeColor.white,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -80,7 +79,7 @@ class VerticalListViewCard extends StatelessWidget {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
-                                  color: AppNetflixThemeColor.white70,
+                                  color: Colors.white70,
                                   fontSize: 12,
                                 ),
                               ),
@@ -99,7 +98,7 @@ class VerticalListViewCard extends StatelessWidget {
                           Text(
                             media.voteAverage.toStringAsFixed(1),
                             style: const TextStyle(
-                              color: AppNetflixThemeColor.white,
+                              color: Colors.white,
                               fontSize: 12,
                             ),
                           ),
@@ -114,7 +113,7 @@ class VerticalListViewCard extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          color: AppNetflixThemeColor.white70,
+                          color: Colors.white70,
                           fontSize: 12,
                         ),
                       ),

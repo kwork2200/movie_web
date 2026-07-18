@@ -90,7 +90,7 @@ class TVShowsWidget extends StatelessWidget {
             'No TV shows available at the moment',
             style: TextStyle(
               fontSize: 16,
-              color: AppNetflixThemeColor.secondaryText,
+              color: AppColors.secondaryText,
             ),
             textAlign: TextAlign.center,
           ),
@@ -148,7 +148,7 @@ class TVShowsWidget extends StatelessWidget {
           SectionHeader(
             title: 'Trending Now',
             onSeeAllTap: () {
-              context.goNamed(AppRoutes.popularMoviesRoute);
+              context.goNamed(AppRoutes.trendingTvShowsRoute);
             },
           ),
           SectionListViewWithAds(
@@ -163,7 +163,7 @@ class TVShowsWidget extends StatelessWidget {
           SectionHeader(
             title: 'Upcoming Shows',
             onSeeAllTap: () {
-              context.goNamed(AppRoutes.popularMoviesRoute);
+              context.goNamed(AppRoutes.upcomingTvShowsRoute);
             },
           ),
           SectionListViewWithAds(
@@ -180,7 +180,7 @@ class TVShowsWidget extends StatelessWidget {
           SectionHeader(
             title: 'Action & Adventure',
             onSeeAllTap: () {
-              context.goNamed(AppRoutes.topRatedMoviesRoute);
+              context.goNamed(AppRoutes.actionTvShowsRoute);
             },
           ),
           SectionListViewWithAds(

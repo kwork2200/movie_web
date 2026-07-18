@@ -16,7 +16,7 @@ class CircleDot extends StatelessWidget {
         height: AppSize.s6,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: AppNetflixThemeColor.circleDotColor,
+          color: AppColors.circleDotColor,
         ),
       ),
     );

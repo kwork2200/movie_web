@@ -16,7 +16,7 @@ class Avatar extends StatelessWidget {
       imageUrl: avatarUrl,
       imageBuilder: (context, imageProvider) => CircleAvatar(
         radius: AppSize.s20,
-        backgroundColor: AppNetflixThemeColor.transparent,
+        backgroundColor: AppColors.transparent,
         backgroundImage: imageProvider,
       ),
       placeholder: (context, _) => Shimmer.fromColors(
@@ -24,7 +24,7 @@ class Avatar extends StatelessWidget {
         highlightColor: Colors.grey[800]!,
         child: const CircleAvatar(radius: AppSize.s20),
       ),
-      errorWidget: (_, _, _) => const Icon(Icons.error, color: AppNetflixThemeColor.error),
+      errorWidget: (_, _, _) => const Icon(Icons.error, color: AppColors.error),
     );
   }
 }

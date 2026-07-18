@@ -72,7 +72,7 @@ class _TopRatedTVShowsViewState extends State<TopRatedTVShowsView> {
       create: (context) =>
           sl<TopRatedTVShowsBloc>()..add(GetTopRatedTVShowsEvent()),
       child: Scaffold(
-        backgroundColor: AppNetflixThemeColor.background,
+        backgroundColor: AppColors.background,
         appBar: const CustomAppBar(
           title: AppStrings.topRatedShows,
         ),
@@ -122,8 +122,8 @@ class TopRatedTVShowsWidget extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color.alphaBlend(AppNetflixThemeColor.deepPurple.withOpacity(0.06), AppNetflixThemeColor.background),
-                AppNetflixThemeColor.background,
+                Color.alphaBlend(Colors.deepPurple.withOpacity(0.06), AppColors.background),
+                AppColors.background,
               ],
               stops: const [0.0, 0.35],
             ),
@@ -167,11 +167,11 @@ class _HeaderBanner extends StatelessWidget {
           gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [AppNetflixThemeColor.tvPurpleStart, AppNetflixThemeColor.tvPurpleEnd],
+            colors: [Color(0xFF9C27B0), Color(0xFF673AB7)],
           ),
           boxShadow: [
             BoxShadow(
-              color: AppNetflixThemeColor.deepPurple.withOpacity(0.35),
+              color: Colors.deepPurple.withOpacity(0.35),
               blurRadius: 20,
               offset: const Offset(0, 10),
             ),
@@ -182,10 +182,10 @@ class _HeaderBanner extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: AppNetflixThemeColor.white.withOpacity(0.18),
+                color: Colors.white.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: const Icon(Icons.star_rounded, color: AppNetflixThemeColor.white, size: 26),
+              child: const Icon(Icons.star_rounded, color: Colors.white, size: 26),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -198,7 +198,7 @@ class _HeaderBanner extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
-                      color: AppNetflixThemeColor.white,
+                      color: Colors.white,
                       letterSpacing: 0.2,
                     ),
                   ),
@@ -208,7 +208,7 @@ class _HeaderBanner extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12.5,
                       fontWeight: FontWeight.w500,
-                      color: AppNetflixThemeColor.white.withOpacity(0.85),
+                      color: Colors.white.withOpacity(0.85),
                     ),
                   ),
                 ],
@@ -376,9 +376,9 @@ class _WideTopRatedGridState extends State<_WideTopRatedGrid> {
                 ignoring: !_showScrollTop,
                 child: FloatingActionButton(
                   heroTag: 'top_rated_scroll_top',
-                  backgroundColor: AppNetflixThemeColor.tvPurpleEnd,
+                  backgroundColor: const Color(0xFF673AB7),
                   onPressed: _scrollToTop,
-                  child: const Icon(Icons.keyboard_arrow_up_rounded, color: AppNetflixThemeColor.white),
+                  child: const Icon(Icons.keyboard_arrow_up_rounded, color: Colors.white),
                 ),
               ),
             ),
@@ -453,7 +453,7 @@ class _HoverCardState extends State<_HoverCard> {
             boxShadow: _hovering
                 ? [
               BoxShadow(
-                color: AppNetflixThemeColor.black.withOpacity(0.4),
+                color: Colors.black.withOpacity(0.4),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),

@@ -58,10 +58,10 @@ class _MoviesViewState extends State<MoviesView> {
     return Scaffold(
       key: _scaffoldKey,
       extendBodyBehindAppBar: true,
-      backgroundColor: AppNetflixThemeColor.background,
+      backgroundColor: AppColors.background,
       drawer: const AppDrawer(),
       appBar: AppBar(
-        backgroundColor: AppNetflixThemeColor.transparent,
+        backgroundColor: AppColors.transparent,
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.only(
@@ -77,16 +77,16 @@ class _MoviesViewState extends State<MoviesView> {
             child: Container(
               padding: const EdgeInsets.all(AppPadding.p10),
               decoration: BoxDecoration(
-                color: AppNetflixThemeColor.black.withOpacity(0.3),
+                color: AppColors.black.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: AppNetflixThemeColor.white.withOpacity(0.1),
+                  color: Colors.white.withOpacity(0.1),
                   width: 1,
                 ),
               ),
               child: const Icon(
                 Icons.menu_rounded,
-                color: AppNetflixThemeColor.white,
+                color: Colors.white,
                 size: AppSize.s20,
               ),
             ),
@@ -143,7 +143,7 @@ class MoviesWidget extends StatelessWidget {
             'No movies available at the moment',
             style: TextStyle(
               fontSize: 16,
-              color: AppNetflixThemeColor.secondaryText,
+              color: AppColors.secondaryText,
             ),
             textAlign: TextAlign.center,
           ),

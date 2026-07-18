@@ -21,25 +21,25 @@ Future<bool> showManagedInterstitialAd(BuildContext context, {bool alwaysShow = 
   try {
     final bool googleEnabled = AdService.instance.shouldShowInterstitialAds;
     final bool facebookEnabled = FbAdService.instance.shouldShowInterstitialAds;
-    final bool thirdPartyEnabled = RemoteConfigService.instance.showThirdPartyInterstitialAds && ENABLE_THIRD_PARTY_ADS;
+    // final bool thirdPartyEnabled = RemoteConfigService.instance.showThirdPartyInterstitialAds && ENABLE_THIRD_PARTY_ADS;
 
-    if (!googleEnabled && !facebookEnabled && thirdPartyEnabled) {
-      debugPrint('🎯 Both Google & Facebook ads disabled - trying third-party ad');
-      
-      if (alwaysShow) {
-        if (context.mounted) {
-          await showQurekaInterstitialAd(context);
-          return true;
-        }
-      } else {
-        final shouldShow = await InterstitialAdManager.instance.showAdIfAvailable();
-        if (shouldShow && context.mounted) {
-          await showQurekaInterstitialAd(context);
-          return true;
-        }
-      }
-      return false;
-    }
+    // if (!googleEnabled && !facebookEnabled && thirdPartyEnabled) {
+    //   debugPrint('🎯 Both Google & Facebook ads disabled - trying third-party ad');
+    //
+    //   // if (alwaysShow) {
+    //   //   if (context.mounted) {
+    //   //     await showQurekaInterstitialAd(context);
+    //   //     return true;
+    //   //   }
+    //   // } else {
+    //   //   final shouldShow = await InterstitialAdManager.instance.showAdIfAvailable();
+    //   //   if (shouldShow && context.mounted) {
+    //   //     await showQurekaInterstitialAd(context);
+    //   //     return true;
+    //   //   }
+    //   // }
+    //   // return false;
+    // }
     if (alwaysShow) {
       await InterstitialAdManager.instance.showAdAlways();
       return true;
@@ -254,7 +254,7 @@ Future<void> navigateToDetailsView(BuildContext context, Media media) async {
 
     final bool googleEnabled = AdService.instance.shouldShowInterstitialAds;
     final bool facebookEnabled = FbAdService.instance.shouldShowInterstitialAds;
-    final bool thirdPartyEnabled = RemoteConfigService.instance.showThirdPartyInterstitialAds && ENABLE_THIRD_PARTY_ADS;
+    final bool thirdPartyEnabled = RemoteConfigService.instance.showThirdPartyInterstitialAds ;
 
     // Check if both Google and Facebook ads are disabled
     if (!googleEnabled && !facebookEnabled && thirdPartyEnabled) {
@@ -262,7 +262,7 @@ Future<void> navigateToDetailsView(BuildContext context, Media media) async {
 
       // Increment counter for frequency control
       InterstitialAdManager.instance.incrementCounter();
-      
+
       if (!InterstitialAdManager.instance.shouldShowAdByFrequency()) {
         debugPrint('⏭️ Skipping third-party ad (counter: ${InterstitialAdManager.instance.screenCounter}, frequency: ${AdService.instance.interstitialAdFrequency})');
       } else {
@@ -270,7 +270,7 @@ Future<void> navigateToDetailsView(BuildContext context, Media media) async {
         InterstitialAdManager.instance.resetCounter();
         if (context.mounted) {
           debugPrint('✅ Showing third-party interstitial ad now');
-          await showQurekaInterstitialAd(context);
+          // await showQurekaInterstitialAd(context);
           adShown = true;
           debugPrint('✅ Third-party ad dismissed, proceeding with navigation');
         }
@@ -349,7 +349,7 @@ void showCustomBottomSheet(BuildContext context, Widget child) {
   final size = MediaQuery.of(context).size.height;
   showModalBottomSheet(
     context: context,
-    backgroundColor: AppNetflixThemeColor.secondaryBackground,
+    backgroundColor: AppColors.secondaryBackground,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(AppSize.s20)),
     ),

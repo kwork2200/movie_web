@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_web/core/resources/app_constants.dart';
 
 
 import '../../resources/app_colors.dart';
@@ -32,14 +31,11 @@ class SectionHeader extends StatelessWidget {
             style: GoogleFonts.inter(
               fontSize: 20,
               fontWeight: FontWeight.w700,
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
             ),
           ),
           InkWell(
-            onTap: () {
-              AppConstants.openSmartLink();
-              onSeeAllTap();
-            }, //onTap: onSeeAllTap,
+            onTap: onSeeAllTap,
             borderRadius: BorderRadius.circular(20),
             child: Container(
               padding: const EdgeInsets.symmetric(
@@ -47,10 +43,10 @@ class SectionHeader extends StatelessWidget {
                 vertical: 8,
               ),
               decoration: BoxDecoration(
-                color: AppNetflixThemeColor.primaryIndigo.withOpacity(0.1),
+                color: const Color(0xFF6366F1).withOpacity(0.1),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: AppNetflixThemeColor.primaryIndigo.withOpacity(0.3),
+                  color: const Color(0xFF6366F1).withOpacity(0.3),
                   width: 1,
                 ),
               ),
@@ -61,14 +57,14 @@ class SectionHeader extends StatelessWidget {
                     style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: AppNetflixThemeColor.primaryIndigo,
+                      color: const Color(0xFF6366F1),
                     ),
                   ),
                   const SizedBox(width: 4),
                   const Icon(
                     Icons.arrow_forward_rounded,
                     size: 16,
-                    color: AppNetflixThemeColor.primaryIndigo,
+                    color: Color(0xFF6366F1),
                   ),
                 ],
               ),

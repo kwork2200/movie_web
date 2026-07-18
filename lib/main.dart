@@ -11,7 +11,6 @@ import 'package:movie_web/watchlist/presentation/controllers/watchlist_bloc/watc
 import 'core/presentation/components/ads/html_ad_widget.dart';
 import 'core/resources/app_router.dart';
 import 'core/resources/app_strings.dart';
-import 'core/resources/app_colors.dart';
 import 'core/services/service_locator.dart';
 import 'core/services/remote_config_service.dart' if (dart.library.html) 'core/services/remote_config_stub.dart';
 import 'core/services/dns_detector_service.dart';
@@ -191,65 +190,65 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         debugShowCheckedModeBanner: false,
         title: AppStrings.appTitle,
         theme: ThemeData(
-          scaffoldBackgroundColor: AppNetflixThemeColor.background,
-          primaryColor: AppNetflixThemeColor.primaryIndigo,
+          scaffoldBackgroundColor: const Color(0xFF0A0E1A),
+          primaryColor: const Color(0xFF6366F1),
           colorScheme: ColorScheme.dark(
-            background: AppNetflixThemeColor.background,
-            surface: AppNetflixThemeColor.cardBackground,
-            primary: AppNetflixThemeColor.primaryIndigo,
-            secondary: AppNetflixThemeColor.secondaryPurple,
-            tertiary: AppNetflixThemeColor.tertiaryPink,
+            background: const Color(0xFF0A0E1A),
+            surface: const Color(0xFF121826),
+            primary: const Color(0xFF6366F1),
+            secondary: const Color(0xFF8B5CF6),
+            tertiary: const Color(0xFFEC4899),
           ),
           fontFamily: 'Inter',
           textTheme: TextTheme(
             displayLarge: GoogleFonts.inter(
               fontSize: 32,
               fontWeight: FontWeight.w700,
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
             ),
             displayMedium: GoogleFonts.inter(
               fontSize: 28,
               fontWeight: FontWeight.w600,
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
             ),
             displaySmall: GoogleFonts.inter(
               fontSize: 24,
               fontWeight: FontWeight.w600,
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
             ),
             headlineMedium: GoogleFonts.inter(
               fontSize: 20,
               fontWeight: FontWeight.w600,
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
             ),
             titleLarge: GoogleFonts.inter(
               fontSize: 18,
               fontWeight: FontWeight.w600,
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
             ),
             titleMedium: GoogleFonts.inter(
               fontSize: 16,
               fontWeight: FontWeight.w500,
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
             ),
             bodyLarge: GoogleFonts.inter(
               fontSize: 16,
               fontWeight: FontWeight.w400,
-              color: AppNetflixThemeColor.bodyText,
+              color: const Color(0xFFE2E8F0),
             ),
             bodyMedium: GoogleFonts.inter(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: AppNetflixThemeColor.bodyTextLight,
+              color: const Color(0xFFCBD5E1),
             ),
             labelLarge: GoogleFonts.inter(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
             ),
           ),
           cardTheme: CardThemeData(
-            color: AppNetflixThemeColor.cardBackground,
+            color: const Color(0xFF121826),
             elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
@@ -257,8 +256,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppNetflixThemeColor.primaryIndigo,
-              foregroundColor: AppNetflixThemeColor.white,
+              backgroundColor: const Color(0xFF6366F1),
+              foregroundColor: Colors.white,
               elevation: 0,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
               shape: RoundedRectangleBorder(
@@ -271,17 +270,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             ),
           ),
           appBarTheme: AppBarTheme(
-            backgroundColor: AppNetflixThemeColor.transparent,
+            backgroundColor: Colors.transparent,
             elevation: 0,
             titleTextStyle: GoogleFonts.inter(
               fontSize: 20,
               fontWeight: FontWeight.w600,
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
             ),
           ),
           inputDecorationTheme: InputDecorationTheme(
             filled: true,
-            fillColor: AppNetflixThemeColor.cardBackground,
+            fillColor: const Color(0xFF121826),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide.none,
@@ -292,11 +291,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: AppNetflixThemeColor.primaryIndigo, width: 2),
+              borderSide: const BorderSide(color: Color(0xFF6366F1), width: 2),
             ),
             hintStyle: GoogleFonts.inter(
               fontSize: 14,
-              color: AppNetflixThemeColor.hintText,
+              color: const Color(0xFF64748B),
             ),
           ),
         ),

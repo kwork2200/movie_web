@@ -112,7 +112,7 @@ class _HoverLiftState extends State<HoverLift> {
             boxShadow: _hovering
                 ? [
                     BoxShadow(
-                      color: AppNetflixThemeColor.black.withOpacity(0.35),
+                      color: AppColors.black.withOpacity(0.35),
                       blurRadius: 18,
                       offset: const Offset(0, 10),
                     ),

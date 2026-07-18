@@ -77,7 +77,7 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: AppNetflixThemeColor.errorRed.withOpacity(opacity),
+              color: const Color(0xFFEF4444).withOpacity(opacity),
               width: 1.5,
             ),
           ),
@@ -99,7 +99,7 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
         width: size,
         height: size,
         decoration: BoxDecoration(
-          color: AppNetflixThemeColor.errorRed.withOpacity(0.07),
+          color: const Color(0xFFEF4444).withOpacity(0.07),
           shape: BoxShape.circle,
         ),
       ),
@@ -114,17 +114,17 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
           width: 30,
           height: 30,
           decoration: BoxDecoration(
-            color: AppNetflixThemeColor.errorRed.withOpacity(0.10),
+            color: const Color(0xFFEF4444).withOpacity(0.10),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon, size: 16, color: AppNetflixThemeColor.errorRed),
+          child: Icon(icon, size: 16, color: const Color(0xFFEF4444)),
         ),
         const SizedBox(width: 12),
         Text(
           label,
           style: GoogleFonts.dmSans(
             fontSize: 13,
-            color: AppNetflixThemeColor.mutedTextLight,
+            color: const Color(0xFF9CA3AF),
           ),
         ),
       ],
@@ -136,7 +136,7 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: AppNetflixThemeColor.darkBackground,
+        backgroundColor: const Color(0xFF090C14),
         body: LayoutBuilder(
           builder: (context, constraints) {
             final screenUtils = ScreenUtils.of(context);
@@ -159,8 +159,8 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          AppNetflixThemeColor.errorRed.withOpacity(0.10),
-                          AppNetflixThemeColor.transparent,
+                          const Color(0xFFEF4444).withOpacity(0.10),
+                          Colors.transparent,
                         ],
                       ),
                     ),
@@ -178,8 +178,8 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          AppNetflixThemeColor.errorRed.withOpacity(0.06),
-                          AppNetflixThemeColor.transparent,
+                          const Color(0xFFEF4444).withOpacity(0.06),
+                          Colors.transparent,
                         ],
                       ),
                     ),
@@ -210,7 +210,7 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                                     height: 100,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: AppNetflixThemeColor.errorRed.withOpacity(0.13),
+                                      color: const Color(0xFFEF4444).withOpacity(0.13),
                                     ),
                                   ),
 
@@ -226,7 +226,7 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                                             const Icon(
                                               Icons.vpn_lock_rounded,
                                               size: 52,
-                                              color: AppNetflixThemeColor.errorRed,
+                                              color: Color(0xFFEF4444),
                                             ),
                                             // Warning badge
                                             Positioned(
@@ -236,13 +236,13 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                                                 width: 22,
                                                 height: 22,
                                                 decoration: const BoxDecoration(
-                                                  color: AppNetflixThemeColor.errorRed,
+                                                  color: Color(0xFFEF4444),
                                                   shape: BoxShape.circle,
                                                 ),
-                                                child: Icon(
+                                                child: const Icon(
                                                   Icons.block_rounded,
                                                   size: 13,
-                                                  color: AppNetflixThemeColor.white,
+                                                  color: Colors.white,
                                                 ),
                                               ),
                                             ),
@@ -261,10 +261,10 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                             Container(
                               padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
                               decoration: BoxDecoration(
-                                color: AppNetflixThemeColor.white.withOpacity(0.04),
+                                color: Colors.white.withOpacity(0.04),
                                 borderRadius: BorderRadius.circular(28),
                                 border: Border.all(
-                                  color: AppNetflixThemeColor.white.withOpacity(0.09),
+                                  color: Colors.white.withOpacity(0.09),
                                   width: 0.5,
                                 ),
                               ),
@@ -277,7 +277,7 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                                     style: GoogleFonts.dmSans(
                                       fontSize: 24,
                                       fontWeight: FontWeight.w700,
-                                      color: AppNetflixThemeColor.white,
+                                      color: Colors.white,
                                       letterSpacing: -0.3,
                                     ),
                                   ),
@@ -291,7 +291,7 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                                     style: GoogleFonts.dmSans(
                                       fontSize: 14,
                                       height: 1.7,
-                                      color: AppNetflixThemeColor.mutedTextLight,
+                                      color: const Color(0xFF9CA3AF),
                                     ),
                                   ),
 
@@ -304,10 +304,10 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                                       vertical: 8,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: AppNetflixThemeColor.errorRed.withOpacity(0.07),
+                                      color: const Color(0xFFEF4444).withOpacity(0.07),
                                       borderRadius: BorderRadius.circular(999),
                                       border: Border.all(
-                                        color: AppNetflixThemeColor.errorRed.withOpacity(0.18),
+                                        color: const Color(0xFFEF4444).withOpacity(0.18),
                                         width: 0.5,
                                       ),
                                     ),
@@ -323,7 +323,7 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                                                 width: 8,
                                                 height: 8,
                                                 decoration: const BoxDecoration(
-                                                  color: AppNetflixThemeColor.errorRed,
+                                                  color: Color(0xFFEF4444),
                                                   shape: BoxShape.circle,
                                                 ),
                                               ),
@@ -335,7 +335,7 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                                           'DNS/VPN is currently active',
                                           style: GoogleFonts.dmSans(
                                             fontSize: 13,
-                                            color: AppNetflixThemeColor.mutedTextLighter,
+                                            color: const Color(0xFFB6BDC9),
                                           ),
                                         ),
                                       ],
@@ -346,7 +346,7 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
 
                                   // Divider
                                   const Divider(
-                                    color: AppNetflixThemeColor.dividerColor,
+                                    color: Color(0x17FFFFFF),
                                     height: 1,
                                   ),
 
@@ -374,10 +374,10 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                                   Container(
                                     padding: const EdgeInsets.all(16),
                                     decoration: BoxDecoration(
-                                      color: AppNetflixThemeColor.errorRed.withOpacity(0.08),
+                                      color: const Color(0xFFEF4444).withOpacity(0.08),
                                       borderRadius: BorderRadius.circular(16),
                                       border: Border.all(
-                                        color: AppNetflixThemeColor.errorRed.withOpacity(0.15),
+                                        color: const Color(0xFFEF4444).withOpacity(0.15),
                                         width: 0.5,
                                       ),
                                     ),
@@ -385,7 +385,7 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                                       children: [
                                         const Icon(
                                           Icons.info_outline_rounded,
-                                          color: AppNetflixThemeColor.errorRed,
+                                          color: Color(0xFFEF4444),
                                           size: 20,
                                         ),
                                         const SizedBox(width: 12),
@@ -394,7 +394,7 @@ class _DnsBlockedScreenState extends State<DnsBlockedScreen>
                                             'App will automatically resume once DNS/VPN is disabled',
                                             style: GoogleFonts.dmSans(
                                               fontSize: 12,
-                                              color: AppNetflixThemeColor.mutedTextLight,
+                                              color: const Color(0xFF9CA3AF),
                                               height: 1.5,
                                             ),
                                           ),

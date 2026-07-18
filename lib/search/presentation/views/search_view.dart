@@ -76,7 +76,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                             children: [
                               SearchGridView(results: state.searchResults),
                               Container(
-                                color: AppNetflixThemeColor.transparent,
+                                color: AppColors.transparent,
                                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
                                 child: const Center(child: HtmlAdWidget(viewType: 'banner-728x90', width:728, height: 90),),
                               ),

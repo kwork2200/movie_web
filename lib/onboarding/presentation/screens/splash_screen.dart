@@ -99,7 +99,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppNetflixThemeColor.background,
+      backgroundColor: const Color(0xFF0A0E1A),
       body: LayoutBuilder(
         builder: (context, constraints) {
           final screenUtils = ScreenUtils.of(context);
@@ -111,8 +111,8 @@ class _SplashScreenState extends State<SplashScreen>
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  AppNetflixThemeColor.background,
-                  AppNetflixThemeColor.cardBackground,
+                  const Color(0xFF0A0E1A),
+                  const Color(0xFF121826),
                 ],
               ),
             ),
@@ -129,8 +129,8 @@ class _SplashScreenState extends State<SplashScreen>
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          AppNetflixThemeColor.primaryIndigo.withOpacity(0.15),
-                          AppNetflixThemeColor.transparent,
+                          const Color(0xFF6366F1).withOpacity(0.15),
+                          Colors.transparent,
                         ],
                       ),
                     ),
@@ -146,8 +146,8 @@ class _SplashScreenState extends State<SplashScreen>
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          AppNetflixThemeColor.secondaryPurple.withOpacity(0.12),
-                          AppNetflixThemeColor.transparent,
+                          const Color(0xFF8B5CF6).withOpacity(0.12),
+                          Colors.transparent,
                         ],
                       ),
                     ),
@@ -173,7 +173,7 @@ class _SplashScreenState extends State<SplashScreen>
 
                           ShaderMask(
                             shaderCallback: (bounds) => const LinearGradient(
-                              colors: [AppNetflixThemeColor.primaryIndigo, AppNetflixThemeColor.secondaryPurple, AppNetflixThemeColor.tertiaryPink],
+                              colors: [Color(0xFF6366F1), Color(0xFF8B5CF6), Color(0xFFEC4899)],
                             ).createShader(bounds),
                             child: Text(
                               'CINEPLEX',
@@ -181,7 +181,7 @@ class _SplashScreenState extends State<SplashScreen>
                                 fontSize: 56,
                                 fontWeight: FontWeight.w800,
                                 letterSpacing: 4,
-                                color: AppNetflixThemeColor.white,
+                                color: Colors.white,
                               ),
                             ),
                           ),
@@ -193,7 +193,7 @@ class _SplashScreenState extends State<SplashScreen>
                             style: GoogleFonts.inter(
                               fontSize: 14,
                               letterSpacing: 2,
-                              color: AppNetflixThemeColor.mutedText,
+                              color: const Color(0xFF94A3B8),
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -220,7 +220,7 @@ class _SplashScreenState extends State<SplashScreen>
                       textAlign: TextAlign.center,
                       style: GoogleFonts.inter(
                         fontSize: 12,
-                        color: AppNetflixThemeColor.hintText,
+                        color: const Color(0xFF64748B),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -249,12 +249,12 @@ class _SplashScreenState extends State<SplashScreen>
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: AppNetflixThemeColor.primaryIndigo.withOpacity(0.2),
+                  color: const Color(0xFF6366F1).withOpacity(0.2),
                   blurRadius: 50,
                   spreadRadius: 15,
                 ),
                 BoxShadow(
-                  color: AppNetflixThemeColor.secondaryPurple.withOpacity(0.15),
+                  color: const Color(0xFF8B5CF6).withOpacity(0.15),
                   blurRadius: 70,
                   spreadRadius: 10,
                 ),
@@ -275,10 +275,10 @@ class _SplashScreenState extends State<SplashScreen>
                     shape: BoxShape.circle,
                     gradient: const LinearGradient(
                       colors: [
-                        AppNetflixThemeColor.primaryIndigo,
-                        AppNetflixThemeColor.secondaryPurple,
-                        AppNetflixThemeColor.tertiaryPink,
-                        AppNetflixThemeColor.primaryIndigo,
+                        Color(0xFF6366F1),
+                        Color(0xFF8B5CF6),
+                        Color(0xFFEC4899),
+                        Color(0xFF6366F1),
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -295,9 +295,9 @@ class _SplashScreenState extends State<SplashScreen>
             height: 95,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: AppNetflixThemeColor.cardBackground,
+              color: const Color(0xFF121826),
               border: Border.all(
-                color: AppNetflixThemeColor.primaryIndigo.withOpacity(0.3),
+                color: const Color(0xFF6366F1).withOpacity(0.3),
                 width: 2,
               ),
             ),
@@ -307,7 +307,7 @@ class _SplashScreenState extends State<SplashScreen>
           const Icon(
             Icons.play_circle_outline,
             size: 48,
-            color: AppNetflixThemeColor.white,
+            color: Colors.white,
           ),
         ],
       ),
@@ -321,7 +321,7 @@ class _SplashScreenState extends State<SplashScreen>
       child: CircularProgressIndicator(
         strokeWidth: 3,
         valueColor: AlwaysStoppedAnimation<Color>(
-          AppNetflixThemeColor.primaryIndigo,
+          const Color(0xFF6366F1),
         ),
       ),
     );

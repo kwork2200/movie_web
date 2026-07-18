@@ -3,8 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-import '../../resources/app_colors.dart';
-
 import '../../resources/app_constants.dart';
 
 class WebNavbar extends StatelessWidget {
@@ -22,9 +20,9 @@ class WebNavbar extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            AppNetflixThemeColor.black.withOpacity(0.75),
-            AppNetflixThemeColor.black.withOpacity(0.35),
-            AppNetflixThemeColor.transparent,
+            Colors.black.withOpacity(0.75),
+            Colors.black.withOpacity(0.35),
+            Colors.transparent,
           ],
         ),
       ),
@@ -54,7 +52,7 @@ class WebNavbar extends StatelessWidget {
         },
         child:  ShaderMask(
           shaderCallback: (bounds) => const LinearGradient(
-            colors: [AppNetflixThemeColor.primaryIndigo, AppNetflixThemeColor.secondaryPurple, AppNetflixThemeColor.tertiaryPink],
+            colors: [Color(0xFF6366F1), Color(0xFF8B5CF6), Color(0xFFEC4899)],
           ).createShader(bounds),
           child: Text(
             'CINEPLEX',
@@ -62,7 +60,7 @@ class WebNavbar extends StatelessWidget {
               fontSize: 35,
               fontWeight: FontWeight.w800,
               letterSpacing: 4,
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
             ),
           ),
         ),
@@ -95,7 +93,7 @@ class WebNavbar extends StatelessWidget {
             style: GoogleFonts.inter(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
             ),
           ),
         ),
@@ -115,7 +113,7 @@ class WebNavbar extends StatelessWidget {
           style: GoogleFonts.inter(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: AppNetflixThemeColor.white,
+            color: Colors.white,
           ),
         ),
       ),
@@ -131,7 +129,7 @@ class WebNavbar extends StatelessWidget {
           await AppConstants.openSmartLink();
           context.go('/search');
         },
-        child: const Icon(Icons.search, color: AppNetflixThemeColor.white, size: 24),
+        child: const Icon(Icons.search, color: Colors.white, size: 24),
       ),
     );
   }
@@ -145,7 +143,7 @@ class WebNavbar extends StatelessWidget {
           await AppConstants.openSmartLink();
           context.go('/watchlist');
         },
-        child: const Icon(Icons.bookmark_border, color: AppNetflixThemeColor.white, size: 24),
+        child: const Icon(Icons.bookmark_border, color: Colors.white, size: 24),
       ),
     );
   }

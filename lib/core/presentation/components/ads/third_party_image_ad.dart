@@ -22,7 +22,7 @@ class ThirdPartyImageAd extends StatelessWidget {
   /// Open the third-party ad URL in browser
   Future<void> _openAdUrl(BuildContext context) async {
     final url = RemoteConfigService.instance.thirdPartyAdUrl;
-    
+
     try {
       final uri = Uri.parse(url);
       if (await canLaunchUrl(uri)) {
@@ -60,15 +60,15 @@ class ThirdPartyImageAd extends StatelessWidget {
     return GestureDetector(
       onTap: () => _openAdUrl(context),
       child: Container(
-        margin: margin ?? (isNativeSize 
-            ? const EdgeInsets.symmetric(vertical: 8) 
+        margin: margin ?? (isNativeSize
+            ? const EdgeInsets.symmetric(vertical: 8)
             : EdgeInsets.zero),
         padding: padding,
         decoration: isNativeSize ? BoxDecoration(
-          color: AppNetflixThemeColor.black.withOpacity(0.3),
+          color: AppColors.black.withOpacity(0.3),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: AppNetflixThemeColor.white.withOpacity(0.1),
+            color: Colors.white.withOpacity(0.1),
           ),
         ) : null,
         height: height,
@@ -86,7 +86,7 @@ class ThirdPartyImageAd extends StatelessWidget {
                 child: const Center(
                   child: Icon(
                     Icons.image_not_supported,
-                    color: AppNetflixThemeColor.white54,
+                    color: Colors.white54,
                     size: 48,
                   ),
                 ),

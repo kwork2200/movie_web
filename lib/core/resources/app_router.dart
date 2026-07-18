@@ -7,6 +7,9 @@ import '../../onboarding/presentation/screens/splash_screen.dart';
 import '../../onboarding/presentation/screens/language_selection_screen.dart';
 import '../../movies/presentation/views/movie_details_view.dart';
 import '../../movies/presentation/views/person_details_view.dart';
+import '../../tv_shows/presentation/views/action_tv_shows_view.dart';
+import '../../tv_shows/presentation/views/trending_tv_shows_view.dart';
+import '../../tv_shows/presentation/views/upcoming_tv_shows_view.dart';
 import '../presentation/screens/info_screen.dart';
 import '../../movies/presentation/views/movies_view.dart';
 import '../../movies/presentation/views/popular_movies_view.dart';
@@ -38,6 +41,9 @@ const String topRatedTVShowsPath = 'topRatedTVShows';
 const String searchPath = '/search';
 const String watchlistPath = '/watchlist';
 const String remoteConfigDebugPath = '/remote-config-debug';
+const String trendingTVShowsPath = 'trendingTVShows';
+const String upcomingTVShowsPath = 'upcomingTVShows';
+const String actionTVShowsPath = 'actionTVShows';
 
 class AppRouter {
   AppRouter._();
@@ -61,11 +67,11 @@ class AppRouter {
         pageBuilder: (context, state) =>
         const CupertinoPage(child: LanguageSelectionScreen()),
       ),
-      GoRoute(
-        path: remoteConfigDebugPath,
-        pageBuilder: (context, state) =>
-        const CupertinoPage(child: RemoteConfigDebugScreen()),
-      ),
+      // GoRoute(
+      //   path: remoteConfigDebugPath,
+      //   pageBuilder: (context, state) =>
+      //   const CupertinoPage(child: RemoteConfigDebugScreen()),
+      // ),
       ShellRoute(
         builder: (context, state, child) => MainPage(child: child),
         routes: [
@@ -138,6 +144,24 @@ class AppRouter {
                 path: topRatedTVShowsPath,
                 pageBuilder: (context, state) =>
                 const CupertinoPage(child: TopRatedTVShowsView()),
+              ),
+              GoRoute(
+                name: AppRoutes.trendingTvShowsRoute,
+                path: trendingTVShowsPath,
+                pageBuilder: (context, state) =>
+                const CupertinoPage(child: TrendingTVShowsView()),
+              ),
+              GoRoute(
+                name: AppRoutes.upcomingTvShowsRoute,
+                path: upcomingTVShowsPath,
+                pageBuilder: (context, state) =>
+                const CupertinoPage(child: UpcomingTVShowsView()),
+              ),
+              GoRoute(
+                name: AppRoutes.actionTvShowsRoute,
+                path: actionTVShowsPath,
+                pageBuilder: (context, state) =>
+                const CupertinoPage(child: ActionTVShowsView()),
               ),
             ],
           ),

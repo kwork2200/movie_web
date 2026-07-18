@@ -83,7 +83,7 @@ class _PopupAdBannerState extends State<PopupAdBanner> with SingleTickerProvider
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: AppNetflixThemeColor.cardBackground,
+                      color: AppColors.cardBackground,
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
@@ -99,7 +99,7 @@ class _PopupAdBannerState extends State<PopupAdBanner> with SingleTickerProvider
                       children: [
                         SizedBox(height:50),
                         Container(
-                          color: AppNetflixThemeColor.transparent,
+                          color: AppColors.transparent,
                           padding: const EdgeInsets.symmetric(
                             horizontal: 16,
                             vertical: 8,
@@ -134,7 +134,7 @@ class _PopupAdBannerState extends State<PopupAdBanner> with SingleTickerProvider
                           width: 36,
                           height: 36,
                           decoration: BoxDecoration(
-                            color: AppNetflixThemeColor.white,
+                            color: AppColors.secondaryText,
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
@@ -146,7 +146,7 @@ class _PopupAdBannerState extends State<PopupAdBanner> with SingleTickerProvider
                           ),
                           child: Icon(
                             Icons.close,
-                            color: AppNetflixThemeColor.netflixRed,
+                            color: Color(0xFF6366F1),
                             size: 20,
                           ),
                         ),

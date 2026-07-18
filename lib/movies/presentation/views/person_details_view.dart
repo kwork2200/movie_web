@@ -66,10 +66,10 @@ class _PersonDetailsViewState extends State<PersonDetailsView> {
       create: (context) =>
       sl<PersonDetailsBloc>()..add(GetPersonDetailsEvent(widget.personId)),
       child: Scaffold(
-        backgroundColor: AppNetflixThemeColor.primaryBackground,
+        backgroundColor: AppColors.primaryBackground,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: AppNetflixThemeColor.transparent,
+          backgroundColor: Colors.transparent,
           elevation: 0,
           leading: Padding(
             padding: const EdgeInsets.only(
@@ -264,7 +264,7 @@ class PersonDetailsWidget extends StatelessWidget {
                           screenType: innerScreenType,
                         ),
                       Container(
-                        color: AppNetflixThemeColor.transparent,
+                        color: AppColors.transparent,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                         child: const Center(
                           child: HtmlAdWidget(
@@ -349,10 +349,10 @@ class _MobileHeader extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                AppNetflixThemeColor.transparent,
-                AppNetflixThemeColor.black,
-                AppNetflixThemeColor.black,
-                AppNetflixThemeColor.transparent,
+                AppColors.transparent,
+                AppColors.black,
+                AppColors.black,
+                AppColors.transparent,
               ],
               stops: [0.0, 0.5, 0.7, 1.0],
             ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
@@ -375,8 +375,8 @@ class _MobileHeader extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  AppNetflixThemeColor.transparent,
-                  AppNetflixThemeColor.black.withOpacity(0.75),
+                  AppColors.transparent,
+                  AppColors.black.withOpacity(0.75),
                 ],
               ),
             ),
@@ -388,8 +388,8 @@ class _MobileHeader extends StatelessWidget {
                   style: textTheme.titleLarge?.copyWith(
                     fontSize: screenType == _ScreenType.tablet ? 34 : 28,
                     fontWeight: FontWeight.bold,
-                    shadows: const [
-                      Shadow(color: AppNetflixThemeColor.black54, blurRadius: 6),
+                    shadows:  [
+                      Shadow(color: Colors.black54, blurRadius: 6),
                     ],
                   ),
                 ),
@@ -460,7 +460,7 @@ class _DesktopHeader extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: AppNetflixThemeColor.black.withOpacity(0.35),
+                    color: AppColors.black.withOpacity(0.35),
                     blurRadius: 24,
                     offset: const Offset(0, 12),
                   ),
@@ -483,7 +483,7 @@ class _DesktopHeader extends StatelessWidget {
                   personDetails.name,
                   style: textTheme.titleLarge?.copyWith(
                     fontSize: 42,
-                    color: AppNetflixThemeColor.primary,
+                    color: AppColors.primary,
                     fontWeight: FontWeight.bold,
                     height: 1.1,
                   ),
@@ -531,13 +531,13 @@ class _GenderChip extends StatelessWidget {
         vertical: AppPadding.p6,
       ),
       decoration: BoxDecoration(
-        color: AppNetflixThemeColor.iconContainerColor.withOpacity(0.6),
+        color: AppColors.iconContainerColor.withOpacity(0.6),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
         gender,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-          color: AppNetflixThemeColor.secondaryText,
+          color: AppColors.secondaryText,
           fontWeight: FontWeight.w600,
           letterSpacing: 0.3,
         ),
@@ -584,11 +584,11 @@ class _InfoCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(AppPadding.p16),
       decoration: BoxDecoration(
-        color: AppNetflixThemeColor.iconContainerColor.withOpacity(0.25),
-        // color: AppNetflixThemeColor.primary.withOpacity(0.25),
+        color: AppColors.iconContainerColor.withOpacity(0.25),
+        // color: AppColors.primary.withOpacity(0.25),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppNetflixThemeColor.iconContainerColor.withOpacity(0.4),
+          color: AppColors.iconContainerColor.withOpacity(0.4),
         ),
       ),
       child: Column(
@@ -628,14 +628,14 @@ class _InfoRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 18, color: AppNetflixThemeColor.secondaryText),
+          Icon(icon, size: 18, color: AppColors.secondaryText),
           const SizedBox(width: AppSize.s10),
           SizedBox(
             width: 90,
             child: Text(
               label,
               style: textTheme.bodyMedium?.copyWith(
-                color: AppNetflixThemeColor.secondaryText,
+                color: AppColors.secondaryText,
                 fontWeight: FontWeight.w500,
               ),
             ),

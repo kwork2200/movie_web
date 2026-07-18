@@ -91,14 +91,14 @@ class _InfoScreenState extends State<InfoScreen> {
   Widget build(BuildContext context) {
     if (_isAdProcessing) {
       return Scaffold(
-        backgroundColor: AppNetflixThemeColor.background,
+        backgroundColor: const Color(0xFF0A0E1A),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  AppNetflixThemeColor.primaryIndigo,
+                  const Color(0xFF6366F1),
                 ),
               ),
               const SizedBox(height: 20),
@@ -106,7 +106,7 @@ class _InfoScreenState extends State<InfoScreen> {
                 'Loading...',
                 style: GoogleFonts.inter(
                   fontSize: 16,
-                  color: AppNetflixThemeColor.mutedText,
+                  color: const Color(0xFF94A3B8),
                 ),
               ),
             ],
@@ -120,7 +120,7 @@ class _InfoScreenState extends State<InfoScreen> {
         final isWeb = _isWeb(width);
 
         return Scaffold(
-          backgroundColor: AppNetflixThemeColor.background,
+          backgroundColor: const Color(0xFF0A0E1A),
           // appBar: AppBar(
           //   backgroundColor: AppNetflixThemeColor.transparent,
           //   elevation: 0,
@@ -178,8 +178,10 @@ class _InfoScreenState extends State<InfoScreen> {
                                       decoration: BoxDecoration(
                                         gradient: LinearGradient(
                                           colors: [
-                                            AppNetflixThemeColor.primaryIndigo.withOpacity(0.15),
-                                            AppNetflixThemeColor.secondaryPurple.withOpacity(0.15),
+                                            const Color(0xFF6366F1)
+                                                .withOpacity(0.15),
+                                            const Color(0xFF8B5CF6)
+                                                .withOpacity(0.15),
                                           ],
                                           begin: Alignment.topLeft,
                                           end: Alignment.bottomRight,
@@ -187,11 +189,15 @@ class _InfoScreenState extends State<InfoScreen> {
                                         borderRadius:
                                         BorderRadius.circular(24),
                                         border: Border.all(
-                                          color: AppNetflixThemeColor.primaryIndigo.withOpacity(0.3), width: 1),
+                                          color: const Color(0xFF6366F1)
+                                              .withOpacity(0.3),
+                                          width: 1,
+                                        ),
                                         boxShadow: isWeb
                                             ? [
                                           BoxShadow(
-                                            color: AppNetflixThemeColor.primaryIndigo
+                                            color: const Color(
+                                                0xFF6366F1)
                                                 .withOpacity(0.15),
                                             blurRadius: 40,
                                             offset: const Offset(0, 20),
@@ -207,15 +213,16 @@ class _InfoScreenState extends State<InfoScreen> {
                                             decoration: BoxDecoration(
                                               gradient: const LinearGradient(
                                                 colors: [
-                                                  AppNetflixThemeColor.primaryIndigo,
-                                                  AppNetflixThemeColor.secondaryPurple,
+                                                  Color(0xFF6366F1),
+                                                  Color(0xFF8B5CF6),
                                                 ],
                                               ),
                                               borderRadius:
                                               BorderRadius.circular(20),
                                               boxShadow: [
                                                 BoxShadow(
-                                                  color: AppNetflixThemeColor.primaryIndigo
+                                                  color: const Color(
+                                                      0xFF6366F1)
                                                       .withOpacity(0.4),
                                                   blurRadius: 24,
                                                   offset: const Offset(0, 10),
@@ -225,7 +232,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                             child: Icon(
                                               Icons.play_circle_filled,
                                               size: isWeb ? 84 : 72,
-                                              color: AppNetflixThemeColor.white,
+                                              color: Colors.white,
                                             ),
                                           ),
                                           const SizedBox(height: 24),
@@ -234,7 +241,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                             style: GoogleFonts.inter(
                                               fontSize: isWeb ? 40 : 32,
                                               fontWeight: FontWeight.w800,
-                                              color: AppNetflixThemeColor.white,
+                                              color: Colors.white,
                                               letterSpacing: 2,
                                             ),
                                           ),
@@ -243,7 +250,8 @@ class _InfoScreenState extends State<InfoScreen> {
                                             'Stream unlimited movies & TV shows',
                                             style: GoogleFonts.inter(
                                               fontSize: isWeb ? 17 : 16,
-                                              color: AppNetflixThemeColor.mutedText,
+                                              color:
+                                              const Color(0xFF94A3B8),
                                             ),
                                             textAlign: TextAlign.center,
                                           ),
@@ -281,8 +289,8 @@ class _InfoScreenState extends State<InfoScreen> {
                                             gradient:
                                             const LinearGradient(
                                               colors: [
-                                                AppNetflixThemeColor.secondaryPurple,
-                                                AppNetflixThemeColor.tertiaryPink,
+                                                Color(0xFF8B5CF6),
+                                                Color(0xFFEC4899),
                                               ],
                                             ),
                                             onTap: () async{
@@ -304,8 +312,8 @@ class _InfoScreenState extends State<InfoScreen> {
                                             gradient:
                                             const LinearGradient(
                                               colors: [
-                                                AppNetflixThemeColor.primaryIndigo,
-                                                AppNetflixThemeColor.secondaryPurple,
+                                                Color(0xFF6366F1),
+                                                Color(0xFF8B5CF6),
                                               ],
                                             ),
                                             onTap: () async{
@@ -328,8 +336,8 @@ class _InfoScreenState extends State<InfoScreen> {
                                           gradient:
                                           const LinearGradient(
                                             colors: [
-                                              AppNetflixThemeColor.secondaryPurple,
-                                              AppNetflixThemeColor.tertiaryPink,
+                                              Color(0xFF8B5CF6),
+                                              Color(0xFFEC4899),
                                             ],
                                           ),
                                           onTap: () async{
@@ -348,8 +356,8 @@ class _InfoScreenState extends State<InfoScreen> {
                                           gradient:
                                           const LinearGradient(
                                             colors: [
-                                              AppNetflixThemeColor.primaryIndigo,
-                                              AppNetflixThemeColor.secondaryPurple,
+                                              Color(0xFF6366F1),
+                                              Color(0xFF8B5CF6),
                                             ],
                                           ),
                                           onTap: () async{
@@ -401,8 +409,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   left: 0,
                   right: 0,
                   child: Container(
-                    // color: const Color(0xFF0A0E1A),
-                    color: AppNetflixThemeColor.transparent,
+                    color: const Color(0xFF0A0E1A),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 8,
@@ -447,7 +454,7 @@ class _InfoScreenState extends State<InfoScreen> {
               gradient: gradient,
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(icon, color: AppNetflixThemeColor.white, size: 28),
+            child: Icon(icon, color: Colors.white, size: 28),
           ),
           const SizedBox(height: 16),
           Text(
@@ -455,7 +462,7 @@ class _InfoScreenState extends State<InfoScreen> {
             style: GoogleFonts.inter(
               fontSize: 17,
               fontWeight: FontWeight.w600,
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
             ),
           ),
           const SizedBox(height: 4),
@@ -463,7 +470,7 @@ class _InfoScreenState extends State<InfoScreen> {
             subtitle,
             style: GoogleFonts.inter(
               fontSize: 13,
-              color: AppNetflixThemeColor.mutedText,
+              color: const Color(0xFF94A3B8),
             ),
           ),
           const SizedBox(height: 12),
@@ -483,7 +490,7 @@ class _InfoScreenState extends State<InfoScreen> {
               gradient: gradient,
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(icon, color: AppNetflixThemeColor.white, size: 28),
+            child: Icon(icon, color: Colors.white, size: 28),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -495,7 +502,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   style: GoogleFonts.inter(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: AppNetflixThemeColor.white,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -503,7 +510,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   subtitle,
                   style: GoogleFonts.inter(
                     fontSize: 14,
-                    color: AppNetflixThemeColor.mutedText,
+                    color: const Color(0xFF94A3B8),
                   ),
                 ),
               ],
@@ -564,7 +571,7 @@ class _HoverTileState extends State<_HoverTile> {
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: AppNetflixThemeColor.cardBackground,
+              color: const Color(0xFF121826),
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
                 color: _hovered
@@ -622,12 +629,12 @@ class _HoverButtonState extends State<_HoverButton> {
               vertical: 16,
             ),
             decoration: BoxDecoration(
-              color: AppNetflixThemeColor.primaryIndigo,
+              color: const Color(0xFF6366F1),
               borderRadius: BorderRadius.circular(14),
               boxShadow: _hovered
                   ? [
                 BoxShadow(
-                  color: AppNetflixThemeColor.primaryIndigo.withOpacity(0.5),
+                  color: const Color(0xFF6366F1).withOpacity(0.5),
                   blurRadius: 24,
                   offset: const Offset(0, 10),
                 ),
@@ -642,11 +649,11 @@ class _HoverButtonState extends State<_HoverButton> {
                   style: GoogleFonts.inter(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: AppNetflixThemeColor.white,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Icon(Icons.arrow_forward, size: 20, color: AppNetflixThemeColor.white),
+                const Icon(Icons.arrow_forward, size: 20, color: Colors.white),
               ],
             ),
           ),

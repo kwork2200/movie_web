@@ -11,7 +11,9 @@ class AppRoutes {
   static const String tvShowDetailsRoute = 'tvShowDetails';
   static const String popularTvShowsRoute = 'popularTvShowsRoute';
   static const String topRatedTvShowsRoute = 'topRatedTvShowsRoute';
-
+  static const String trendingTvShowsRoute = 'trendingTvShowsRoute';
+  static const String upcomingTvShowsRoute = 'upcomingTvShowsRoute';
+  static const String actionTvShowsRoute = 'actionTvShowsRoute';
   static const String searchRoute = 'search';
   static const String watchlistRoute = 'watchlist';
 }

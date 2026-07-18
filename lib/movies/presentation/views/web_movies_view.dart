@@ -4,10 +4,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie_web/core/presentation/widget/custom_banner_card.dart';
 
-import '../../../core/domain/entities/media.dart';import '../../../core/presentation/components/banner_ad_widget.dart';
-import '../../../core/resources/app_colors.dart';
+import '../../../core/domain/entities/media.dart';
 import '../../../core/presentation/components/custom_slider.dart';
 import '../../../core/presentation/components/error_screen.dart';
 import '../../../core/presentation/components/loading_indicator.dart';
@@ -60,7 +58,7 @@ class _WebMoviesViewState extends State<WebMoviesView> {
     // visible at the bottom of the screenshot), remove the bottomNavigationBar
     // usage there too — it isn't part of this file.
     return Scaffold(
-      backgroundColor: AppNetflixThemeColor.darkWebBackground,
+      backgroundColor: const Color(0xFF141414),
       body: BlocBuilder<MoviesBloc, MoviesState>(
         builder: (context, state) {
           switch (state.status) {
@@ -191,7 +189,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
             'No movies available at the moment',
             style: GoogleFonts.inter(
               fontSize: 16,
-              color: AppNetflixThemeColor.mutedText,
+              color: const Color(0xFF94A3B8),
             ),
             textAlign: TextAlign.center,
           ),
@@ -269,10 +267,10 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  AppNetflixThemeColor.black.withOpacity(0.55),
-                  AppNetflixThemeColor.transparent,
-                  AppNetflixThemeColor.darkWebBackground.withOpacity(0.7),
-                  AppNetflixThemeColor.darkWebBackground,
+                  Colors.black.withOpacity(0.55),
+                  Colors.transparent,
+                  const Color(0xFF141414).withOpacity(0.7),
+                  const Color(0xFF141414),
                 ],
               ),
             ),
@@ -303,7 +301,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                   style: GoogleFonts.inter(
                     fontSize: 52,
                     fontWeight: FontWeight.w800,
-                    color: AppNetflixThemeColor.white,
+                    color: Colors.white,
                     height: 1.1,
                   ),
                   maxLines: 2,
@@ -317,7 +315,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                   style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: AppNetflixThemeColor.mutedTextWeb,
+                    color: const Color(0xFFB3B3B3),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -328,7 +326,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                     style: GoogleFonts.inter(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
-                      color: AppNetflixThemeColor.lightTextWeb,
+                      color: const Color(0xFFD1D5DB),
                       height: 1.5,
                     ),
                     maxLines: 3,
@@ -366,7 +364,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         decoration: BoxDecoration(
-          color: AppNetflixThemeColor.netflixRed,
+          color: const Color(0xFFE50914),
           borderRadius: BorderRadius.circular(4),
         ),
         child: Text(
@@ -374,7 +372,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
           style: GoogleFonts.inter(
             fontSize: 12,
             fontWeight: FontWeight.w700,
-            color: AppNetflixThemeColor.white,
+            color: Colors.white,
           ),
         ));
   }
@@ -400,8 +398,8 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
                 color: _currentHeroIndex == index
-                    ? AppNetflixThemeColor.white
-                    : AppNetflixThemeColor.white.withOpacity(0.4),
+                    ? Colors.white
+                    : Colors.white.withOpacity(0.4),
               ),
             ),
           );
@@ -421,20 +419,20 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-              colors: [AppNetflixThemeColor.netflixRed, AppNetflixThemeColor.netflixRedDark],
+              colors: [Color(0xFFE50914), Color(0xFFB81D24)],
             ),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             children: [
-              const Icon(Icons.play_arrow, color: AppNetflixThemeColor.white, size: 24),
+              const Icon(Icons.play_arrow, color: Colors.white, size: 24),
               const SizedBox(width: 8),
               Text(
                 'Play',
                 style: GoogleFonts.inter(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
-                  color: AppNetflixThemeColor.white,
+                  color: Colors.white,
                 ),
               ),
             ],
@@ -452,20 +450,20 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           decoration: BoxDecoration(
-            color: AppNetflixThemeColor.white.withOpacity(0.2),
+            color: Colors.white.withOpacity(0.2),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: AppNetflixThemeColor.white.withOpacity(0.3)),
+            border: Border.all(color: Colors.white.withOpacity(0.3)),
           ),
           child: Row(
             children: [
-              const Icon(Icons.info_outline, color: AppNetflixThemeColor.white, size: 20),
+              const Icon(Icons.info_outline, color: Colors.white, size: 20),
               const SizedBox(width: 6),
               Text(
                 'More Info',
                 style: GoogleFonts.inter(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
-                  color: AppNetflixThemeColor.white,
+                  color: Colors.white,
                 ),
               ),
             ],
@@ -485,20 +483,20 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           decoration: BoxDecoration(
-            color: AppNetflixThemeColor.white.withOpacity(0.2),
+            color: Colors.white.withOpacity(0.2),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: AppNetflixThemeColor.white.withOpacity(0.3)),
+            border: Border.all(color: Colors.white.withOpacity(0.3)),
           ),
           child: Row(
             children: [
-              const Icon(Icons.add, color: AppNetflixThemeColor.white, size: 20),
+              const Icon(Icons.add, color: Colors.white, size: 20),
               const SizedBox(width: 6),
               Text(
                 'My List',
                 style: GoogleFonts.inter(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
-                  color: AppNetflixThemeColor.white,
+                  color: Colors.white,
                 ),
               ),
             ],
@@ -508,93 +506,13 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
     );
   }
 
-  // Widget _buildMovieRow(String title, List<Media> movies, BuildContext context) {
-  //   if (movies.isEmpty) return const SizedBox.shrink();
-  //   final controller = _controllerFor(title);
-  //
-  //   int adsCount = (movies.length / 2).floor();
-  //   int totalItems = movies.length + adsCount;
-  //
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Padding(
-  //         padding: const EdgeInsets.symmetric(horizontal: 48),
-  //         child: Text(
-  //           title,
-  //           style: GoogleFonts.inter(
-  //             fontSize: 24,
-  //             fontWeight: FontWeight.w700,
-  //             color: Colors.white,
-  //           ),
-  //         ),
-  //       ),
-  //       const SizedBox(height: 16),
-  //       SizedBox(
-  //         height: 300,
-  //         child: Stack(
-  //           children: [
-  //             ListView.separated(
-  //               controller: controller,
-  //               padding: const EdgeInsets.symmetric(horizontal: 48),
-  //               scrollDirection: Axis.horizontal,
-  //               itemCount: totalItems,
-  //               separatorBuilder: (_, __) => const SizedBox(width: 16),
-  //               itemBuilder: (context, index) {
-  //                 int adjustedIndex = index + 1;
-  //                 int blockNumber = adjustedIndex ~/ 3;
-  //                 int positionInBlock = adjustedIndex % 3;
-  //
-  //                 bool isAdPosition = positionInBlock == 0 && blockNumber > 0 && blockNumber * 2 <= movies.length;
-  //
-  //                 if (isAdPosition) {
-  //                   return Container(
-  //                     width: 160,
-  //                     height: 300,
-  //                     alignment: Alignment.center,
-  //                     child: BannerAdWidget(
-  //                       width: 160,
-  //                       height: 300,
-  //                       adKey: '${title.replaceAll(' ', '_').toLowerCase()}_$index',
-  //                     ),
-  //                   );
-  //                 } else {
-  //                   int adsBeforeThis = (index / 3).floor();
-  //                   int movieIndex = index - adsBeforeThis;
-  //                   if (movieIndex >= movies.length) movieIndex = movies.length - 1;
-  //                   return _buildWebMovieCard(movies[movieIndex]);
-  //                 }
-  //               },
-  //             ),
-  //             Positioned(
-  //               left: 0,
-  //               top: 0,
-  //               bottom: 0,
-  //               child: _buildScrollArrow(
-  //                 icon: Icons.chevron_left,
-  //                 onTap: () => _scrollRow(title, forward: false),
-  //               ),
-  //             ),
-  //             Positioned(
-  //               right: 0,
-  //               top: 0,
-  //               bottom: 0,
-  //               child: _buildScrollArrow(
-  //                 icon: Icons.chevron_right,
-  //                 onTap: () => _scrollRow(title, forward: true),
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
   Widget _buildMovieRow(String title, List<Media> movies, BuildContext context) {
     if (movies.isEmpty) return const SizedBox.shrink();
     final controller = _controllerFor(title);
-    final rowItems = _buildRowItemsWithBanner(movies);
+
+    // Calculate total items including ads (1 ad after every 2 movies)
+    int adsCount = (movies.length / 2).floor();
+    int totalItems = movies.length + adsCount;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -606,25 +524,48 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
             style: GoogleFonts.inter(
               fontSize: 24,
               fontWeight: FontWeight.w700,
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
             ),
           ),
         ),
         const SizedBox(height: 16),
         SizedBox(
-          height: 280,
+          height: 300,
           child: Stack(
             children: [
               ListView.separated(
                 controller: controller,
                 padding: const EdgeInsets.symmetric(horizontal: 48),
                 scrollDirection: Axis.horizontal,
-                itemCount: rowItems.length,  /// itemCount: movies.length,
+                itemCount: totalItems,
                 separatorBuilder: (_, __) => const SizedBox(width: 16),
-                itemBuilder: (context, index) => rowItems[index],
-                // itemBuilder: (context, index) {
-                //   return _buildWebMovieCard(movies[index]);
-                // },
+                itemBuilder: (context, index) {
+                  // Check if this position should show an ad
+                  // Ad positions: after every 2 items (positions 2, 5, 8, 11, ...)
+                  int adjustedIndex = index + 1;
+                  int blockNumber = adjustedIndex ~/ 3; // Every 3rd position (2 movies + 1 ad)
+                  int positionInBlock = adjustedIndex % 3;
+
+                  bool isAdPosition = positionInBlock == 0 && blockNumber > 0 && blockNumber * 2 <= movies.length;
+
+                  if (isAdPosition) {
+                    return Container(
+                      width: 160,
+                      height: 300,
+                      alignment: Alignment.center,
+                      child: BannerAdWidget(
+                        width: 160,
+                        height: 300,
+                        adKey: '${title.replaceAll(' ', '_').toLowerCase()}_$index',
+                      ),
+                    );
+                  } else {
+                    int adsBeforeThis = (index / 3).floor();
+                    int movieIndex = index - adsBeforeThis;
+                    if (movieIndex >= movies.length) movieIndex = movies.length - 1;
+                    return _buildWebMovieCard(movies[movieIndex]);
+                  }
+                },
               ),
               Positioned(
                 left: 0,
@@ -651,16 +592,6 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
     );
   }
 
-  List<Widget> _buildRowItemsWithBanner(List<Media> movies) {
-    final List<Widget> items = [];
-    for (int i = 0; i < movies.length; i++) {
-      items.add(_buildWebMovieCard(movies[i]));
-      if ((i + 1) % 2 == 0) { items.add(CustomBannerCard(height: 280, width: 200));
-      }
-    }
-    return items;
-  }
-
   Widget _buildScrollArrow({required IconData icon, required VoidCallback onTap}) {
     final bool isLeft = icon == Icons.chevron_left;
     return MouseRegion(
@@ -678,11 +609,11 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
               width: 36,
               height: 36,
               decoration: BoxDecoration(
-                color: AppNetflixThemeColor.black.withOpacity(0.6),
+                color: Colors.black.withOpacity(0.6),
                 shape: BoxShape.circle,
-                border: Border.all(color: AppNetflixThemeColor.white.withOpacity(0.15)),
+                border: Border.all(color: Colors.white.withOpacity(0.15)),
               ),
-              child: Icon(icon, color: AppNetflixThemeColor.white, size: 22),
+              child: Icon(icon, color: Colors.white, size: 22),
             ),
           ),
         ),
@@ -716,11 +647,11 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
-                          color: AppNetflixThemeColor.errorBackground,
+                          color: const Color(0xFF1F1F1F),
                           child: const Center(
                             child: Icon(
                               Icons.movie,
-                              color: AppNetflixThemeColor.errorIcon,
+                              color: Color(0xFF404040),
                               size: 48,
                             ),
                           ),
@@ -741,9 +672,10 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            AppNetflixThemeColor.transparent,
-                            AppNetflixThemeColor.gradientStart,
-                            AppNetflixThemeColor.gradientEnd,
+                            Colors.transparent,
+                            Color(0x66000F3D),
+                            Color(0xCC001B5E),
+                            // Color(0xFF002B80),
                           ],
                         ),
                       ),
@@ -756,7 +688,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.inter(
-                              color: AppNetflixThemeColor.white,
+                              color: Colors.white,
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
                             ),
@@ -767,7 +699,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.inter(
-                              color: AppNetflixThemeColor.white70,
+                              color: Colors.white70,
                               fontSize: 11,
                             ),
                           ),
@@ -776,14 +708,14 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                             children: [
                               const Icon(
                                 Icons.star_rate_rounded,
-                                color: AppNetflixThemeColor.amber,
+                                color: Colors.amber,
                                 size: 14,
                               ),
                               const SizedBox(width: 4),
                               Text(
                                 media.voteAverage.toStringAsFixed(1),
                                 style: GoogleFonts.inter(
-                                  color: AppNetflixThemeColor.white,
+                                  color: Colors.white,
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
                                 ),

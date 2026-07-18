@@ -61,7 +61,7 @@ class _GridViewCardState extends State<GridViewCard> {
                     boxShadow: _isHovered
                         ? [
                       BoxShadow(
-                        color: AppNetflixThemeColor.black.withOpacity(0.35),
+                        color: Colors.black.withOpacity(0.35),
                         blurRadius: 12,
                         offset: const Offset(0, 6),
                       ),

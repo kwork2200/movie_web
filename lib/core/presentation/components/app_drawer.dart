@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../resources/app_colors.dart';
 import '../../resources/app_values.dart';
-import '../views/about_app_view.dart';
-import '../views/privacy_policy_view.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -12,7 +10,7 @@ class AppDrawer extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Drawer(
-      backgroundColor: AppNetflixThemeColor.sheetBackground,
+      backgroundColor: const Color(0xFF0F1422),
       child: SafeArea(
         child: Column(
           children: [
@@ -25,8 +23,8 @@ class AppDrawer extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    AppNetflixThemeColor.primary.withOpacity(0.2),
-                    AppNetflixThemeColor.primary.withOpacity(0.05),
+                    AppColors.primary.withOpacity(0.2),
+                    AppColors.primary.withOpacity(0.05),
                   ],
                 ),
               ),
@@ -36,21 +34,21 @@ class AppDrawer extends StatelessWidget {
                   const Icon(
                     Icons.movie_creation_rounded,
                     size: 48,
-                    color: AppNetflixThemeColor.primary,
+                    color: AppColors.primary,
                   ),
                   const SizedBox(height: AppSize.s12),
                   Text(
                     'Movie App',
                     style: textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: AppNetflixThemeColor.white,
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: AppSize.s4),
                   Text(
                     'Discover Movies & TV Shows',
                     style: textTheme.bodySmall?.copyWith(
-                      color: AppNetflixThemeColor.secondaryText,
+                      color: AppColors.secondaryText,
                     ),
                   ),
                 ],
@@ -69,12 +67,12 @@ class AppDrawer extends StatelessWidget {
                     title: 'About App',
                     onTap: () {
                       Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AboutAppView(),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const AboutAppView(),
+                      //   ),
+                      // );
                     },
                   ),
                   _DrawerItem(
@@ -82,12 +80,12 @@ class AppDrawer extends StatelessWidget {
                     title: 'Privacy Policy',
                     onTap: () {
                       Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PrivacyPolicyView(),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const PrivacyPolicyView(),
+                      //   ),
+                      // );
                     },
                   ),
                 ],
@@ -99,19 +97,19 @@ class AppDrawer extends StatelessWidget {
               padding: const EdgeInsets.all(AppPadding.p16),
               child: Column(
                 children: [
-                  const Divider(color: AppNetflixThemeColor.secondaryText, height: 1),
+                  const Divider(color: AppColors.secondaryText, height: 1),
                   const SizedBox(height: AppSize.s16),
                   Text(
                     'Version 1.0.0',
                     style: textTheme.bodySmall?.copyWith(
-                      color: AppNetflixThemeColor.secondaryText,
+                      color: AppColors.secondaryText,
                     ),
                   ),
                   const SizedBox(height: AppSize.s4),
                   Text(
                     '© 2024 Movie App',
                     style: textTheme.bodySmall?.copyWith(
-                      color: AppNetflixThemeColor.secondaryText.withOpacity(0.6),
+                      color: AppColors.secondaryText.withOpacity(0.6),
                       fontSize: 10,
                     ),
                   ),
@@ -141,13 +139,13 @@ class _DrawerItem extends StatelessWidget {
     return ListTile(
       leading: Icon(
         icon,
-        color: AppNetflixThemeColor.secondaryText,
+        color: AppColors.secondaryText,
         size: 24,
       ),
       title: Text(
         title,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: AppNetflixThemeColor.white,
+              color: Colors.white,
               fontWeight: FontWeight.w500,
             ),
       ),
@@ -155,7 +153,7 @@ class _DrawerItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppSize.s12),
       ),
       onTap: onTap,
-      hoverColor: AppNetflixThemeColor.primary.withOpacity(0.1),
+      hoverColor: AppColors.primary.withOpacity(0.1),
       contentPadding: const EdgeInsets.symmetric(
         horizontal: AppPadding.p16,
         vertical: AppPadding.p4,
