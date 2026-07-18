@@ -18,29 +18,19 @@ class SectionListViewWithAds extends StatelessWidget {
     super.key,
   });
 
-  // Calculate total items including ads
   int get _totalItemsWithAds {
     if (itemCount == 0) return 0;
-    // Formula: original items + number of ads
-    // Ads appear after every 'adInterval' items
-    int adsCount = (itemCount / adInterval).floor();
+    int adsCount = itemCount ~/ adInterval;
     return itemCount + adsCount;
   }
 
   // Check if current position should show an ad
   bool _isAdPosition(int index) {
-    // Ad positions: after every 'adInterval' items
-    // Positions: adInterval, (adInterval*2)+1, (adInterval*3)+2, etc.
-    int adjustedIndex = index + 1;
-    int blockNumber = adjustedIndex ~/ (adInterval + 1);
-    int positionInBlock = adjustedIndex % (adInterval + 1);
-    
-    return positionInBlock == adInterval && blockNumber * adInterval < itemCount;
+    return (index + 1) % (adInterval + 1) == 0 && index < _totalItemsWithAds;
   }
 
-  // Get original item index from displayed index
   int _getOriginalIndex(int displayIndex) {
-    int adsBeforeThis = (displayIndex / (adInterval + 1)).floor();
+    int adsBeforeThis = displayIndex ~/ (adInterval + 1);
     return displayIndex - adsBeforeThis;
   }
 

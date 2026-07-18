@@ -20,7 +20,7 @@ class VerticalListViewCard extends StatelessWidget {
       onTap: () => navigateToDetailsView(context, media),
       child: Container(
         width: 220,
-        height: 320,
+        height: 280,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s8),
         ),

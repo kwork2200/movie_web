@@ -677,6 +677,17 @@ class _KnownForSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SectionTitle(title: 'Known For'),
+        Container(
+          color: AppColors.transparent,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          child: const Center(
+            child: HtmlAdWidget(
+              viewType: 'ad-bottom-468x60',
+              width: 468,
+              height: 60,
+            ),
+          ),
+        ),
         if (crossAxisCount == null)
           SizedBox(
             height: AppSize.s240,
