@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie_web/core/presentation/widget/custom_banner_card.dart';
 
 import '../../../core/domain/entities/media.dart';
 import '../../../core/resources/app_colors.dart';
@@ -500,10 +501,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
   Widget _buildMovieRow(String title, List<Media> movies, BuildContext context) {
     if (movies.isEmpty) return const SizedBox.shrink();
     final controller = _controllerFor(title);
-
-    // Calculate total items including ads (1 ad after every 2 movies)
-    int adsCount = (movies.length / 2).floor();
-    int totalItems = movies.length + adsCount;
+    final rowItems = _buildRowItemsWithBanner(movies);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -521,42 +519,19 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
         ),
         const SizedBox(height: 16),
         SizedBox(
-          height: 300,
+          height: 280,
           child: Stack(
             children: [
               ListView.separated(
                 controller: controller,
                 padding: const EdgeInsets.symmetric(horizontal: 48),
                 scrollDirection: Axis.horizontal,
-                itemCount: totalItems,
+                itemCount: rowItems.length,  /// itemCount: movies.length,
                 separatorBuilder: (_, __) => const SizedBox(width: 16),
-                itemBuilder: (context, index) {
-                  // Check if this position should show an ad
-                  // Ad positions: after every 2 items (positions 2, 5, 8, 11, ...)
-                  int adjustedIndex = index + 1;
-                  int blockNumber = adjustedIndex ~/ 3; // Every 3rd position (2 movies + 1 ad)
-                  int positionInBlock = adjustedIndex % 3;
-                  
-                  bool isAdPosition = positionInBlock == 0 && blockNumber > 0 && blockNumber * 2 <= movies.length;
-                  
-                  if (isAdPosition) {
-                    return Container(
-                      width: 160,
-                      height: 300,
-                      alignment: Alignment.center,
-                      child: BannerAdWidget(
-                        width: 160,
-                        height: 300,
-                        adKey: '${title.replaceAll(' ', '_').toLowerCase()}_$index',
-                      ),
-                    );
-                  } else {
-                    int adsBeforeThis = (index / 3).floor();
-                    int movieIndex = index - adsBeforeThis;
-                    if (movieIndex >= movies.length) movieIndex = movies.length - 1;
-                    return _buildWebMovieCard(movies[movieIndex]);
-                  }
-                },
+                itemBuilder: (context, index) => rowItems[index],
+                // itemBuilder: (context, index) {
+                //   return _buildWebMovieCard(movies[index]);
+                // },
               ),
               Positioned(
                 left: 0,
@@ -581,6 +556,16 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
         ),
       ],
     );
+  }
+
+  List<Widget> _buildRowItemsWithBanner(List<Media> movies) {
+    final List<Widget> items = [];
+    for (int i = 0; i < movies.length; i++) {
+      items.add(_buildWebMovieCard(movies[i]));
+      if ((i + 1) % 2 == 0) { items.add(CustomBannerCard(height: 280, width: 200));
+      }
+    }
+    return items;
   }
 
   Widget _buildScrollArrow({required IconData icon, required VoidCallback onTap}) {
