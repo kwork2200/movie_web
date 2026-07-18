@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_web/core/presentation/widget/custom_banner_card.dart';
 
-import '../../../core/domain/entities/media.dart';
+import '../../../core/domain/entities/media.dart';import '../../../core/presentation/components/banner_ad_widget.dart';
 import '../../../core/resources/app_colors.dart';
 import '../../../core/presentation/components/custom_slider.dart';
 import '../../../core/presentation/components/error_screen.dart';
@@ -507,6 +507,89 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
       ),
     );
   }
+
+  // Widget _buildMovieRow(String title, List<Media> movies, BuildContext context) {
+  //   if (movies.isEmpty) return const SizedBox.shrink();
+  //   final controller = _controllerFor(title);
+  //
+  //   int adsCount = (movies.length / 2).floor();
+  //   int totalItems = movies.length + adsCount;
+  //
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Padding(
+  //         padding: const EdgeInsets.symmetric(horizontal: 48),
+  //         child: Text(
+  //           title,
+  //           style: GoogleFonts.inter(
+  //             fontSize: 24,
+  //             fontWeight: FontWeight.w700,
+  //             color: Colors.white,
+  //           ),
+  //         ),
+  //       ),
+  //       const SizedBox(height: 16),
+  //       SizedBox(
+  //         height: 300,
+  //         child: Stack(
+  //           children: [
+  //             ListView.separated(
+  //               controller: controller,
+  //               padding: const EdgeInsets.symmetric(horizontal: 48),
+  //               scrollDirection: Axis.horizontal,
+  //               itemCount: totalItems,
+  //               separatorBuilder: (_, __) => const SizedBox(width: 16),
+  //               itemBuilder: (context, index) {
+  //                 int adjustedIndex = index + 1;
+  //                 int blockNumber = adjustedIndex ~/ 3;
+  //                 int positionInBlock = adjustedIndex % 3;
+  //
+  //                 bool isAdPosition = positionInBlock == 0 && blockNumber > 0 && blockNumber * 2 <= movies.length;
+  //
+  //                 if (isAdPosition) {
+  //                   return Container(
+  //                     width: 160,
+  //                     height: 300,
+  //                     alignment: Alignment.center,
+  //                     child: BannerAdWidget(
+  //                       width: 160,
+  //                       height: 300,
+  //                       adKey: '${title.replaceAll(' ', '_').toLowerCase()}_$index',
+  //                     ),
+  //                   );
+  //                 } else {
+  //                   int adsBeforeThis = (index / 3).floor();
+  //                   int movieIndex = index - adsBeforeThis;
+  //                   if (movieIndex >= movies.length) movieIndex = movies.length - 1;
+  //                   return _buildWebMovieCard(movies[movieIndex]);
+  //                 }
+  //               },
+  //             ),
+  //             Positioned(
+  //               left: 0,
+  //               top: 0,
+  //               bottom: 0,
+  //               child: _buildScrollArrow(
+  //                 icon: Icons.chevron_left,
+  //                 onTap: () => _scrollRow(title, forward: false),
+  //               ),
+  //             ),
+  //             Positioned(
+  //               right: 0,
+  //               top: 0,
+  //               bottom: 0,
+  //               child: _buildScrollArrow(
+  //                 icon: Icons.chevron_right,
+  //                 onTap: () => _scrollRow(title, forward: true),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildMovieRow(String title, List<Media> movies, BuildContext context) {
     if (movies.isEmpty) return const SizedBox.shrink();
