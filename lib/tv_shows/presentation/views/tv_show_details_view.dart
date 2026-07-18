@@ -9,6 +9,7 @@ import '../../../core/presentation/components/error_screen.dart';
 import '../../../core/presentation/components/loading_indicator.dart';
 import '../../../core/presentation/components/section_title.dart';
 import '../../../core/presentation/components/section_listview_card.dart';
+import '../../../core/presentation/components/banner_ad_widget.dart';
 import '../../../core/resources/app_constants.dart';
 import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/app_values.dart';
@@ -280,11 +281,30 @@ class TVShowDetailsWidget extends StatelessWidget {
     return const SizedBox();
   }
 
-  /// Builds a flat list: every 2 media cards are followed by a native ad card.
+  /// Builds a flat list: every 2 media cards are followed by a banner ad.
   List<Widget> _buildItemsWithAds(List<Media> mediaList) {
     final List<Widget> items = [];
+    int adCounter = 0;
+    
     for (int i = 0; i < mediaList.length; i++) {
       items.add(SectionListViewCard(media: mediaList[i]));
+      
+      // Add banner ad after every 2 items
+      if ((i + 1) % 2 == 0 && i < mediaList.length - 1) {
+        adCounter++;
+        items.add(
+          Container(
+            width: 160,
+            height: 240,
+            alignment: Alignment.center,
+            child: BannerAdWidget(
+              width: 160,
+              height: 300,
+              adKey: 'tv_details_ad_$adCounter',
+            ),
+          ),
+        );
+      }
     }
     return items;
   }

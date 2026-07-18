@@ -11,6 +11,7 @@ import '../../../core/presentation/components/error_screen.dart';
 import '../../../core/presentation/components/loading_indicator.dart';
 import '../../../core/presentation/components/section_header.dart';
 import '../../../core/presentation/components/section_listview.dart';
+import '../../../core/presentation/components/banner_ad_widget.dart';
 import '../../../core/presentation/components/section_listview_card.dart';
 import '../../../core/presentation/components/slider_card.dart';
 import '../../../core/presentation/components/web_navbar.dart';
@@ -499,6 +500,10 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
     if (movies.isEmpty) return const SizedBox.shrink();
     final controller = _controllerFor(title);
 
+    // Calculate total items including ads (1 ad after every 2 movies)
+    int adsCount = (movies.length / 2).floor();
+    int totalItems = movies.length + adsCount;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -515,17 +520,41 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
         ),
         const SizedBox(height: 16),
         SizedBox(
-          height: 280,
+          height: 300,
           child: Stack(
             children: [
               ListView.separated(
                 controller: controller,
                 padding: const EdgeInsets.symmetric(horizontal: 48),
                 scrollDirection: Axis.horizontal,
-                itemCount: movies.length,
+                itemCount: totalItems,
                 separatorBuilder: (_, __) => const SizedBox(width: 16),
                 itemBuilder: (context, index) {
-                  return _buildWebMovieCard(movies[index]);
+                  // Check if this position should show an ad
+                  // Ad positions: after every 2 items (positions 2, 5, 8, 11, ...)
+                  int adjustedIndex = index + 1;
+                  int blockNumber = adjustedIndex ~/ 3; // Every 3rd position (2 movies + 1 ad)
+                  int positionInBlock = adjustedIndex % 3;
+                  
+                  bool isAdPosition = positionInBlock == 0 && blockNumber > 0 && blockNumber * 2 <= movies.length;
+                  
+                  if (isAdPosition) {
+                    return Container(
+                      width: 160,
+                      height: 300,
+                      alignment: Alignment.center,
+                      child: BannerAdWidget(
+                        width: 160,
+                        height: 300,
+                        adKey: '${title.replaceAll(' ', '_').toLowerCase()}_$index',
+                      ),
+                    );
+                  } else {
+                    int adsBeforeThis = (index / 3).floor();
+                    int movieIndex = index - adsBeforeThis;
+                    if (movieIndex >= movies.length) movieIndex = movies.length - 1;
+                    return _buildWebMovieCard(movies[movieIndex]);
+                  }
                 },
               ),
               Positioned(
@@ -588,7 +617,8 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-          onTap: () {
+          onTap: () async {
+            await AppConstants.openSmartLink();
             context.goNamed(
               AppRoutes.movieDetailsRoute,
               pathParameters: {'movieId': media.tmdbID.toString()},

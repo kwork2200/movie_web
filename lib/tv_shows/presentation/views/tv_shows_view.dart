@@ -10,6 +10,7 @@ import '../../../core/presentation/components/error_screen.dart';
 import '../../../core/presentation/components/loading_indicator.dart';
 import '../../../core/presentation/components/section_header.dart';
 import '../../../core/presentation/components/section_listview.dart';
+import '../../../core/presentation/components/section_listview_with_ads.dart';
 import '../../../core/presentation/components/section_listview_card.dart';
 import '../../../core/presentation/components/slider_card.dart';
 import '../../../core/resources/app_colors.dart';
@@ -102,9 +103,11 @@ class TVShowsWidget extends StatelessWidget {
               context.goNamed(AppRoutes.popularTvShowsRoute);
             },
           ),
-          SectionListView(
-            height: AppSize.s240,
+          SectionListViewWithAds(
+            height: AppSize.s280,
             itemCount: popularTvShows.length,
+            adKey: 'popular_tv_shows',
+            adInterval: 2,
             itemBuilder: (context, index) {
               return SectionListViewCard(media: popularTvShows[index]);
             },
@@ -115,9 +118,11 @@ class TVShowsWidget extends StatelessWidget {
               context.goNamed(AppRoutes.topRatedTvShowsRoute);
             },
           ),
-          SectionListView(
-            height: AppSize.s240,
+          SectionListViewWithAds(
+            height: AppSize.s280,
             itemCount: topRatedTvShows.length,
+            adKey: 'top_rated_tv_shows',
+            adInterval: 2,
             itemBuilder: (context, index) {
               return SectionListViewCard(media: topRatedTvShows[index]);
             },
@@ -130,9 +135,11 @@ class TVShowsWidget extends StatelessWidget {
               context.goNamed(AppRoutes.popularMoviesRoute);
             },
           ),
-          SectionListView(
-            height: AppSize.s240,
+          SectionListViewWithAds(
+            height: AppSize.s300,
             itemCount: popularTvShows.length,
+            adKey: 'trending_tv_shows',
+            adInterval: 2,
             itemBuilder: (context, index) {
               return SectionListViewCard(media: popularTvShows[index]);
             },
@@ -143,9 +150,11 @@ class TVShowsWidget extends StatelessWidget {
               context.goNamed(AppRoutes.popularMoviesRoute);
             },
           ),
-          SectionListView(
-            height: AppSize.s240,
+          SectionListViewWithAds(
+            height: AppSize.s300,
             itemCount: topRatedTvShows.length,
+            adKey: 'upcoming_tv_shows',
+            adInterval: 2,
             itemBuilder: (context, index) {
               return SectionListViewCard(media: topRatedTvShows[index]);
             },
@@ -158,9 +167,11 @@ class TVShowsWidget extends StatelessWidget {
               context.goNamed(AppRoutes.topRatedMoviesRoute);
             },
           ),
-          SectionListView(
-            height: AppSize.s240,
+          SectionListViewWithAds(
+            height: AppSize.s300,
             itemCount: popularTvShows.length,
+            adKey: 'action_tv_shows',
+            adInterval: 2,
             itemBuilder: (context, index) {
               return SectionListViewCard(media: popularTvShows[index]);
             },

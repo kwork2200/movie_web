@@ -46,8 +46,9 @@ class _GridViewCardState extends State<GridViewCard> {
         onTap: () => _onTap(context),
         child: Column(
           children: [
+            SizedBox(height: 30,),
             AspectRatio(
-              aspectRatio: 2 / 3,
+              aspectRatio: 2.3 / 3.2,
               child: AnimatedScale(
                 scale: _isHovered ? 1.04 : 1.0,
                 duration: const Duration(milliseconds: 180),

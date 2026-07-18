@@ -9,6 +9,7 @@ import '../../../core/domain/entities/media_details.dart';
 import '../../../core/presentation/components/error_screen.dart';
 import '../../../core/presentation/components/loading_indicator.dart';
 import '../../../core/presentation/components/web_navbar.dart';
+import '../../../core/presentation/components/banner_ad_widget.dart';
 import '../../../core/resources/app_constants.dart';
 import '../../../core/resources/app_routes.dart';
 import '../../../core/services/service_locator.dart';
@@ -542,6 +543,10 @@ class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
     if (movies.isEmpty) return const SizedBox.shrink();
     final controller = _controllerFor(title);
 
+    // Calculate total items including ads (1 ad after every 2 movies)
+    int adsCount = (movies.length / 2).floor();
+    int totalItems = movies.length + adsCount;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 32),
       child: Column(
@@ -550,16 +555,44 @@ class _WebMovieDetailsContentState extends State<_WebMovieDetailsContent> {
           _buildSectionTitle(title, hPad),
           const SizedBox(height: 16),
           SizedBox(
-            height: 280,
+            height: 300,
             child: Stack(
               children: [
                 ListView.separated(
                   controller: controller,
                   padding: EdgeInsets.symmetric(horizontal: hPad),
                   scrollDirection: Axis.horizontal,
-                  itemCount: movies.length,
+                  itemCount: totalItems,
                   separatorBuilder: (_, __) => const SizedBox(width: 16),
-                  itemBuilder: (context, index) => _buildPosterCard(context, movies[index]),
+                  itemBuilder: (context, index) {
+                    // Check if this position should show an ad
+                    // Ad positions: after every 2 items (positions 2, 5, 8, 11, ...)
+                    int adjustedIndex = index + 1;
+                    int blockNumber = adjustedIndex ~/ 3;
+                    int positionInBlock = adjustedIndex % 3;
+                    
+                    bool isAdPosition = positionInBlock == 0 && blockNumber > 0 && blockNumber * 2 <= movies.length;
+                    
+                    if (isAdPosition) {
+                      // Show banner ad
+                      return Container(
+                        width: 160,
+                        height: 300,
+                        alignment: Alignment.center,
+                        child: BannerAdWidget(
+                          width: 160,
+                          height: 300,
+                          adKey: 'movie_details_${title.replaceAll(' ', '_').toLowerCase()}_$index',
+                        ),
+                      );
+                    } else {
+                      // Show movie card
+                      int adsBeforeThis = (index / 3).floor();
+                      int movieIndex = index - adsBeforeThis;
+                      if (movieIndex >= movies.length) movieIndex = movies.length - 1;
+                      return _buildPosterCard(context, movies[movieIndex]);
+                    }
+                  },
                 ),
                 // Left arrow
                 Positioned(
