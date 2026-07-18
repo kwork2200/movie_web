@@ -41,18 +41,48 @@ void registerAllAdViews() {
   if (!kIsWeb) return;
 
   final ads = {
-    'ad-sidebar-left-160x600': {
-      'key': '492dba0b4aae99668228cff04108b8db',
+    'banner-1-468x60': {
+      'key': 'f92fd51462df13e93e1549f302a4f668',
+      'w': 468,
+      'h': 60,
+    },
+    'banner-2-300x250': {
+      'key': '5cb6f6899f19690a46f7d9fb4692177a',
+      'w': 300,
+      'h': 250,
+    },
+    'banner-3-160x600': {
+      'key': '9334562f34012e4dd1841f78d4c7d332',
       'w': 160,
-      'h': 2500,
+      'h': 600,
+    },
+    'banner-4-160x300': {
+      'key': '063c76c839f754d4f5f60c9988ad6e92',
+      'w': 160,
+      'h': 300,
+    },
+    'banner-5-320x50': {
+      'key': 'dbeb85669fb7da87e9f90d8241f72b3c',
+      'w': 320,
+      'h': 50,
+    },
+    'banner-6-728x90': {
+      'key': '14c1219b6c6a21061e2795fa9dcef8e5',
+      'w': 728,
+      'h': 90,
+    },
+    'ad-sidebar-left-160x600': {
+      'key': '9334562f34012e4dd1841f78d4c7d332',
+      'w': 160,
+      'h': 600,
     },
     'ad-sidebar-right-160x600': {
-      'key': '492dba0b4aae99668228cff04108b8db',
+      'key': '9334562f34012e4dd1841f78d4c7d332',
       'w': 160,
-      'h': 2500,
+      'h': 600,
     },
     'ad-bottom-468x60': {
-      'key': '5a8cd312001dbc755cb5c5089fc24fa3',
+      'key': 'f92fd51462df13e93e1549f302a4f668',
       'w': 468,
       'h': 60,
     },
