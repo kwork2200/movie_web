@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie_web/core/presentation/widget/custom_banner_card.dart';
 
 import '../../../core/domain/entities/media.dart';
 import '../../../core/resources/app_colors.dart';
@@ -499,6 +500,7 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
   Widget _buildMovieRow(String title, List<Media> movies, BuildContext context) {
     if (movies.isEmpty) return const SizedBox.shrink();
     final controller = _controllerFor(title);
+    final rowItems = _buildRowItemsWithBanner(movies);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -523,11 +525,12 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
                 controller: controller,
                 padding: const EdgeInsets.symmetric(horizontal: 48),
                 scrollDirection: Axis.horizontal,
-                itemCount: movies.length,
+                itemCount: rowItems.length,  /// itemCount: movies.length,
                 separatorBuilder: (_, __) => const SizedBox(width: 16),
-                itemBuilder: (context, index) {
-                  return _buildWebMovieCard(movies[index]);
-                },
+                itemBuilder: (context, index) => rowItems[index],
+                // itemBuilder: (context, index) {
+                //   return _buildWebMovieCard(movies[index]);
+                // },
               ),
               Positioned(
                 left: 0,
@@ -552,6 +555,16 @@ class _WebMoviesWidgetState extends State<WebMoviesWidget> {
         ),
       ],
     );
+  }
+
+  List<Widget> _buildRowItemsWithBanner(List<Media> movies) {
+    final List<Widget> items = [];
+    for (int i = 0; i < movies.length; i++) {
+      items.add(_buildWebMovieCard(movies[i]));
+      if ((i + 1) % 2 == 0) { items.add(CustomBannerCard(height: 280, width: 200));
+      }
+    }
+    return items;
   }
 
   Widget _buildScrollArrow({required IconData icon, required VoidCallback onTap}) {
