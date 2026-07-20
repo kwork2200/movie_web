@@ -98,7 +98,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
       return;
     }
     setState(() => _isLoading = true);
-    
+
     await AppConstants.openSmartLink();
     await Future.delayed(const Duration(milliseconds: 500));
 
@@ -152,6 +152,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
     return 1; // mobile -> list style (1 col)
   }
 
+  bool _showSideAds(double width) => width >= 1200;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,6 +163,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
         builder: (context, constraints) {
           final width = constraints.maxWidth;
           final isWeb = _isWeb(width);
+          final showSideAds = kIsWeb && _showSideAds(width);
+          final showInlineBanner = kIsWeb && !showSideAds;
 
           return Stack(
             children: [
@@ -199,96 +203,95 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                 ),
               ),
 
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Left banner (web only, wide screens)
-                  if (kIsWeb && width >= 1200)
-                    Container(
-                      width: 160,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 16,
-                      ),
-                      child: const HtmlAdWidget(
-                        viewType: 'ad-sidebar-left-160x600',
+              Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Left banner (web only, wide screens) - sits right next to content
+                    if (showSideAds)
+                      Container(
                         width: 160,
-                        height: 2500,
-                      ),
-                    ),
-
-                  Expanded(
-                    child: SafeArea(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        physics: const BouncingScrollPhysics(),
-                        padding: EdgeInsets.only(
-                          bottom: kIsWeb ? 120 : 20,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
                         ),
-                        child: Center(
-                          child: ConstrainedBox(
-                            constraints:
-                            BoxConstraints(maxWidth: _maxContentWidth(width)),
-                            child: Column(
-                              children: [
-                                _buildHeader(isWeb),
-                                _buildHero(isWeb),
-                                SizedBox(
-                                  height: isWeb ? 580 : constraints.maxHeight - 300,
-                                  child: isWeb
-                                      ? _buildWebGrid(width)
-                                      : _buildMobileList(),
+                        child: const HtmlAdWidget(
+                          viewType: 'ad-sidebar-left-160x600',
+                          width: 160,
+                          height: 2500,
+                        ),
+                      ),
+                    SizedBox(width: 40),
+                    SizedBox(
+                      width: _maxContentWidth(width),
+                      height: constraints.maxHeight,
+                      child: SafeArea(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          physics: const BouncingScrollPhysics(),
+                          padding: EdgeInsets.only(bottom: kIsWeb ? 40 : 20),
+                          child: Column(
+                            children: [
+                              _buildHeader(isWeb),
+                              _buildHero(isWeb),
+                              SizedBox(
+                                height: isWeb ? 580 : constraints.maxHeight - 300,
+                                child: isWeb
+                                    ? _buildWebGrid(width)
+                                    : _buildMobileList(),
+                              ),
+                              if (showInlineBanner)
+                                Container(
+                                  color: Colors.transparent,
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  child: Center(
+                                    child: HtmlAdWidget(
+                                      viewType: 'ad-bottom-468x60',
+                                      width: width < 500 ? width - 32 : 468,
+                                      height: 60,
+                                    ),
+                                  ),
                                 ),
-                                _buildBottomSection(isWeb),
-                              ],
-                            ),
+                              _buildBottomSection(isWeb),
+                              if (kIsWeb)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  child: Center(
+                                    child: HtmlAdWidget(
+                                      viewType: 'ad-bottom-468x60',
+                                      width: width < 500 ? width - 32 : 468,
+                                      height: 60,
+                                    ),
+                                  ),
+                                ),
+                            ],
                           ),
                         ),
                       ),
                     ),
-                  ),
+                    SizedBox(width: 30),
 
-                  // Right banner (web only, wide screens)
-                  if (kIsWeb && width >= 1200)
-                    Padding(
-                      padding: const EdgeInsets.only(right: 15.0),
-                      child: Container(
-                        width: 160,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 0,
-                          vertical: 16,
-                        ),
-                        child: const HtmlAdWidget(
-                          viewType: 'ad-sidebar-right-160x600',
+                    // Right banner (web only, wide screens) - sits right next to content
+                    if (showSideAds)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15.0),
+                        child: Container(
                           width: 160,
-                          height: 1800,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 0,
+                            vertical: 16,
+                          ),
+                          child: const HtmlAdWidget(
+                            viewType: 'ad-sidebar-right-160x600',
+                            width: 160,
+                            height: 1800,
+                          ),
                         ),
                       ),
-                    ),
-                ],
-              ),
-
-              // Bottom banner (web only)
-              if (kIsWeb)
-                Positioned(
-                  bottom: 10,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    color: const Color(0xFF0A0E1A),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    child: const Center(
-                      child: HtmlAdWidget(
-                        viewType: 'ad-bottom-468x60',
-                        width: 468,
-                        height: 60,
-                      ),
-                    ),
-                  ),
+                  ],
                 ),
+              ),
             ],
           );
         },
