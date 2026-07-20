@@ -98,7 +98,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
       return;
     }
     setState(() => _isLoading = true);
-    
+
     await AppConstants.openSmartLink();
     await Future.delayed(const Duration(milliseconds: 500));
 
@@ -203,85 +203,95 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                 ),
               ),
 
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Left banner (web only, wide screens)
-                  if (showSideAds)
-                    Container(
-                      width: 160,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 16,
-                      ),
-                      child: const HtmlAdWidget(
-                        viewType: 'ad-sidebar-left-160x600',
+              Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Left banner (web only, wide screens) - sits right next to content
+                    if (showSideAds)
+                      Container(
                         width: 160,
-                        height: 2500,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
+                        child: const HtmlAdWidget(
+                          viewType: 'ad-sidebar-left-160x600',
+                          width: 160,
+                          height: 2500,
+                        ),
                       ),
-                    ),
+                    if (showSideAds) const SizedBox(width: 40),
 
-                  Expanded(
-                    child: SafeArea(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        physics: const BouncingScrollPhysics(),
-                        padding: EdgeInsets.only(bottom: kIsWeb ? 40 : 20),
-                        child: Center(
-                          child: ConstrainedBox(
-                            constraints:
-                            BoxConstraints(maxWidth: _maxContentWidth(width)),
-                            child: Column(
-                              children: [
-                                _buildHeader(isWeb),
-                                _buildHero(isWeb),
-                                SizedBox(
-                                  height: isWeb ? 580 : constraints.maxHeight - 300,
-                                  child: isWeb
-                                      ? _buildWebGrid(width)
-                                      : _buildMobileList(),
+                    SizedBox(
+                      width: _maxContentWidth(width),
+                      height: constraints.maxHeight,
+                      child: SafeArea(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          physics: const BouncingScrollPhysics(),
+                          padding: EdgeInsets.only(bottom: kIsWeb ? 40 : 20),
+                          child: Column(
+                            children: [
+                              _buildHeader(isWeb),
+                              _buildHero(isWeb),
+                              SizedBox(
+                                height: isWeb ? 580 : constraints.maxHeight - 300,
+                                child: isWeb
+                                    ? _buildWebGrid(width)
+                                    : _buildMobileList(),
+                              ),
+                              if (showInlineBanner)
+                                Container(
+                                  color: AppNetflixThemeColor.transparent,
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  child: Center(
+                                    child: HtmlAdWidget(
+                                      viewType: 'ad-bottom-468x60',
+                                      width: width < 500 ? width - 32 : 468,
+                                      height: 60,
+                                    ),
+                                  ),
                                 ),
-                                if (showInlineBanner)
-                                  Container(
-                                    color: AppNetflixThemeColor.transparent,
-                                    padding: const EdgeInsets.symmetric(vertical: 10),
-                                    child: Center(
-                                      child: HtmlAdWidget(viewType: 'ad-bottom-468x60', width: width < 500 ? width - 32 : 468, height: 60),
+                              _buildBottomSection(isWeb),
+                              if (kIsWeb)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  child: Center(
+                                    child: HtmlAdWidget(
+                                      viewType: 'ad-bottom-468x60',
+                                      width: width < 500 ? width - 32 : 468,
+                                      height: 60,
                                     ),
                                   ),
-                                _buildBottomSection(isWeb),
-                                if (kIsWeb)
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 15),
-                                    child: Center(child: HtmlAdWidget(viewType: 'ad-bottom-468x60', width: width < 500 ? width - 32 : 468, height: 60),
-                                    ),
-                                  ),
-                              ],
-                            ),
+                                ),
+                            ],
                           ),
                         ),
                       ),
                     ),
-                  ),
+                    if (showSideAds) const SizedBox(width: 30),
 
-                  // Right banner (web only, wide screens)
-                  if (showSideAds)
-                    Padding(
-                      padding: const EdgeInsets.only(right: 15.0),
-                      child: Container(
-                        width: 160,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 0,
-                          vertical: 16,
-                        ),
-                        child: const HtmlAdWidget(
-                          viewType: 'ad-sidebar-right-160x600',
+                    // Right banner (web only, wide screens) - sits right next to content
+                    if (showSideAds)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15.0),
+                        child: Container(
                           width: 160,
-                          height: 1800,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 0,
+                            vertical: 16,
+                          ),
+                          child: const HtmlAdWidget(
+                            viewType: 'ad-sidebar-right-160x600',
+                            width: 160,
+                            height: 1800,
+                          ),
                         ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
             ],
           );
