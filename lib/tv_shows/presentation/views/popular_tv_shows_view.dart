@@ -10,9 +10,9 @@ import '../../../core/presentation/components/error_screen.dart';
 import '../../../core/presentation/components/loading_indicator.dart';
 import '../../../core/presentation/components/vertical_listview.dart';
 import '../../../core/presentation/components/vertical_listview_card.dart';
+import '../../../core/presentation/components/banner_ad_widget.dart';
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/app_strings.dart';
-import '../../../core/resources/app_constants.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/enums.dart';
 import '../controllers/popular_tv_shows_bloc/popular_tv_shows_bloc.dart';
@@ -48,23 +48,8 @@ class _Breakpoints {
   }
 }
 
-class PopularTVShowsView extends StatefulWidget {
+class PopularTVShowsView extends StatelessWidget {
   const PopularTVShowsView({super.key});
-
-  @override
-  State<PopularTVShowsView> createState() => _PopularTVShowsViewState();
-}
-
-class _PopularTVShowsViewState extends State<PopularTVShowsView> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(milliseconds: 500), () {
-      if (mounted) {
-        AppConstants.showPopupAdBanner(context);
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +57,8 @@ class _PopularTVShowsViewState extends State<PopularTVShowsView> {
       create: (context) => sl<PopularTVShowsBloc>()..add(GetPopularTVShowsEvent()),
       child: Scaffold(
         backgroundColor: AppNetflixThemeColor.background,
-        appBar: CustomAppBar(
+        appBar:  CustomAppBar(
+
           title: AppStrings.popularShows,
         ),
         body: BlocBuilder<PopularTVShowsBloc, PopularTVShowsState>(
@@ -120,8 +106,7 @@ class PopularTVShowsWidget extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: [
                 Color.alphaBlend(AppNetflixThemeColor.deepOrange.withOpacity(0.06), AppNetflixThemeColor.background),
-                AppNetflixThemeColor.background,
-              ],
+                AppNetflixThemeColor.background,    ],
               stops: const [0.0, 0.35],
             ),
           ),
@@ -130,9 +115,7 @@ class PopularTVShowsWidget extends StatelessWidget {
               // const HybridNativeAdWidget(adKey: 'popular_tv_shows'),
               _HeaderBanner(count: tvShows.length, width: width),
               Expanded(
-                child: wide
-                    ? _WidePopularGrid(tvShows: tvShows, width: width)
-                    : _MobilePopularList(tvShows: tvShows),
+                  child: _WidePopularGrid(tvShows: tvShows, width: width)
               ),
             ],
           ),
@@ -164,8 +147,7 @@ class _HeaderBanner extends StatelessWidget {
           gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [AppNetflixThemeColor.tvOrangeStart, AppNetflixThemeColor.tvOrangeEnd],
-          ),
+            colors: [AppNetflixThemeColor.tvOrangeStart, AppNetflixThemeColor.tvOrangeEnd],          ),
           boxShadow: [
             BoxShadow(
               color: AppNetflixThemeColor.deepOrange.withOpacity(0.35),
@@ -179,10 +161,10 @@ class _HeaderBanner extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: AppNetflixThemeColor.white.withOpacity(0.18),
+                color: Colors.white.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: const Icon(Icons.local_fire_department_rounded, color: AppNetflixThemeColor.white, size: 26),
+              child: const Icon(Icons.local_fire_department_rounded, color: Colors.white, size: 26),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -195,7 +177,7 @@ class _HeaderBanner extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
-                      color: AppNetflixThemeColor.white,
+                      color: Colors.white,
                       letterSpacing: 0.2,
                     ),
                   ),
@@ -205,7 +187,7 @@ class _HeaderBanner extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12.5,
                       fontWeight: FontWeight.w500,
-                      color: AppNetflixThemeColor.white.withOpacity(0.85),
+                      color: Colors.white.withOpacity(0.85),
                     ),
                   ),
                 ],
@@ -214,36 +196,6 @@ class _HeaderBanner extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-/// ---------------------------------------------------------------------
-/// Mobile list — same VerticalListView/pagination as before, just the
-/// cards fade+slide in for a bit of polish.
-/// ---------------------------------------------------------------------
-class _MobilePopularList extends StatelessWidget {
-  const _MobilePopularList({required this.tvShows});
-
-  final List<Media> tvShows;
-
-  @override
-  Widget build(BuildContext context) {
-    return VerticalListView(
-      itemCount: tvShows.length + 1,
-      itemBuilder: (context, index) {
-        if (index < tvShows.length) {
-          return _StaggeredEntrance(
-            index: index,
-            child: VerticalListViewCard(media: tvShows[index]),
-          );
-        } else {
-          return const LoadingIndicator();
-        }
-      },
-      addEvent: () {
-        context.read<PopularTVShowsBloc>().add(FetchMorePopularTVShowsEvent());
-      },
     );
   }
 }
@@ -315,6 +267,17 @@ class _WidePopularGridState extends State<_WidePopularGrid> {
     final columns = _Breakpoints.gridColumns(widget.width);
     final maxContentWidth = _Breakpoints.contentMaxWidth(widget.width);
 
+    final List<Widget> gridItems = [];
+    for (int i = 0; i < widget.tvShows.length; i++) {
+      gridItems.add(_StaggeredEntrance(index: i, child: _HoverCard(child: VerticalListViewCard(media: widget.tvShows[i])),),
+      );
+
+      if ((i + 1) % 2 == 0 && i < widget.tvShows.length - 1) {
+        gridItems.add(Center(child: BannerAdWidget(width: 160, height: 300, adKey: '16bd2bc289ee2531871e1be42c1d1c9b${i ~/ 2}'),),
+        );
+      }
+    }
+
     return Stack(
       children: [
         Scrollbar(
@@ -333,21 +296,14 @@ class _WidePopularGridState extends State<_WidePopularGrid> {
                       GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: widget.tvShows.length,
+                        itemCount: gridItems.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: columns,
                           mainAxisSpacing: 22,
                           crossAxisSpacing: 20,
-                          childAspectRatio: 0.6,
+                          childAspectRatio: 0.7,
                         ),
-                        itemBuilder: (context, index) {
-                          return _StaggeredEntrance(
-                            index: index,
-                            child: _HoverCard(
-                              child: VerticalListViewCard(media: widget.tvShows[index]),
-                            ),
-                          );
-                        },
+                        itemBuilder: (context, index) => gridItems[index],
                       ),
                       const SizedBox(height: 24),
                       const LoadingIndicator(),
@@ -373,8 +329,7 @@ class _WidePopularGridState extends State<_WidePopularGrid> {
                 ignoring: !_showScrollTop,
                 child: FloatingActionButton(
                   heroTag: 'popular_scroll_top',
-                  backgroundColor: AppNetflixThemeColor.tvOrangeEnd,
-                  onPressed: _scrollToTop,
+                  backgroundColor: AppNetflixThemeColor.tvOrangeEnd,onPressed: _scrollToTop,
                   child: const Icon(Icons.keyboard_arrow_up_rounded, color: AppNetflixThemeColor.white),
                 ),
               ),

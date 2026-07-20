@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '../../../core/presentation/components/banner_ad_widget.dart';
 import '../../../core/domain/entities/media.dart';
 import '../../../core/presentation/components/custom_app_bar.dart';
 import '../../../core/presentation/components/error_screen.dart';
@@ -312,6 +312,15 @@ class _WideTrendingGridState extends State<_WideTrendingGrid> {
     final columns = _Breakpoints.gridColumns(widget.width);
     final maxContentWidth = _Breakpoints.contentMaxWidth(widget.width);
 
+    final List<Widget> gridItems = [];
+    for (int i = 0; i < widget.tvShows.length; i++) {
+      gridItems.add(_StaggeredEntrance(index: i, child: _HoverCard(child: VerticalListViewCard(media: widget.tvShows[i])),),);
+
+      if ((i + 1) % 2 == 0 && i < widget.tvShows.length - 1) {
+        gridItems.add(Center(child: BannerAdWidget(width: 160, height: 300, adKey: '16bd2bc289ee2531871e1be42c1d1c9b${i ~/ 2}')));
+      }
+    }
+
     return Stack(
       children: [
         Scrollbar(
@@ -330,21 +339,17 @@ class _WideTrendingGridState extends State<_WideTrendingGrid> {
                       GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: widget.tvShows.length,
+                        itemCount: gridItems.length, // widget.tvShows.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: columns,
                           mainAxisSpacing: 22,
                           crossAxisSpacing: 20,
-                          childAspectRatio: 0.6,
+                          childAspectRatio: 0.7,
                         ),
-                        itemBuilder: (context, index) {
-                          return _StaggeredEntrance(
-                            index: index,
-                            child: _HoverCard(
-                              child: VerticalListViewCard(media: widget.tvShows[index]),
-                            ),
-                          );
-                        },
+                        itemBuilder: (context, index) => gridItems[index],
+                        // itemBuilder: (context, index) {
+                        //   return _StaggeredEntrance(index: index, child: _HoverCard(child: VerticalListViewCard(media: widget.tvShows[index])),);
+                        // },
                       ),
                       const SizedBox(height: 24),
                       const LoadingIndicator(),

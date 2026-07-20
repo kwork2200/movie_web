@@ -263,6 +263,8 @@ class PersonDetailsWidget extends StatelessWidget {
                           personDetails: personDetails,
                           screenType: innerScreenType,
                         ),
+                      const SizedBox(height: AppSize.s24),
+
                       Container(
                         color: AppNetflixThemeColor.transparent,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
@@ -677,6 +679,19 @@ class _KnownForSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SectionTitle(title: 'Known For'),
+        const SizedBox(height: AppSize.s24),
+
+        Container(
+          color: AppNetflixThemeColor.transparent,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          child: const Center(
+            child: HtmlAdWidget(
+              viewType: 'ad-bottom-468x60',
+              width: 468,
+              height: 60,
+            ),
+          ),
+        ),
         if (crossAxisCount == null)
           SizedBox(
             height: AppSize.s240,

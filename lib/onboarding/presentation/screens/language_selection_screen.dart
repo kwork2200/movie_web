@@ -152,6 +152,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
     return 1; // mobile -> list style (1 col)
   }
 
+  bool _showSideAds(double width) => width >= 1200;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,6 +163,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
         builder: (context, constraints) {
           final width = constraints.maxWidth;
           final isWeb = _isWeb(width);
+          final showSideAds = kIsWeb && _showSideAds(width);
+          final showInlineBanner = kIsWeb && !showSideAds;
 
           return Stack(
             children: [
@@ -203,7 +207,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Left banner (web only, wide screens)
-                  if (kIsWeb && width >= 1200)
+                  if (showSideAds)
                     Container(
                       width: 160,
                       padding: const EdgeInsets.symmetric(
@@ -222,9 +226,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                       child: SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         physics: const BouncingScrollPhysics(),
-                        padding: EdgeInsets.only(
-                          bottom: kIsWeb ? 120 : 20,
-                        ),
+                        padding: EdgeInsets.only(bottom: kIsWeb ? 40 : 20),
                         child: Center(
                           child: ConstrainedBox(
                             constraints:
@@ -239,7 +241,21 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                                       ? _buildWebGrid(width)
                                       : _buildMobileList(),
                                 ),
+                                if (showInlineBanner)
+                                  Container(
+                                    color: AppNetflixThemeColor.transparent,
+                                    padding: const EdgeInsets.symmetric(vertical: 10),
+                                    child: Center(
+                                      child: HtmlAdWidget(viewType: 'ad-bottom-468x60', width: width < 500 ? width - 32 : 468, height: 60),
+                                    ),
+                                  ),
                                 _buildBottomSection(isWeb),
+                                if (kIsWeb)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 15),
+                                    child: Center(child: HtmlAdWidget(viewType: 'ad-bottom-468x60', width: width < 500 ? width - 32 : 468, height: 60),
+                                    ),
+                                  ),
                               ],
                             ),
                           ),
@@ -249,7 +265,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                   ),
 
                   // Right banner (web only, wide screens)
-                  if (kIsWeb && width >= 1200)
+                  if (showSideAds)
                     Padding(
                       padding: const EdgeInsets.only(right: 15.0),
                       child: Container(
@@ -267,28 +283,6 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                     ),
                 ],
               ),
-
-              // Bottom banner (web only)
-              if (kIsWeb)
-                Positioned(
-                  bottom: 10,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    color: const Color(0xFF0A0E1A),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    child: const Center(
-                      child: HtmlAdWidget(
-                        viewType: 'ad-bottom-468x60',
-                        width: 468,
-                        height: 60,
-                      ),
-                    ),
-                  ),
-                ),
             ],
           );
         },
