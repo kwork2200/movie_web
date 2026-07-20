@@ -112,4 +112,5 @@ class AppColors {
   static const deepPurple = Color(0xFFB81D24);
   static const tvPurpleStart = Color(0xFFE50914);
   static const tvPurpleEnd = Color(0xFF8C0A0A);
+
 }

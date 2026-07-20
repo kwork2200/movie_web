@@ -48,9 +48,9 @@ class _HybridBannerAdWidgetState extends State<HybridBannerAdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (_showGoogleAds) {
-      return const BannerAdWidget();
-    }
+    // if (_showGoogleAds) {
+    //   return const BannerAdWidget();
+    // }
 
     if (_showFacebookAds) {
       return const FbBannerAdWidget();
