@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:ui_web' as ui_web;
 import 'dart:html' as html;
+import 'package:movie_web/core/services/firebase_ad_config_service.dart';
 
 /// Generic reusable widget for ANY iframe-based banner ad (Adsterra /
 /// BigotComet "atOptions" style). One widget handles every size —
@@ -33,61 +34,69 @@ class HtmlAdWidget extends StatelessWidget {
 /// root widget) — guarded by kIsWeb. Registers a platform view factory for
 /// every ad placement so HtmlAdWidget can just reference it by viewType.
 ///
-/// Add/remove entries here as you add/remove ad placements. If your ad
-/// network gives you the SAME key working at multiple sizes (like the
-/// 492dba0b... key in your other project), reuse that key across entries.
-/// If a size needs its own key from the dashboard, put that key here instead.
+/// Now fetches ad keys from Firebase Remote Config instead of hardcoded values.
+/// Make sure to call FirebaseAdConfigService().initialize() before this.
 void registerAllAdViews() {
   if (!kIsWeb) return;
 
+  final adConfigService = FirebaseAdConfigService();
+  
+  print('=== Firebase Ad Keys from Remote Config ===');
+  Map<String, String> allAdKeys = adConfigService.getAllAdKeys();
+  allAdKeys.forEach((placement, key) {
+    print('$placement: $key');
+  });
+  print('Total keys fetched: ${allAdKeys.length}');
+  print('============================================\n');
+
   final ads = {
     'banner-1-468x60': {
-      'key': 'f92fd51462df13e93e1549f302a4f668',
+      'key': adConfigService.getAdKey('banner-1-468x60'),
       'w': 468,
       'h': 60,
     },
     'banner-728x90': {
-      'key': '14c1219b6c6a21061e2795fa9dcef8e5',
+      'key': adConfigService.getAdKey('banner-728x90'),
       'w': 728,
       'h': 90,
     },
     'banner-2-300x250': {
-      'key': '5cb6f6899f19690a46f7d9fb4692177a',
+      'key': adConfigService.getAdKey('banner-2-300x250'),
       'w': 300,
       'h': 250,
     },
     'banner-3-160x600': {
-      'key': '9334562f34012e4dd1841f78d4c7d332',
+      'key': adConfigService.getAdKey('banner-3-160x600'),
       'w': 160,
       'h': 600,
     },
     'banner-4-160x300': {
-      'key': '063c76c839f754d4f5f60c9988ad6e92',
+      'key': adConfigService.getAdKey('banner-4-160x300'),
       'w': 160,
       'h': 300,
     },
     'banner-5-320x50': {
-      'key': 'dbeb85669fb7da87e9f90d8241f72b3c',
+      'key': adConfigService.getAdKey('banner-5-320x50'),
       'w': 320,
       'h': 50,
     },
     'banner-6-728x90': {
-      'key': '14c1219b6c6a21061e2795fa9dcef8e5',
+      'key': adConfigService.getAdKey('banner-6-728x90'),
       'w': 728,
       'h': 90,
     },
     'ad-sidebar-left-160x600': {
-      'key': '9334562f34012e4dd1841f78d4c7d332',
+      'key': adConfigService.getAdKey('ad-sidebar-left-160x600'),
       'w': 160,
       'h': 600,
     },
     'ad-sidebar-right-160x600': {
-      'key': '9334562f34012e4dd1841f78d4c7d332',
+      'key': adConfigService.getAdKey('ad-sidebar-right-160x600'),
       'w': 160,
       'h': 600,
     },
     'ad-bottom-468x60': {
-      'key': 'f92fd51462df13e93e1549f302a4f668',
+      'key': adConfigService.getAdKey('ad-bottom-468x60'),
       'w': 468,
       'h': 60,
     },
@@ -98,6 +107,14 @@ void registerAllAdViews() {
       final adKey = config['key'] as String;
       final w = config['w'] as int;
       final h = config['h'] as int;
+
+      if (adKey.isEmpty) {
+
+          print('⚠️ Ad key not found for $viewType');
+
+        return html.DivElement()..innerText = 'Ad unavailable';
+      }
+
       final srcDoc = '''
         <!DOCTYPE html>
         <html>
