@@ -13,6 +13,7 @@ import 'core/resources/app_router.dart';
 import 'core/resources/app_strings.dart';
 import 'core/services/service_locator.dart';
 import 'core/services/remote_config_service.dart' if (dart.library.html) 'core/services/remote_config_stub.dart';
+import 'core/services/firebase_ad_config_service.dart';
 import 'core/services/dns_detector_service.dart';
 import 'core/presentation/components/network_aware_widget.dart';
 import 'movies/presentation/controllers/movies_bloc/movies_bloc.dart';
@@ -23,8 +24,8 @@ import 'ads/app_lifecycle_reactor.dart';
 // Import Hive with platform-specific handling
 import 'package:hive_flutter/hive_flutter.dart';
 
-// Conditionally import Firebase only on non-web platforms
-import 'package:firebase_core/firebase_core.dart' if (dart.library.html) 'firebase_stub.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 bool _adsRegistered = false;
 
 void main() async {
@@ -33,15 +34,15 @@ void main() async {
   await dotenv.load();
 
   // Initialize Firebase with error handling
-  if (!kIsWeb) {
-    try {
-      await Firebase.initializeApp();
-    } catch (e) {
-      print('⚠️ Firebase initialization failed: $e');
-      print('⚠️ App will continue without Firebase');
-    }
-  } else {
-    print('ℹ️ Firebase initialization skipped on web platform');
+  try {
+    // Initialize Firebase for all platforms including web
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    print('✅ Firebase initialized successfully');
+  } catch (e) {
+    print('⚠️ Firebase initialization failed: $e');
+    print('⚠️ App will continue without Firebase');
   }
 
   // Initialize Mobile Ads with error handling (only on non-web platforms)
@@ -62,6 +63,16 @@ void main() async {
   } catch (e) {
     print('⚠️ Remote Config initialization failed: $e');
     print('⚠️ App will continue with default ad settings');
+  }
+
+  if (kIsWeb) {
+    try {
+      await FirebaseAdConfigService().initialize();
+      print('✅ Firebase Ad Config Service initialized');
+    } catch (e) {
+      print('⚠️ Firebase Ad Config initialization failed: $e');
+      print('⚠️ App will continue with default ad keys');
+    }
   }
 
   // Only initialize DNS detector on non-web platforms

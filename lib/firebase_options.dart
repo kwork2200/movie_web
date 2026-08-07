@@ -5,9 +5,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'Web FirebaseOptions are missing. Register a Web App in Firebase Console.',
-      );
+      return web;
     }
 
     switch (defaultTargetPlatform) {
@@ -19,6 +17,17 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
+  // Web Configuration - UPDATED WITH ACTUAL VALUES
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBYZPhoOZEGumMSiRCFKql5bPBrMy62cZQ',
+    appId: '1:775139980767:web:ceb2c76d4d9a01daa3406a',
+    messagingSenderId: '775139980767',
+    projectId: 'movie-web-db3ce',
+    storageBucket: 'movie-web-db3ce.firebasestorage.app',
+    authDomain: 'movie-web-db3ce.firebaseapp.com',
+    measurementId: 'G-EHV1QSTL64',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDvEKqkOoPxviaP3G40Rq3tf-emm0yW-Bg',
