@@ -32,7 +32,16 @@ bool _adsRegistered = false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load();
+  try {
+    if (!kIsWeb) {
+      await dotenv.load();
+    } else {
+      print('ℹ️ Skipping .env file loading on web platform');
+    }
+  } catch (e) {
+    print('⚠️ Failed to load .env file: $e');
+    print('⚠️ App will continue with default configuration');
+  }
 
   // Initialize Firebase with error handling
   try {
