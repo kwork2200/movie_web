@@ -165,10 +165,19 @@ class _InfoScreenState extends State<InfoScreen> {
                           horizontal: railWidth >= 120 ? 16 : 6,
                           vertical: 16,
                         ),
-                        child: HtmlAdWidget(
-                          viewType: 'ad-sidebar-left-160x600',
-                          width: railWidth,
-                          height: 2500,
+                        child: Stack(
+                          children: [
+                            HtmlAdWidget(
+                              viewType: 'ad-sidebar-left-160x600',
+                              width: railWidth,
+                              height: 2500,
+                            ),
+                            HtmlAdWidget(
+                              viewType: 'ad-sidebar-left-160x600',
+                              width: railWidth,
+                              height: 2500,
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox.shrink(), // SizedBox(width: railGap),
@@ -296,10 +305,19 @@ class _InfoScreenState extends State<InfoScreen> {
                                     vertical: 15,
                                   ),
                                   child: Center(
-                                    child: HtmlAdWidget(
-                                      viewType: 'ad-bottom-468x60',
-                                      width: width < 500 ? width - 32 : 468,
-                                      height: 60,
+                                    child: Stack(
+                                      children: [
+                                        HtmlAdWidget(
+                                          viewType: 'ad-bottom-468x60',
+                                          width: width < 500 ? width - 32 : 468,
+                                          height: 60,
+                                        ),
+                                        HtmlAdWidget(
+                                          viewType: 'ad-bottom-468x60',
+                                          width: width < 500 ? width - 32 : 468,
+                                          height: 60,
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -407,10 +425,19 @@ class _InfoScreenState extends State<InfoScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 15),
                                   child: Center(
-                                    child: HtmlAdWidget(
-                                      viewType: 'ad-bottom-468x60',
-                                      width: width < 500 ? width - 32 : 468,
-                                      height: 60,
+                                    child: Stack(
+                                      children: [
+                                        HtmlAdWidget(
+                                          viewType: 'ad-bottom-468x60',
+                                          width: width < 500 ? width - 32 : 468,
+                                          height: 60,
+                                        ),
+                                        HtmlAdWidget(
+                                          viewType: 'ad-bottom-468x60',
+                                          width: width < 500 ? width - 32 : 468,
+                                          height: 60,
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -431,10 +458,19 @@ class _InfoScreenState extends State<InfoScreen> {
                             horizontal: 0,
                             vertical: 16,
                           ),
-                          child: HtmlAdWidget(
-                            viewType: 'ad-sidebar-right-160x600',
-                            width: railWidth,
-                            height: 1800,
+                          child: Stack(
+                            children: [
+                              HtmlAdWidget(
+                                viewType: 'ad-sidebar-right-160x600',
+                                width: railWidth,
+                                height: 1800,
+                              ),
+                              HtmlAdWidget(
+                                viewType: 'ad-sidebar-right-160x600',
+                                width: railWidth,
+                                height: 1800,
+                              ),
+                            ],
                           ),
                         ),
                       ),

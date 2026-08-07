@@ -104,8 +104,13 @@ class _PopupAdBannerState extends State<PopupAdBanner> with SingleTickerProvider
                             horizontal: 16,
                             vertical: 8,
                           ),
-                          child: const Center(
-                            child: HtmlAdWidget(viewType: 'ad-bottom-468x60', width: 468, height: 60),
+                          child: Center(
+                            child: Stack(
+                              children:  [
+                                HtmlAdWidget(viewType: 'ad-bottom-468x60', width: 468, height: 60),
+                                HtmlAdWidget(viewType: 'ad-bottom-468x60', width: 468, height: 60),
+                              ],
+                            ),
                           ),
                         ),
                         Padding(
