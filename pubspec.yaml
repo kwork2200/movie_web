@@ -117,4 +117,3 @@ flutter:
     - assets/images/icon.png
     - assets/images/third_image_ads.jpg
     - assets/images/episode_default.png
-    - .env
