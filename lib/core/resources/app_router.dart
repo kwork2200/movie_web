@@ -49,14 +49,17 @@ class AppRouter {
   AppRouter._();
 
   static GoRouter router = GoRouter(
-    initialLocation: splashPath,
+    // TODO: Temporarily showing info screen directly - restore splash screen later
+    // initialLocation: splashPath,
+    initialLocation: infoPath,
     observers: [AdNavigatorObserver()],
     routes: [
-      GoRoute(
-        path: splashPath,
-        pageBuilder: (context, state) =>
-        const NoTransitionPage(child: SplashScreen()),
-      ),
+      // TODO: Splash screen route temporarily kept for future use
+      // GoRoute(
+      //   path: splashPath,
+      //   pageBuilder: (context, state) =>
+      //   const NoTransitionPage(child: SplashScreen()),
+      // ),
       GoRoute(
         path: infoPath,
         pageBuilder: (context, state) =>
