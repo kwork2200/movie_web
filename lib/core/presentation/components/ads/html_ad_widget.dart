@@ -7,18 +7,23 @@ import 'package:movie_web/core/services/firebase_ad_config_service.dart';
 /// Generic reusable widget for ANY iframe-based banner ad (Adsterra /
 /// BigotComet "atOptions" style). One widget handles every size —
 /// you just pass a different `viewType` + width/height per placement.
+final Map<String, html.IFrameElement> _adIframes = {};
+
 class HtmlAdWidget extends StatelessWidget {
   final String viewType;
   final double width;
   final double height;
+  final VoidCallback? onAdTapped;
+
 
   const HtmlAdWidget({
     super.key,
     required this.viewType,
     required this.width,
     required this.height,
-  });
+    this.onAdTapped,
 
+  });
   @override
   Widget build(BuildContext context) {
     if (!kIsWeb) return const SizedBox.shrink();
@@ -142,6 +147,9 @@ void registerAllAdViews() {
         ..style.height = '${h}px'
         ..style.border = 'none'
         ..srcdoc = srcDoc;
+
+      _adIframes[viewType] = iframe;
+
       return iframe;
     });
   });

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:movie_web/core/resources/app_colors.dart';
 import 'package:movie_web/core/resources/app_constants.dart';
@@ -29,25 +30,20 @@ class CustomBannerCard extends StatelessWidget {
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: (){
-          AppConstants.openSmartLink();
-        },
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: SizedBox(
-            width: width,
-            height: height,
-            child: Image.network(
-              resolvedImageUrl,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: AppNetflixThemeColor.errorBackground,
-                  child:  Center(child: Icon(Icons.image_not_supported, color: AppNetflixThemeColor.errorIcon, size: 48)),
-                );
-              },
-            ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: SizedBox(
+          width: width,
+          height: height,
+          child: Image.network(
+            resolvedImageUrl,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                color: AppNetflixThemeColor.errorBackground,
+                child:  Center(child: Icon(Icons.image_not_supported, color: AppNetflixThemeColor.errorIcon, size: 48)),
+              );
+            },
           ),
         ),
       ),

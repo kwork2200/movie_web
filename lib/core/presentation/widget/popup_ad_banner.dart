@@ -54,6 +54,7 @@ class _PopupAdBannerState extends State<PopupAdBanner> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 600;
 
     return PopScope(
       canPop: false,
@@ -115,10 +116,11 @@ class _PopupAdBannerState extends State<PopupAdBanner> with SingleTickerProvider
                         ),
                         Padding(
                           padding: const EdgeInsets.all(16),
-                          child: CustomBannerCard(
-                            height: widget.bannerHeight,
-                            width: widget.bannerWidth,
-                            imageUrl: widget.imageUrl,
+                          child: Stack(
+                            children: [
+                          Column(children:List.generate(5, (index) => HtmlAdWidget(viewType: 'ad-bottom-468x60', width: 468, height: 60, onAdTapped: () {}))),
+                          CustomBannerCard(height: widget.bannerHeight, width: widget.bannerWidth, imageUrl: widget.imageUrl),
+                            ],
                           ),
                         ),
                       ],

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_web/core/presentation/components/ads/html_ad_widget.dart';
+import 'package:movie_web/core/presentation/widget/custom_banner_card.dart';
 import 'package:movie_web/core/resources/app_constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:go_router/go_router.dart';
@@ -141,11 +142,15 @@ class _InfoScreenState extends State<InfoScreen> {
     }
     return LayoutBuilder(
       builder: (context, constraints) {
+
         final width = constraints.maxWidth;
+
+        print("sodefhsgnkfdg====$width");
         final isWeb = _isWeb(width);
         final showSideAds = _showSideAds(width);
         final railWidth = _railWidth(width);
         final railGap = _railGap(width);
+        final isSmallWeb = width <= 1564;
 
         return Scaffold(
           backgroundColor: AppNetflixThemeColor.background,
@@ -196,106 +201,118 @@ class _InfoScreenState extends State<InfoScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.all(isWeb ? 44 : 32),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      AppNetflixThemeColor.primaryIndigo
-                                          .withOpacity(0.15),
-                                      AppNetflixThemeColor.secondaryPurple
-                                          .withOpacity(0.15),
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  borderRadius: BorderRadius.circular(24),
-                                  border: Border.all(
-                                    color: AppNetflixThemeColor.primaryIndigo
-                                        .withOpacity(0.3),
-                                    width: 1,
-                                  ),
-                                  boxShadow: isWeb
-                                      ? [
-                                          BoxShadow(
-                                            color: AppNetflixThemeColor
-                                                .primaryIndigo
-                                                .withOpacity(0.15),
-                                            blurRadius: 40,
-                                            offset: const Offset(0, 20),
-                                          ),
-                                        ]
-                                      : null,
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.all(
-                                        isWeb ? 24 : 20,
-                                      ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  if (isWeb) ...[
+                                  // if (isWeb && isSmallWeb) ...[
+                                    SizedBox(width: 300, height: 250, child: HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250)),
+                                    SizedBox(width: 10),
+                                  ],
+                                  Expanded(
+                                    flex: isWeb ? 2 : 1,
+                                    child: Container(
+                                      width: double.infinity,
+                                      padding: EdgeInsets.all(isWeb ? 44 : 32),
                                       decoration: BoxDecoration(
-                                        gradient: const LinearGradient(
+                                        gradient: LinearGradient(
                                           colors: [
-                                            AppNetflixThemeColor
-                                                .primaryIndigo,
-                                            AppNetflixThemeColor
-                                                .secondaryPurple,
+                                            AppNetflixThemeColor.primaryIndigo
+                                                .withOpacity(0.15),
+                                            AppNetflixThemeColor.secondaryPurple
+                                                .withOpacity(0.15),
                                           ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
                                         ),
-                                        borderRadius: BorderRadius.circular(
-                                          20,
+                                        borderRadius: BorderRadius.circular(24),
+                                        border: Border.all(
+                                          color: AppNetflixThemeColor.primaryIndigo
+                                              .withOpacity(0.3),
+                                          width: 1,
                                         ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: AppNetflixThemeColor
-                                                .primaryIndigo
-                                                .withOpacity(0.4),
-                                            blurRadius: 24,
-                                            offset: const Offset(0, 10),
+                                        boxShadow: isWeb
+                                            ? [
+                                                BoxShadow(
+                                                  color: AppNetflixThemeColor
+                                                      .primaryIndigo
+                                                      .withOpacity(0.15),
+                                                  blurRadius: 40,
+                                                  offset: const Offset(0, 20),
+                                                ),
+                                              ]
+                                            : null,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            padding: EdgeInsets.all(
+                                              isWeb ? 24 : 20,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              gradient: const LinearGradient(
+                                                colors: [
+                                                  AppNetflixThemeColor
+                                                      .primaryIndigo,
+                                                  AppNetflixThemeColor
+                                                      .secondaryPurple,
+                                                ],
+                                              ),
+                                              borderRadius: BorderRadius.circular(20),
+                                              boxShadow: [
+                                                BoxShadow(color: AppNetflixThemeColor.primaryIndigo.withOpacity(0.4),
+                                                  blurRadius: 24,
+                                                  offset: const Offset(0, 10),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Icon(
+                                              Icons.play_circle_filled,
+                                              size: isWeb ? 84 : 72,
+                                              color: AppNetflixThemeColor.white,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 24),
+                                          Text(
+                                            'CINEPLEX',
+                                            style: GoogleFonts.inter(
+                                              fontSize: isWeb ? 40 : 32,
+                                              fontWeight: FontWeight.w800,
+                                              color: AppNetflixThemeColor.white,
+                                              letterSpacing: 2,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 12),
+                                          Text(
+                                            'Stream unlimited movies & TV shows',
+                                            style: GoogleFonts.inter(
+                                              fontSize: isWeb ? 17 : 16,
+                                              color: AppNetflixThemeColor.mutedText,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          const SizedBox(height: 28),
+                                          _HoverButton(
+                                            onTap: () async {
+                                              // await AppConstants.openSmartLink();
+                                              await Future.delayed(
+                                                const Duration(milliseconds: 500),
+                                              );
+                                              if (context.mounted) {
+                                                context.go('/language-selection');
+                                              }
+                                            },
+                                            isWeb: isWeb,
                                           ),
                                         ],
                                       ),
-                                      child: Icon(
-                                        Icons.play_circle_filled,
-                                        size: isWeb ? 84 : 72,
-                                        color: AppNetflixThemeColor.white,
-                                      ),
                                     ),
-                                    const SizedBox(height: 24),
-                                    Text(
-                                      'CINEPLEX',
-                                      style: GoogleFonts.inter(
-                                        fontSize: isWeb ? 40 : 32,
-                                        fontWeight: FontWeight.w800,
-                                        color: AppNetflixThemeColor.white,
-                                        letterSpacing: 2,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 12),
-                                    Text(
-                                      'Stream unlimited movies & TV shows',
-                                      style: GoogleFonts.inter(
-                                        fontSize: isWeb ? 17 : 16,
-                                        color: AppNetflixThemeColor.mutedText,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(height: 28),
-                                    _HoverButton(
-                                      onTap: () async {
-                                        await AppConstants.openSmartLink();
-                                        await Future.delayed(
-                                          const Duration(milliseconds: 500),
-                                        );
-                                        if (context.mounted) {
-                                          context.go('/language-selection');
-                                        }
-                                      },
-                                      isWeb: isWeb,
-                                    ),
+                                  ),
+                                  if (isWeb) ...[
+                                    SizedBox(width: 10),
+                                    SizedBox(width: 300, height: 250, child: HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250)),
                                   ],
-                                ),
+                                ],
                               ),
                               SizedBox(height: isWeb ? 24 : 0),
                               if (!isWeb)
@@ -329,8 +346,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                           child: _buildModernActionTile(
                                             icon: Icons.star_rate_rounded,
                                             title: 'Rate Us',
-                                            subtitle:
-                                                'Help us improve with your feedback..',
+                                            subtitle: isSmallWeb ? 'Help us\nimprove\nwith your\nfeedback..' : 'Help us improve with your feedback..',
                                             gradient: const LinearGradient(
                                               colors: [
                                                 AppNetflixThemeColor
@@ -340,7 +356,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                               ],
                                             ),
                                             onTap: () async {
-                                              await AppConstants.openSmartLink();
+                                              // await AppConstants.openSmartLink();
                                               _launchURL(
                                                 'https://play.google.com/store/apps',
                                               );
@@ -353,8 +369,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                           child: _buildModernActionTile(
                                             icon: Icons.share_rounded,
                                             title: 'Share App',
-                                            subtitle:
-                                                'Share with your friends..',
+                                            subtitle: isSmallWeb ? 'Share with your\nfriends..' : 'Share with your friends..',
                                             gradient: const LinearGradient(
                                               colors: [
                                                 AppNetflixThemeColor
@@ -364,7 +379,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                               ],
                                             ),
                                             onTap: () async {
-                                              await AppConstants.openSmartLink();
+                                              // await AppConstants.openSmartLink();
                                               _launchURL(
                                                 'https://play.google.com/store/apps',
                                               );
@@ -390,7 +405,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                             ],
                                           ),
                                           onTap: () async {
-                                            await AppConstants.openSmartLink();
+                                            // await AppConstants.openSmartLink();
                                             _launchURL(
                                               'https://play.google.com/store/apps',
                                             );
@@ -411,7 +426,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                             ],
                                           ),
                                           onTap: () async {
-                                            await AppConstants.openSmartLink();
+                                            // await AppConstants.openSmartLink();
                                             _launchURL(
                                               'https://play.google.com/store/apps',
                                             );
@@ -427,16 +442,8 @@ class _InfoScreenState extends State<InfoScreen> {
                                   child: Center(
                                     child: Stack(
                                       children: [
-                                        HtmlAdWidget(
-                                          viewType: 'ad-bottom-468x60',
-                                          width: width < 500 ? width - 32 : 468,
-                                          height: 60,
-                                        ),
-                                        HtmlAdWidget(
-                                          viewType: 'ad-bottom-468x60',
-                                          width: width < 500 ? width - 32 : 468,
-                                          height: 60,
-                                        ),
+                                        _showAdsWithOverLay(child:HtmlAdWidget(viewType: 'ad-bottom-468x60', width: width < 500 ? width - 32 : 468, height: 60)),
+                                        _showAdsWithOverLay(child:HtmlAdWidget(viewType: 'ad-bottom-468x60', width: width < 500 ? width - 32 : 468, height: 60)),
                                       ],
                                     ),
                                   ),
@@ -485,6 +492,14 @@ class _InfoScreenState extends State<InfoScreen> {
     );
   }
 
+  Widget _showAdsWithOverLay({Widget? child}) {
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 10,
+      runSpacing: 10, children: List.generate(3, (index) => child ?? const SizedBox.shrink()),
+    );
+  }
+
   Widget _buildModernActionTile({
     required IconData icon,
     required String title,
@@ -498,47 +513,55 @@ class _InfoScreenState extends State<InfoScreen> {
       isWeb: isWeb,
       borderColor: gradient.colors.first,
       child: isWeb
-          ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 56,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    gradient: gradient,
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Icon(
-                    icon,
-                    color: AppNetflixThemeColor.white,
-                    size: 28,
-                  ),
+          ? Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  gradient: gradient,
+                  borderRadius: BorderRadius.circular(14),
                 ),
-                const SizedBox(height: 16),
-                Text(
-                  title,
-                  style: GoogleFonts.inter(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                    color: AppNetflixThemeColor.white,
-                  ),
+                child: Icon(
+                  icon,
+                  color: AppNetflixThemeColor.white,
+                  size: 28,
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: GoogleFonts.inter(
-                    fontSize: 13,
-                    color: AppNetflixThemeColor.mutedText,
-                  ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                title,
+                style: GoogleFonts.inter(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
+                  color: AppNetflixThemeColor.white,
                 ),
-                const SizedBox(height: 12),
-                Icon(
-                  Icons.arrow_forward_rounded,
-                  color: gradient.colors.first,
-                  size: 20,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                subtitle,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  color: AppNetflixThemeColor.mutedText,
                 ),
-              ],
-            )
+              ),
+              const SizedBox(height: 12),
+              Icon(
+                Icons.arrow_forward_rounded,
+                color: gradient.colors.first,
+                size: 20,
+              ),
+            ],
+          ),
+          HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250),
+        ],
+      )
           : Row(
               children: [
                 Container(
@@ -711,15 +734,15 @@ class _HoverButtonState extends State<_HoverButton> {
                 Text(
                   'Get Started',
                   style: GoogleFonts.inter(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: AppNetflixThemeColor.white,
                   ),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 4),
                 const Icon(
                   Icons.arrow_forward,
-                  size: 20,
+                  size: 17,
                   color: AppNetflixThemeColor.white,
                 ),
               ],
