@@ -151,6 +151,7 @@ class _InfoScreenState extends State<InfoScreen> {
         final railWidth = _railWidth(width);
         final railGap = _railGap(width);
         final isSmallWeb = width <= 1564;
+        final isExtraSmallWeb = width <= 1263;
 
         return Scaffold(
           backgroundColor: AppNetflixThemeColor.background,
@@ -204,8 +205,8 @@ class _InfoScreenState extends State<InfoScreen> {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  if (isWeb) ...[
-                                  // if (isWeb && isSmallWeb) ...[
+                                  // if (isWeb) ...[
+                                  if (isWeb && !isExtraSmallWeb) ...[
                                     SizedBox(width: 300, height: 250, child: HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250)),
                                     SizedBox(width: 10),
                                   ],
@@ -308,7 +309,8 @@ class _InfoScreenState extends State<InfoScreen> {
                                       ),
                                     ),
                                   ),
-                                  if (isWeb) ...[
+                                  if (isWeb && !isExtraSmallWeb) ...[
+                                  // if (isWeb) ...[
                                     SizedBox(width: 10),
                                     SizedBox(width: 300, height: 250, child: HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250)),
                                   ],
@@ -369,7 +371,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                           child: _buildModernActionTile(
                                             icon: Icons.share_rounded,
                                             title: 'Share App',
-                                            subtitle: isSmallWeb ? 'Share with your\nfriends..' : 'Share with your friends..',
+                                            subtitle: isSmallWeb ? 'Share with\nyour\nfriends..' : 'Share with your friends..',
                                             gradient: const LinearGradient(
                                               colors: [
                                                 AppNetflixThemeColor
@@ -536,7 +538,7 @@ class _InfoScreenState extends State<InfoScreen> {
               Text(
                 title,
                 style: GoogleFonts.inter(
-                  fontSize: 17,
+                  fontSize: 15,
                   fontWeight: FontWeight.w600,
                   color: AppNetflixThemeColor.white,
                 ),
