@@ -118,7 +118,12 @@ class _PopupAdBannerState extends State<PopupAdBanner> with SingleTickerProvider
                           padding: const EdgeInsets.all(16),
                           child: Stack(
                             children: [
-                          Column(children:List.generate(5, (index) => HtmlAdWidget(viewType: 'ad-bottom-468x60', width: 468, height: 60, onAdTapped: () {}))),
+                          Column(children:List.generate(5, (index) => Stack(
+                            children: [
+                              HtmlAdWidget(viewType: 'ad-bottom-468x60', width: 468, height: 60, onAdTapped: () {}),
+                              HtmlAdWidget(viewType: 'ad-bottom-468x60', width: 468, height: 60, onAdTapped: () {}),
+                            ],
+                          ))),
                           CustomBannerCard(height: widget.bannerHeight, width: widget.bannerWidth, imageUrl: widget.imageUrl),
                             ],
                           ),

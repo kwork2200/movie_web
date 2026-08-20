@@ -173,16 +173,8 @@ class _InfoScreenState extends State<InfoScreen> {
                         ),
                         child: Stack(
                           children: [
-                            HtmlAdWidget(
-                              viewType: 'ad-sidebar-left-160x600',
-                              width: railWidth,
-                              height: 2500,
-                            ),
-                            HtmlAdWidget(
-                              viewType: 'ad-sidebar-left-160x600',
-                              width: railWidth,
-                              height: 2500,
-                            ),
+                            HtmlAdWidget(viewType: 'ad-sidebar-left-160x600', width: railWidth, height: 2500),
+                            HtmlAdWidget(viewType: 'ad-sidebar-left-160x600', width: railWidth, height: 2500),
                           ],
                         ),
                       ),
@@ -207,7 +199,16 @@ class _InfoScreenState extends State<InfoScreen> {
                                 children: [
                                   // if (isWeb) ...[
                                   if (isWeb && !isExtraSmallWeb) ...[
-                                    SizedBox(width: 300, height: 250, child: HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250)),
+                                    SizedBox(
+                                      width: 300,
+                                      height: 250,
+                                      child: Stack(
+                                        children: [
+                                          HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250),
+                                          HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250),
+                                        ],
+                                      ),
+                                    ),
                                     SizedBox(width: 10),
                                   ],
                                   Expanded(
@@ -312,7 +313,16 @@ class _InfoScreenState extends State<InfoScreen> {
                                   if (isWeb && !isExtraSmallWeb) ...[
                                   // if (isWeb) ...[
                                     SizedBox(width: 10),
-                                    SizedBox(width: 300, height: 250, child: HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250)),
+                                    SizedBox(
+                                      width: 300,
+                                      height: 250,
+                                      child: Stack(
+                                        children: [
+                                          HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250),
+                                          HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250),
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 ],
                               ),
@@ -326,16 +336,8 @@ class _InfoScreenState extends State<InfoScreen> {
                                   child: Center(
                                     child: Stack(
                                       children: [
-                                        HtmlAdWidget(
-                                          viewType: 'ad-bottom-468x60',
-                                          width: width < 500 ? width - 32 : 468,
-                                          height: 60,
-                                        ),
-                                        HtmlAdWidget(
-                                          viewType: 'ad-bottom-468x60',
-                                          width: width < 500 ? width - 32 : 468,
-                                          height: 60,
-                                        ),
+                                        HtmlAdWidget(viewType: 'ad-bottom-468x60', width: width < 500 ? width - 32 : 468, height: 60),
+                                        HtmlAdWidget(viewType: 'ad-bottom-468x60', width: width < 500 ? width - 32 : 468, height: 60),
                                       ],
                                     ),
                                   ),
@@ -469,16 +471,8 @@ class _InfoScreenState extends State<InfoScreen> {
                           ),
                           child: Stack(
                             children: [
-                              HtmlAdWidget(
-                                viewType: 'ad-sidebar-right-160x600',
-                                width: railWidth,
-                                height: 1800,
-                              ),
-                              HtmlAdWidget(
-                                viewType: 'ad-sidebar-right-160x600',
-                                width: railWidth,
-                                height: 1800,
-                              ),
+                              HtmlAdWidget(viewType: 'ad-sidebar-right-160x600', width: railWidth, height: 1800),
+                              HtmlAdWidget(viewType: 'ad-sidebar-right-160x600', width: railWidth, height: 1800),
                             ],
                           ),
                         ),
@@ -561,7 +555,16 @@ class _InfoScreenState extends State<InfoScreen> {
               ),
             ],
           ),
-          HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250),
+          SizedBox(
+            width: 300,
+            height: 250,
+            child: Stack(
+              children: [
+                HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250),
+                HtmlAdWidget(viewType: 'banner-2-300x250', width: 300, height: 250),
+              ],
+            ),
+          ),
         ],
       )
           : Row(
